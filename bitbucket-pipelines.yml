@@ -11,11 +11,8 @@ pipelines:
             - aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --query authorizationToken --output text > pass.txt
             - value=$(<pass.txt)
 
-            # - echo "export CODEARTIFACT_AUTH_TOKEN=$value" >> set_env.sh
             - echo "CODEARTIFACT_AUTH_TOKEN=$value" >> token.txt
-            - &setEnv export CODEARTIFACT_AUTH_TOKEN="$value"
           artifacts:
-            - set_env.sh
             - token.txt
       # - step:
       #     name: Lint
@@ -38,12 +35,9 @@ pipelines:
           caches:
             - node
           script:
-            - cat token.txt
             - export $(cat token.txt | xargs)
-            # - cat set_env.sh
-            # - source set_env.sh
-            # - *setEnv
             - echo "$CODEARTIFACT_AUTH_TOKEN"
+            - always-auth=true
             - yarn build
             - yarn version --pre --major
             - yarn publish
