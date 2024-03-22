@@ -44,11 +44,13 @@ pipelines:
           script:
             - source token.sh
 
-            - echo "_auth=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
+            # - echo "_auth=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
 
-            # - echo "//https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm//:_authToken $CODEARTIFACT_AUTH_TOKEN" >> .npmrc
+            - echo "@mc:registry=https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/" >> .npmrc
 
-            # - npm set //https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm//:_authToken $CODEARTIFACT_AUTH_TOKEN
+            - echo "//mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/:always-auth=true" >> .npmrc
+
+            - echo "//mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/:_authToken=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
 
             - cat .npmrc
 
