@@ -1,6 +1,6 @@
 {
-	"name": "mc-components",
-	"version": "1.0.0",
+	"name": "@mc/mc-components",
+	"version": "2.0.0",
 	"description": "MC Components AngularJS",
 	"main": "index.js",
 	"author": "Hector Morales",
@@ -42,5 +42,8 @@
 			"prettier --write",
 			"git add"
 		]
+	},
+	"publishConfig": {
+		"registry": "https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/test/"
 	}
 }
