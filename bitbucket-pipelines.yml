@@ -7,8 +7,8 @@ pipelines:
           caches:
             - node
           script:
-            - yarn install
-            - npx eslint .
+            - yarn
+            - yarn lint
       - step:
           name: Built
           image: node:20
