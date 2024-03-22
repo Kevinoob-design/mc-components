@@ -26,7 +26,7 @@ pipelines:
             - aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --query authorizationToken --output text > pass.txt
             - value=$(<pass.txt)
 
-            - echo "export CODEARTIFACT_AUTH_TOKEN=$value" set_env.sh
+            - echo "export CODEARTIFACT_AUTH_TOKEN=$value" >> set_env.sh
 
             - printenv > set_env.sh
 
