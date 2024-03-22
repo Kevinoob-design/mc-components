@@ -45,8 +45,8 @@ pipelines:
             - yarn config set npmRegistryServer "https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/"
 
             - yarn config set 'npmRegistries["https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/"].npmAuthToken' "${CODEARTIFACT_AUTH_TOKEN}"
-            
+
             - yarn config set 'npmRegistries["https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/"].npmAlwaysAuth' "true"
 
             - yarn version --pre --major
-            - yarn publish
+            - yarn publish --verbose
