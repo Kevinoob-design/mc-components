@@ -46,7 +46,7 @@ pipelines:
 
             # - echo "_auth=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
 
-            - echo "//https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm//:_authToken $CODEARTIFACT_AUTH_TOKEN" >> ~/.npmrc
+            - echo "//https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm//:_authToken $CODEARTIFACT_AUTH_TOKEN" >> .npmrc
 
             # - npm set //https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm//:_authToken $CODEARTIFACT_AUTH_TOKEN
 
