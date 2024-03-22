@@ -12,7 +12,7 @@ pipelines:
             - value=$(<pass.txt)
 
             # - echo "export CODEARTIFACT_AUTH_TOKEN=$value" >> set_env.sh
-            - &setEnv export CODEARTIFACT_AUTH_TOKEN=$value
+            - &setEnv export CODEARTIFACT_AUTH_TOKEN=$(<value)
           artifacts:
             - set_env.sh
       # - step:
@@ -39,7 +39,7 @@ pipelines:
             # - cat set_env.sh
             # - source set_env.sh
             - *setEnv
-            - echo $CODEARTIFACT_AUTH_TOKEN
+            - echo "$CODEARTIFACT_AUTH_TOKEN"
             - yarn build
             - yarn version --pre --major
             - yarn publish
