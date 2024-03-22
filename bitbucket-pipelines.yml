@@ -11,8 +11,8 @@ pipelines:
             - aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --query authorizationToken --output text > pass.txt
             - value=$(<pass.txt)
 
-            - echo "export CODEARTIFACT_AUTH_TOKEN=$value" >> set_env.sh
-            - &setEnv export CODEARTIFACT_AUTH_TOKEN="$value"
+            # - echo "export CODEARTIFACT_AUTH_TOKEN=$value" >> set_env.sh
+            - &setEnv export CODEARTIFACT_AUTH_TOKEN=$value
           artifacts:
             - set_env.sh
       # - step:
@@ -36,8 +36,8 @@ pipelines:
           caches:
             - node
           script:
-            - cat set_env.sh
-            - source set_env.sh
+            # - cat set_env.sh
+            # - source set_env.sh
             - *setEnv
             - echo $CODEARTIFACT_AUTH_TOKEN
             - yarn build
