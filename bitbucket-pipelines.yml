@@ -1,19 +1,6 @@
 pipelines:
   branches:
     main:
-      - step:
-          name: Get Token
-          image: atlassian/pipelines-awscli
-          script:
-            - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-            - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-            - export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
-            - aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --query authorizationToken --output text > pass.txt
-            - value=$(<pass.txt)
-
-            - echo "CODEARTIFACT_AUTH_TOKEN=$value" >> token.txt
-          artifacts:
-            - token.txt
       # - step:
       #     name: Lint
       #     image: node:20
@@ -29,14 +16,29 @@ pipelines:
       #       - yarn build
       #     caches:
       #       - node
+      #     artifacts:
+      #       - dist/** 
+      - step:
+          name: Get Token
+          image: atlassian/pipelines-awscli
+          script:
+            - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+            - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+            - export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+            - aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --query authorizationToken --output text > pass.txt
+            - value=$(<pass.txt)
+
+            - echo "CODEARTIFACT_AUTH_TOKEN=$value" >> token.sh
+          artifacts:
+            - token.sh
       - step:
           name: Publish
           image: node:20
           caches:
             - node
           script:
-            - export $(cat token.txt | xargs)
-            - echo "$CODEARTIFACT_AUTH_TOKEN"
+            - source token.sh
+            # - export $(cat token.txt | xargs)
             - echo "_auth=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
             - cat .npmrc
             - yarn build
