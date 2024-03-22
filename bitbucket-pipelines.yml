@@ -12,9 +12,11 @@ pipelines:
             - value=$(<pass.txt)
 
             # - echo "export CODEARTIFACT_AUTH_TOKEN=$value" >> set_env.sh
-            - &setEnv export CODEARTIFACT_AUTH_TOKEN=$(<value)
+            - echo "CODEARTIFACT_AUTH_TOKEN=$value" >> token.txt
+            - &setEnv export CODEARTIFACT_AUTH_TOKEN="$value"
           artifacts:
             - set_env.sh
+            - token.txt
       # - step:
       #     name: Lint
       #     image: node:20
@@ -36,9 +38,11 @@ pipelines:
           caches:
             - node
           script:
+            - cat token.txt
+            - export $(cat token.txt | xargs)
             # - cat set_env.sh
             # - source set_env.sh
-            - *setEnv
+            # - *setEnv
             - echo "$CODEARTIFACT_AUTH_TOKEN"
             - yarn build
             - yarn version --pre --major
