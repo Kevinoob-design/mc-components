@@ -37,6 +37,8 @@ pipelines:
           script:
             - export $(cat token.txt | xargs)
             - echo "$CODEARTIFACT_AUTH_TOKEN"
+            - echo "_auth=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
+            - cat .npmrc
             - yarn build
             - yarn version --pre --major
             - yarn publish
