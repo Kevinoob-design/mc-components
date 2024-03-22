@@ -38,8 +38,15 @@ pipelines:
           script:
             - source token.sh
             # - export $(cat token.txt | xargs)
-            - echo "_auth=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
-            - cat .npmrc
+            # - echo "_auth=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
+            # - cat .npmrc
             - yarn build
+
+            - yarn config set npmRegistryServer "https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/"
+
+            - yarn config set 'npmRegistries["https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/"].npmAuthToken' "${CODEARTIFACT_AUTH_TOKEN}"
+            
+            - yarn config set 'npmRegistries["https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/"].npmAlwaysAuth' "true"
+
             - yarn version --pre --major
             - yarn publish
