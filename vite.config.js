@@ -5,6 +5,9 @@ import { defineConfig } from 'vite';
 
 export default defineConfig({
 	build: {
+		manifest: true,
+		minify: true,
+		reportCompressedSize: true,
 		lib: {
 			// Could also be a dictionary or array of multiple entry points
 			entry: resolve(__dirname, 'app/components/components.module.ts'),
