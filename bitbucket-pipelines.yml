@@ -37,7 +37,6 @@ pipelines:
           script:
             - export $(cat token.txt | xargs)
             - echo "$CODEARTIFACT_AUTH_TOKEN"
-            - always-auth=true
             - yarn build
             - yarn version --pre --major
             - yarn publish
