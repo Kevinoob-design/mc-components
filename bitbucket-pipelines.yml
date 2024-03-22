@@ -54,7 +54,7 @@ pipelines:
 
             - npm set //https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm//:_authToken $CODEARTIFACT_AUTH_TOKEN
 
-            - cat .npmrc
+            # - cat .npmrc
             # - cat .yarnrc.yml
 
             - yarn build
