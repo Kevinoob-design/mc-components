@@ -43,16 +43,20 @@ pipelines:
             - node
           script:
             - source token.sh
-            # - export $(cat token.txt | xargs)
 
-            - echo "npmRegistryServer:https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/" >> .yarnrc.yml
+            # - echo "npmRegistryServer:https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/" >> .yarnrc.yml
 
-            - echo "npmAuthToken:$CODEARTIFACT_AUTH_TOKEN" >> .yarnrc.yml
+            # - echo "npmAuthToken:$CODEARTIFACT_AUTH_TOKEN" >> .yarnrc.yml
 
             # - echo "_auth=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
-            # - cat .npmrc
-            - cat .yarnrc.yml
-            - yarn build
 
+            # - echo "_auth=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
+
+            - npm set //https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm//:_authToken $CODEARTIFACT_AUTH_TOKEN
+
+            - cat .npmrc
+            # - cat .yarnrc.yml
+
+            - yarn build
             - yarn version --pre --major
             - yarn publish --verbose
