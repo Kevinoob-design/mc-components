@@ -12,7 +12,7 @@ pipelines:
             - value=$(<pass.txt)
 
             - echo "export CODEARTIFACT_AUTH_TOKEN=$value" >> set_env.sh
-            - &setEnv export CODEARTIFACT_AUTH_TOKEN="FOO-$value"
+            - &setEnv export CODEARTIFACT_AUTH_TOKEN="$value"
           artifacts:
             - set_env.sh
       # - step:
