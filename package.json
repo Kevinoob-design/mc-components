@@ -49,8 +49,5 @@
 			"prettier --write",
 			"git add"
 		]
-	},
-	"publishConfig": {
-		"registry": "https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/"
 	}
 }

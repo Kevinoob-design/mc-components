@@ -17,7 +17,7 @@ pipelines:
       #     caches:
       #       - node
       #     artifacts:
-      #       - dist/** 
+      #       - dist/**
       - step:
           name: Get Token
           image: atlassian/pipelines-awscli
@@ -25,7 +25,13 @@ pipelines:
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
             - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
             - export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
-            - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text`
+
+            - aws codeartifact publish-package-version --domain $MC_COMPONENTS_DOMAIN --repository main \
+                --format generic --namespace mc --package mc-components --package-version 1.0.0 \
+                --asset-content asset.tar.gz --asset-name asset.tar.gz \
+                --asset-sha256 $ASSET_SHA256
+
+            # - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text`
 
             - echo "export CODEARTIFACT_AUTH_TOKEN=$CODEARTIFACT_AUTH_TOKEN" >> token.sh
           artifacts:
@@ -38,11 +44,14 @@ pipelines:
           script:
             - source token.sh
             # - export $(cat token.txt | xargs)
-            # - echo "_auth=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
-            # - cat .npmrc
-            - yarn build
 
-            - aws codeartifact login --tool npm --repository main --domain mc-components --domain-owner 252355243038 --region us-east-1
+            - echo "npmRegistryServer:https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/main/" >> .yarnrc.yml
+
+            - echo "npmAuthToken:$CODEARTIFACT_AUTH_TOKEN" >> .yarnrc.yml
+
+            # - echo "_auth=$CODEARTIFACT_AUTH_TOKEN" >> .npmrc
+            - cat .npmrc
+            - yarn build
 
             - yarn version --pre --major
             - yarn publish --verbose
