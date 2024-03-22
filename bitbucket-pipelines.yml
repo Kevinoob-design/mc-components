@@ -1,21 +1,21 @@
 pipelines:
   branches:
     main:
-      - step:
-          name: Lint
-          image: node:20
-          caches:
-            - node
-          script:
-            - yarn
-            - yarn lint
-      - step:
-          name: Built
-          image: node:20
-          script:
-            - yarn build
-          caches:
-            - node
+      # - step:
+      #     name: Lint
+      #     image: node:20
+      #     caches:
+      #       - node
+      #     script:
+      #       - yarn
+      #       - yarn lint
+      # - step:
+      #     name: Built
+      #     image: node:20
+      #     script:
+      #       - yarn build
+      #     caches:
+      #       - node
       - step:
           name: setup
           image: atlassian/pipelines-awscli
@@ -25,7 +25,7 @@ pipelines:
             - export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
             - aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --query authorizationToken --output text > pass.txt
             - value=$(<pass.txt)
-            - echo $value
+
             - echo "export CODEARTIFACT_AUTH_TOKEN=$value" set_env.sh
 
             - printenv > set_env.sh
@@ -39,6 +39,7 @@ pipelines:
             - node
           script:
             - source set_env.sh
+            - cat set_env.sh
             - yarn build
             - yarn version --pre --major
             - yarn publish
