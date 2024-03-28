@@ -16,8 +16,6 @@ pipelines:
           script:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn build
-          caches:
-            - node
           artifacts:
             - dist/**
       # - step:
@@ -39,10 +37,8 @@ pipelines:
           deployment: Prod
           trigger: manual
           image: node:20
-          caches:
-            - node
           script:
-            - echo "$AWS_ACCESS_KEY_ID"
+            - echo $AWS_ACCESS_KEY_ID
             - ls dist/
             # - source token.sh
             # # - yarn build
