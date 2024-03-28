@@ -1,18 +1,20 @@
 pipelines:
   branches:
-    custom:
+    main:
       - step:
           name: Lint
           image: node:20
           caches:
             - node
           script:
+            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn
             - yarn lint
       - step:
           name: Built
           image: node:20
           script:
+            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn build
           caches:
             - node
@@ -21,7 +23,6 @@ pipelines:
       - step:
           name: Get Token
           trigger: manual
-          deployment: Prod
           image: atlassian/pipelines-awscli
           script:
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
@@ -35,11 +36,13 @@ pipelines:
             - token.sh
       - step:
           name: Publish
+          deployment: Prod
+          trigger: manual
           image: node:20
           caches:
             - node
           script:
             - source token.sh
-            - yarn build
+            # - yarn build
             - yarn version --pre --major
             - yarn publish
