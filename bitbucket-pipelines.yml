@@ -14,7 +14,6 @@ pipelines:
           name: Built
           image: node:20
           script:
-            - ls dist/
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn build
           caches:
