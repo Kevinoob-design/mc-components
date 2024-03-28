@@ -2,7 +2,7 @@ pipelines:
   branches:
     main:
       - step:
-          name: Lint
+          name: Lind and Build
           image: node:20
           caches:
             - node
@@ -10,11 +10,6 @@ pipelines:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn
             - yarn lint
-      - step:
-          name: Built
-          image: node:20
-          script:
-            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn build
           artifacts:
             - dist/**
@@ -37,6 +32,8 @@ pipelines:
           deployment: Prod
           trigger: manual
           image: node:20
+          caches:
+            - node
           script:
             - echo $AWS_ACCESS_KEY_ID
             - ls dist/
