@@ -1,4 +1,16 @@
 pipelines:
+  pull-requests:
+    default:
+      - step:
+          name: Lind and Build
+          image: node:20
+          caches:
+            - node
+          script:
+            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+            - yarn
+            - yarn lint
+            - yarn build
   branches:
     main:
       - step:
