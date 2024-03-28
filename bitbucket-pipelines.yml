@@ -36,5 +36,4 @@ pipelines:
             - node
           script:
             - source token.sh
-            # - yarn version --pre --major
             - yarn publish
