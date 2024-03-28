@@ -14,26 +14,27 @@ pipelines:
           name: Built
           image: node:20
           script:
+            - ls dist/
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn build
           caches:
             - node
           artifacts:
             - dist/**
-      - step:
-          name: Get Token
-          trigger: manual
-          image: atlassian/pipelines-awscli
-          script:
-            - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
-            - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
-            - export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
+      # - step:
+      #     name: Get Token
+      #     trigger: manual
+      #     image: atlassian/pipelines-awscli
+      #     script:
+      #       - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
+      #       - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
+      #       - export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 
-            - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text`
+      #       - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text`
 
-            - echo "export CODEARTIFACT_AUTH_TOKEN=$CODEARTIFACT_AUTH_TOKEN" >> token.sh
-          artifacts:
-            - token.sh
+      #       - echo "export CODEARTIFACT_AUTH_TOKEN=$CODEARTIFACT_AUTH_TOKEN" >> token.sh
+      #     artifacts:
+      #       - token.sh
       - step:
           name: Publish
           deployment: Prod
@@ -42,7 +43,9 @@ pipelines:
           caches:
             - node
           script:
-            - source token.sh
-            # - yarn build
-            - yarn version --pre --major
-            - yarn publish
+            - echo "$AWS_ACCESS_KEY_ID"
+            - ls dist/
+            # - source token.sh
+            # # - yarn build
+            # - yarn version --pre --major
+            # - yarn publish
