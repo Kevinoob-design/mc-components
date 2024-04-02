@@ -2,19 +2,27 @@ pipelines:
   pull-requests:
     default:
       - step:
-          name: Lind and Build
+            name: Lint
+            image: node:20
+            caches:
+              - node
+            script:
+              - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+              - yarn
+              - yarn lint
+      - step:
+          name: Build
           image: node:20
           caches:
             - node
           script:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn
-            - yarn lint
             - yarn build
   branches:
     main:
       - step:
-          name: Lind and Build
+          name: Lint
           image: node:20
           caches:
             - node
@@ -22,6 +30,14 @@ pipelines:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn
             - yarn lint
+      - step:
+          name: Build
+          image: node:20
+          caches:
+            - node
+          script:
+            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+            - yarn
             - yarn build
           artifacts:
             - dist/**

@@ -1,3 +1,5 @@
 /*
 /*/
-!/dist/
+!/dist/mc-components.umd.js
+!/dist/mc-components.mjs
+!/dist/style.css
