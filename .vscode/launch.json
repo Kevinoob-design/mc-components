@@ -1,0 +1,32 @@
+{
+    "configurations": [
+        {
+            "name": "Start Server",
+            "command": "export CODEARTIFACT_AUTH_TOKEN='my_dumb_token' && yarn start",
+            "request": "launch",
+            "type": "node-terminal"
+        },
+        {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "chrome",
+            "url": "http://localhost:5173",
+            "webRoot": "${workspaceFolder}"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "debug",
+            "stopAll": true,
+            "presentation": {
+                "hidden": false,
+                "group": "debug",
+                "order": 1
+            },
+            "configurations": [
+                "Start Server",
+                "Launch Chrome"
+            ]
+        }
+    ]
+}
