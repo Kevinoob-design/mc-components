@@ -1,16 +1,15 @@
 pipelines:
-  pull-requests:
-    default:
-      - step:
-          name: Prep
-          image: node:20
-          caches:
-            - node
-            - node_modules
-          script:
-            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-            - yarn
-      - parallel:
+  default:
+    - step:
+        name: Prep
+        image: node:20
+        caches:
+          - node
+          - node_modules
+        script:
+          - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+          - yarn
+    - parallel:
         - step:
             name: Lint
             image: node:20
@@ -37,35 +36,6 @@ pipelines:
               - yarn build
   branches:
     main:
-      - step:
-          name: Lint
-          image: node:20
-          caches:
-            - node
-          script:
-            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-            - yarn
-            - yarn lint
-      - step:
-          name: Test
-          image: node:20
-          caches:
-            - node
-          script:
-            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-            - yarn
-            - yarn test
-      - step:
-          name: Build
-          image: node:20
-          caches:
-            - node
-          script:
-            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-            - yarn
-            - yarn build
-          artifacts:
-            - dist/**
       - step:
           name: Get Token
           trigger: manual
