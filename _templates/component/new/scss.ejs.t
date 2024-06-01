@@ -1,4 +1,9 @@
 ---
-to: app/<%=path%>/<%=name%>/<%=name%>.scss
+to: app/components/<%=path%>/<%=name%>/<%=name%>.scss
 ---
-.<%=name%> {}
+<%=name%> {
+	div {
+		font-size: x-large;
+        font-weight: bold;
+	}
+}

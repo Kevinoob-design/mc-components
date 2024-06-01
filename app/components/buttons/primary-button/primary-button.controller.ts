@@ -1,9 +1,5 @@
 class PrimaryButtonController {
-	onClick: Function;
-
-	constructor() {}
+	onClick: () => void
 }
 
-PrimaryButtonController.$inject = [];
-
-export { PrimaryButtonController };
+export { PrimaryButtonController }

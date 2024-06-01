@@ -2,6 +2,7 @@
 import { resolve, join } from 'path';
 import { readFileSync } from 'fs';
 import { defineConfig } from 'vite';
+import eslint from 'vite-plugin-eslint'
 
 export default defineConfig({
 	build: {
@@ -20,6 +21,7 @@ export default defineConfig({
 			// into your library
 			external: ['angular'],
 			plugins: [
+				eslint(),
 				{
 					name: 'replace-templateUrl',
 					transform(code, filePath) {
@@ -30,17 +32,29 @@ export default defineConfig({
 							(_match, templateUrl) => {
 								const templatePath = join(
 									__dirname,
-									templateUrl
+									templateUrl,
 								);
 								const templateContent =
 									loadResourceFile(templatePath);
 
 								return `template: "${templateContent}"`;
-							}
+							},
 						);
 					},
 				},
 			],
+		},
+	},
+	test: {
+		coverage: {
+			provider: 'istanbul',
+			reporter: ['html'],
+			thresholds: {
+				lines: 100,
+				functions: 100,
+				branches: 100,
+				statements: 100,
+			},
 		},
 	},
 });
@@ -48,7 +62,7 @@ export default defineConfig({
 function loadResourceFile(filePath) {
 	return readFileSync(
 		filePath.replace('dist\\package\\esm5\\', '').replace('dist\\', ''),
-		'utf-8'
+		'utf-8',
 	)
 		.replace(/([\n\r]\s*)+/gm, ' ')
 		.replace(/"/g, '\\"');

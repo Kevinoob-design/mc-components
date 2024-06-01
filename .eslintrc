@@ -6,8 +6,11 @@
 		"angular": true,
 		"go": true
 	},
-	"plugins": ["prettier", "angular"], // https://github.com/Gillespie59/eslint-plugin-angular
-	"extends": ["prettier"],
+	"plugins": [
+		"prettier", 
+		"angular"
+	], // https://github.com/Gillespie59/eslint-plugin-angular
+	"extends": ["prettier", "plugin:@typescript-eslint/recommended"],
 	"rules": {
 		"prettier/prettier": ["error"],
 
@@ -148,7 +151,7 @@
 		"comma-style": ["error", "last"],
 
 		// 21.1 https://github.com/airbnb/javascript#semicolons--required
-		"semi": ["error", "always"],
+		// "semi": ["error", "always"],
 
 		// 22.3 https://github.com/airbnb/javascript#coercion--numbers
 		// 22.6 https://github.com/airbnb/javascript#coercion--booleans

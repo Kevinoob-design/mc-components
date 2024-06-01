@@ -1,13 +1,9 @@
 ---
-to: app/<%=path%>/<%=name%>/<%=name%>.module.js
+to: app/components/<%=path%>/<%=name%>/<%=name%>.module.ts
 ---
-'use strict';
+import angular from 'angular';
+import { <%=h.changeCase.camel(name)%>Component } from './<%=name%>.component';
 
-import <%=h.changeCase.camel(name)%>Component from './<%=name%>.component';
-
-const <%=h.changeCase.camel(name)%>Module = angular
-	.module('<%=h.changeCase.camel(name)%>', [])
-
+export const <%=h.changeCase.pascal(name)%>Module = angular
+	.module('<%=h.changeCase.pascal(name)%>', [])
 	.component('<%=h.changeCase.camel(name)%>', <%=h.changeCase.camel(name)%>Component).name;
-
-export default <%=h.changeCase.camel(name)%>Module;

@@ -7,11 +7,14 @@
 	"scripts": {
 		"start": "yarn dev",
 		"dev": "vite --config vite.config.dev.js serve",
+		"test": "vitest --ui --coverage.enabled=true",
+		"coverage": "vitest run --coverage",
 		"prebuild": "rm -rf dist",
 		"build": "vite build",
 		"serve": "vite preview",
-		"lint": "eslint",
-		"format": "prettier \"app/**/*.{ts,js,json,scss,css}\" --write"
+		"lint": "eslint . --ext ts --max-warnings 0 --fix",
+		"format": "prettier \"app/**/*.{ts,js,json,scss,css}\" --write",
+		"new:c": "hygen component new"
 	},
 	"dependencies": {
 		"angular": "^1.8.3",
@@ -28,6 +31,12 @@
 		"angular-messages": "^1.5.11"
 	},
 	"devDependencies": {
+		"@commitlint/cli": "^19.3.0",
+		"@commitlint/config-conventional": "^19.2.2",
+		"@typescript-eslint/eslint-plugin": "^7.11.0",
+		"@typescript-eslint/parser": "^7.11.0",
+		"@vitest/coverage-istanbul": "^1.6.0",
+		"@vitest/ui": "^1.6.0",
 		"eslint": "^8.24.0",
 		"eslint-config-prettier": "^9.1.0",
 		"eslint-plugin-angular": "^4.1.0",
@@ -37,7 +46,10 @@
 		"lint-staged": "^15.2.2",
 		"prettier": "^3.2.5",
 		"sass": "^1.55.0",
-		"vite": "^5.2.3"
+		"typescript": "^5.4.5",
+		"vite": "^5.2.3",
+		"vite-plugin-eslint": "^1.8.1",
+		"vitest": "^1.6.0"
 	},
 	"husky": {
 		"hooks": {
@@ -45,9 +57,9 @@
 		}
 	},
 	"lint-staged": {
-		"*.{ts,js,json,scss,css}": [
+		"*.{html,.ts,js,json,scss,css}": [
 			"prettier --write",
-			"git add"
+			"yarn lint"
 		]
 	}
 }

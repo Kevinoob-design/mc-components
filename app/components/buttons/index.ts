@@ -1,1 +1,1 @@
-export * from './primary-button/primary-button.module';
+export * from './primary-button/primary-button.module'

@@ -11,6 +11,15 @@ pipelines:
               - yarn
               - yarn lint
       - step:
+          name: Test
+          image: node:20
+          caches:
+            - node
+          script:
+            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+            - yarn
+            - yarn test
+      - step:
           name: Build
           image: node:20
           caches:
@@ -30,6 +39,15 @@ pipelines:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn
             - yarn lint
+      - step:
+          name: Test
+          image: node:20
+          caches:
+            - node
+          script:
+            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+            - yarn
+            - yarn test
       - step:
           name: Build
           image: node:20

@@ -1,4 +1,4 @@
 ---
-to: app/<%=path%>/<%=name%>/<%=name%>.html
+to: app/components/<%=path%>/<%=name%>/<%=name%>.html
 ---
-<div class="<%=name%>">{{ $ctrl.name }}</div>
+<div>{{ $ctrl.name }}</div>

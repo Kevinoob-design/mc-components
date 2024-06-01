@@ -1,16 +1,12 @@
 ---
-to: app/<%=path%>/<%=name%>/<%=name%>.component.js
+to: app/components/<%=path%>/<%=name%>/<%=name%>.component.ts
 ---
-'use strict';
-
-import template from './<%=name%>.html?raw';
-import controller from './<%=name%>.controller';
+import './<%=name%>.html';
 import './<%=name%>.scss';
+import { <%=h.changeCase.pascal(name)%>Controller } from './<%=name%>.controller';
 
-const <%=h.changeCase.camel(name)%>Component = {
+export const <%=h.changeCase.camel(name)%>Component = {
 	bindings: {},
-	template,
-	controller,
+	templateUrl: 'app/components/<%=path%>/<%=name%>/<%=name%>.html',
+	controller: <%=h.changeCase.pascal(name)%>Controller,
 };
-
-export default <%=h.changeCase.camel(name)%>Component;

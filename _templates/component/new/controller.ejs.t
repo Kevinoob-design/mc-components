@@ -1,13 +1,12 @@
 ---
-to: app/<%=path%>/<%=name%>/<%=name%>.controller.js
+to: app/components/<%=path%>/<%=name%>/<%=name%>.controller.ts
 ---
-'use strict';
-
 class <%=h.changeCase.pascal(name)%>Controller {
-	/* @ngInject */
+	name: string;
+
 	constructor() {
 		this.name = '<%=name%>';
 	}
 }
 
-export default <%=h.changeCase.pascal(name)%>Controller;
+export { <%=h.changeCase.pascal(name)%>Controller };
