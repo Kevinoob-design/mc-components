@@ -1,10 +1,12 @@
 import angular from 'angular'
-import { PrimaryButtonModule } from './buttons/index'
+import { PrimaryButtonModule } from './buttons/primary-button/primary-button.module'
 
-export const ComponentsModule = angular.module('McComponents', [
+const modules = [
+	PrimaryButtonModule,
 	'ngAnimate',
 	'ngAria',
 	'ngMessages',
-	'ngMaterial',
-	PrimaryButtonModule
-]).name
+	'ngMaterial'
+]
+
+export const ComponentsModule = angular.module('McComponents', modules).name
