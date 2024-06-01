@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+. "${0%/*}/h"
+
+yarn commitlint --edit $1
