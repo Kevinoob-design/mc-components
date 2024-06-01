@@ -2,11 +2,11 @@ pipelines:
   pull-requests:
     default:
       - step:
-          name: Prep
+          name: Prep Deps
           image: node:20
           caches:
             - node
-            # - modules
+            - modules
           script:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn
@@ -86,7 +86,7 @@ pipelines:
           artifacts:
             - token.sh
       - step:
-          name: Publish
+          name: Publish CodeArtifact
           deployment: Prod
           trigger: manual
           image: node:20
@@ -95,6 +95,6 @@ pipelines:
           script:
             - source token.sh
             - yarn publish
-# definitions:
-#   caches:
-#     modules: node_modules
+definitions:
+  caches:
+    modules: node_modules
