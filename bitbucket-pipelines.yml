@@ -6,7 +6,7 @@ pipelines:
           image: node:20
           caches:
             - node
-            - node_modules
+            - modules
           script:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn
@@ -42,7 +42,7 @@ pipelines:
           image: node:20
           caches:
             - node
-            - node_modules
+            - modules
           script:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn
@@ -95,3 +95,6 @@ pipelines:
           script:
             - source token.sh
             - yarn publish
+definitions:
+  caches:
+    modules: node_modules
