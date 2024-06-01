@@ -14,31 +14,32 @@ pipelines:
           - step:
               name: Lint
               image: node:20
-              # caches:
-              #   - node
+              caches:
+                - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-                - yarn lint
+                - yarn prettier
+                - yarn eslint . --ext ts
           - step:
               name: Test
               image: node:20
-              # caches:
-              #   - node
+              caches:
+                - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-                - yarn test
+                - yarn vitest --coverage.enabled=true
           - step:
               name: Build
               image: node:20
-              # caches:
-              #   - node
+              caches:
+                - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn build
   branches:
     main:
       - step:
-          name: Prep
+          name: Prep Deps
           image: node:20
           caches:
             - node
@@ -54,7 +55,8 @@ pipelines:
                 - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-                - yarn lint
+                - yarn prettier
+                - yarn eslint . --ext ts
           - step:
               name: Test
               image: node:20
@@ -62,7 +64,7 @@ pipelines:
                 - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-                - yarn test
+                - yarn vitest --coverage.enabled=true
           - step:
               name: Build
               image: node:20
@@ -95,6 +97,3 @@ pipelines:
           script:
             - source token.sh
             - yarn publish
-# definitions:
-#   caches:
-#     modules: node_modules
