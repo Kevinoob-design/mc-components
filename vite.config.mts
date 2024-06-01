@@ -1,7 +1,7 @@
 // vite.config.js
 import { resolve, join } from 'path';
 import { readFileSync } from 'fs';
-import { defineConfig } from 'vite';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
 	build: {
@@ -44,15 +44,17 @@ export default defineConfig({
 		},
 	},
 	test: {
+		root: 'app/components',
+		environment: 'jsdom',
 		coverage: {
 			provider: 'istanbul',
-			reporter: ['html', 'text'],
-			// thresholds: {
-			// 	lines: 100,
-			// 	functions: 100,
-			// 	branches: 100,
-			// 	statements: 100,
-			// },
+			reporter: ['html', 'json', 'text'],
+			thresholds: {
+				lines: 100,
+				functions: 100,
+				branches: 100,
+				statements: 100,
+			},
 		},
 	},
 });

@@ -8,5 +8,5 @@ class controller {
 export const WebAppComponent = {
 	bindings: {},
 	templateUrl: 'app/app.html',
-	controller: controller
+	controller
 }
