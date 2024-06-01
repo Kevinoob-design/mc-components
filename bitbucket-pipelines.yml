@@ -18,7 +18,7 @@ pipelines:
                 - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-                - yarn prettier '*.{.ts,scss,css,html}' --check
+                - yarn prettier 'app/*.{.ts,scss,css,html}' --check
                 - yarn eslint . --ext ts
           - step:
               name: Test
@@ -55,7 +55,7 @@ pipelines:
                 - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-                - yarn prettier '*.{.ts,scss,css,html}' --check
+                - yarn prettier 'app/*.{.ts,scss,css,html}' --check
                 - yarn eslint . --ext ts
           - step:
               name: Test
