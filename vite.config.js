@@ -48,7 +48,7 @@ export default defineConfig({
 	test: {
 		coverage: {
 			provider: 'istanbul',
-			reporter: ['html'],
+			reporter: ['html', 'text'],
 			thresholds: {
 				lines: 100,
 				functions: 100,

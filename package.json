@@ -8,7 +8,6 @@
 		"start": "yarn dev",
 		"dev": "vite --config vite.config.dev.js serve",
 		"test": "vitest --ui --coverage.enabled=true",
-		"coverage": "vitest run --coverage",
 		"prebuild": "rm -rf dist",
 		"build": "vite build",
 		"serve": "vite preview",
