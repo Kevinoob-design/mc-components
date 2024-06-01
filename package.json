@@ -51,22 +51,11 @@
 		"vite-plugin-eslint": "^1.8.1",
 		"vitest": "^1.6.0"
 	},
-	"husky": {
-		"hooks": {
-			"commit-msg": [
-				"yarn commitlint --edit $1"
-			],
-			"pre-commit": [
-				"lint-staged",
-				"yarn lint",
-				"yarn test"
-			]
-		}
-	},
 	"lint-staged": {
-		"*.{html,.ts,js,json,scss,css}": [
+		"*.{.html,.ts,js,json,scss,css}": [
 			"prettier --write",
-			"yarn lint"
+			"yarn lint",
+			"yarn test"
 		]
 	}
 }
