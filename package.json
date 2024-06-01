@@ -52,10 +52,10 @@
 		"vitest": "^1.6.0"
 	},
 	"lint-staged": {
-		"app/*.{.ts,scss,css,html}": [
+		"*.{.ts,js,scss,css,html}": [
 			"prettier --write"
 		],
-		"app/*.{.ts}": [
+		"app/*..ts": [
 			"yarn lint",
 			"yarn test"
 		]
