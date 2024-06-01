@@ -14,7 +14,8 @@
 		"serve": "vite preview",
 		"lint": "eslint . --ext ts --max-warnings 0 --fix",
 		"format": "prettier \"app/**/*.{ts,js,json,scss,css}\" --write",
-		"new:c": "hygen component new"
+		"new:c": "hygen component new",
+		"husky:prepare": "husky install"
 	},
 	"dependencies": {
 		"angular": "^1.8.3",
