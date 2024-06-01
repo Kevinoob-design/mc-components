@@ -2,7 +2,6 @@
 import { resolve, join } from 'path';
 import { readFileSync } from 'fs';
 import { defineConfig } from 'vite';
-import eslint from 'vite-plugin-eslint'
 
 export default defineConfig({
 	build: {
@@ -21,7 +20,6 @@ export default defineConfig({
 			// into your library
 			external: ['angular'],
 			plugins: [
-				eslint(),
 				{
 					name: 'replace-templateUrl',
 					transform(code, filePath) {
