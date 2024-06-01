@@ -11,6 +11,7 @@
 		"angular"
 	], // https://github.com/Gillespie59/eslint-plugin-angular
 	"extends": ["prettier", "plugin:@typescript-eslint/recommended"],
+	"ignorePatterns": ["node_modules/", "dist/", "package.json", "vite.*"],
 	"rules": {
 		"prettier/prettier": ["error"],
 

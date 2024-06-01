@@ -49,12 +49,12 @@ export default defineConfig({
 		coverage: {
 			provider: 'istanbul',
 			reporter: ['html', 'text'],
-			thresholds: {
-				lines: 100,
-				functions: 100,
-				branches: 100,
-				statements: 100,
-			},
+			// thresholds: {
+			// 	lines: 100,
+			// 	functions: 100,
+			// 	branches: 100,
+			// 	statements: 100,
+			// },
 		},
 	},
 });

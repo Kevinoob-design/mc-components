@@ -7,7 +7,7 @@ module.exports = {
 		'body-empty': [2, 'never'],
 		'body-min-length': [2, 'always', 40],
 		'body-case': [2, 'always', 'lower-case'],
-		'trailer-exists': [2, 'always', 'ticket:'],
+		'trailer-exists': [2, 'always', 'task:'],
 		'scope-case': [2, 'always', 'lower-case'],
 		'scope-empty': [2, 'never'],
 	},

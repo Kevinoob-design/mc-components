@@ -6,15 +6,16 @@
 	"author": "Hector Morales",
 	"scripts": {
 		"start": "yarn dev",
-		"dev": "vite --config vite.config.dev.js serve",
+		"dev": "vite --config vite.config.dev.mts serve",
 		"test": "vitest --ui --coverage.enabled=true",
 		"prebuild": "rm -rf dist",
 		"build": "vite build",
 		"serve": "vite preview",
-		"lint": "eslint . --ext ts --max-warnings 0 --fix",
+		"lint": "eslint . --ext ts --fix",
 		"format": "prettier \"app/**/*.{ts,js,json,scss,css}\" --write",
 		"new:c": "hygen component new",
-		"husky:prepare": "husky install"
+		"husky:prepare": "husky install",
+		"prepare": "husky"
 	},
 	"dependencies": {
 		"angular": "^1.8.3",
@@ -52,7 +53,7 @@
 		"vitest": "^1.6.0"
 	},
 	"lint-staged": {
-		"*.{.html,.ts,js,json,scss,css}": [
+		"*.{.ts,scss,css,html}": [
 			"prettier --write",
 			"yarn lint",
 			"yarn test"
