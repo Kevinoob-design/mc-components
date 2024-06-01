@@ -1,41 +1,76 @@
 pipelines:
-  default:
-    - step:
-        name: Prep
-        image: node:20
-        caches:
-          - node
-          - node_modules
-        script:
-          - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-          - yarn
-    - parallel:
-        - step:
-            name: Lint
-            image: node:20
-            caches:
-              - node
-            script:
-              - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-              - yarn lint
-        - step:
-            name: Test
-            image: node:20
-            caches:
-              - node
-            script:
-              - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-              - yarn test
-        - step:
-            name: Build
-            image: node:20
-            caches:
-              - node
-            script:
-              - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-              - yarn build
+  pull-requests:
+    default:
+      - step:
+          name: Prep
+          image: node:20
+          caches:
+            - node
+            - node_modules
+          script:
+            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+            - yarn
+      - parallel:
+          - step:
+              name: Lint
+              image: node:20
+              caches:
+                - node
+              script:
+                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+                - yarn lint
+          - step:
+              name: Test
+              image: node:20
+              caches:
+                - node
+              script:
+                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+                - yarn test
+          - step:
+              name: Build
+              image: node:20
+              caches:
+                - node
+              script:
+                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+                - yarn build
   branches:
     main:
+      - step:
+          name: Prep
+          image: node:20
+          caches:
+            - node
+            - node_modules
+          script:
+            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+            - yarn
+      - parallel:
+          - step:
+              name: Lint
+              image: node:20
+              caches:
+                - node
+              script:
+                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+                - yarn lint
+          - step:
+              name: Test
+              image: node:20
+              caches:
+                - node
+              script:
+                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+                - yarn test
+          - step:
+              name: Build
+              image: node:20
+              caches:
+                - node
+              script:
+                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+                - yarn build
       - step:
           name: Get Token
           trigger: manual
