@@ -1,0 +1,7 @@
+region                 = "us-east-1"
+domain_name            = "mc-components"
+encryption_key         = "arn:aws:kms:us-east-1:123456789012:key/abc123"
+repository_name        = "dev"
+description            = "Development repository"
+codeartifact_read_key  = "dev-read-key"
+codeartifact_write_key = "dev-write-key"
