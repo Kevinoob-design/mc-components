@@ -1,39 +1,31 @@
 # README #
 
-Steps for setting up and running Mc-Components
+Pasos para configurar y ejecutar Mc-Components
 
-## What is this repository for? ##
+## ¿Para qué es este repositorio? ##
 
-* This repo is a ui component library for `angularjs`
+* Este repositorio es una biblioteca de componentes de interfaz de usuario para `AngularJs`
 
-### How do I get set up? ###
+### ¿Cómo se configura? ###
 
-* You must have `CODEARTIFACT_AUTH_TOKEN` to run yarn commands, otherwise the token parsing will fail and yarn will complain.
+* Ejecuta tope del proyecto ejecuta los comandos:
 
-* To setup the token you can just run
+    ```console
+    nvm use && yarn
+    ```
 
-```sh
-    export CODEARTIFACT_AUTH_TOKEN='my_dumb_token'
-```
+Listo, con esto puedes iniciar desarrollo usando las configuraciones de `launch.json` o ejecutando `yarn start`
 
-for installing deps and running the project a dummy token will do, but if you will be publishing a new version you must have access to aws account and generate a real token like:
+### Dev, Debug y Tests ###
 
-```sh
-    export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain mc-components --domain-owner {replace-with-owner} --region {replace-with-region} --query authorizationToken --output text`
-```
+* Desde la configuración de `Run and Debug` para desarrollo y debug ejecutar el proyecto usando la configuración `debug front-end`
 
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Desde la misma configuración de `Run and Debug` para pruebas unitarias y debug ejecutar un archivo en especifico de prueba unitaria usando la configuración `Debug Current Test File`
 
-### Contribution guidelines ###
+### Pautas de contribución ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* [Leer la guía de contribución](docs/CONTRIBUTING)
 
-### Who do I talk to? ###
+### ¿Con quién puedo hablar? ###
 
-* Repo owner or admin
-* Other community or team contact
+* [Revisar la documentación de responsables](docs/CODEOWNERS)

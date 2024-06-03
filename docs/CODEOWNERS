@@ -1,0 +1,6 @@
+# Este archivo CODEOWNERS define los propietarios de los archivos en el repositorio
+# Patrón de coincidencia: /ruta/del/archivo código propietario(s)
+# Ejemplo:
+
+# Todos los archivos iniciales en el root del proyecto
+./ @hmorales

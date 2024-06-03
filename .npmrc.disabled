@@ -1,3 +1,0 @@
-@mc:registry=https://mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/${CODEARTIFACT_ENV}/
-//mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/${CODEARTIFACT_ENV}/:always-auth=true
-//mc-components-252355243038.d.codeartifact.us-east-1.amazonaws.com/npm/${CODEARTIFACT_ENV}/:_authToken=${CODEARTIFACT_AUTH_TOKEN}

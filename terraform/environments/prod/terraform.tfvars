@@ -1,4 +1,4 @@
 region                 = "us-east-1"
-domain_name            = "mc-components"
-repository_name        = "prod"
+domain_name            = "alyx-repo"
+repository_name        = "mc-components"
 description            = "Production repository"

@@ -1,0 +1,17 @@
+# Contribución al Proyecto
+
+¡Gracias por tu interés en contribuir al proyecto! Aquí encontrarás las pautas y recomendaciones para hacer un aporte de calidad.
+
+## Cómo hacer un Merge Request (MR) apropiado
+
+- Los cambios deben ser `mínimos` y enfocados en una sola funcionalidad o corrección.
+- Asegúrate de que los cambios estén cubiertos por `pruebas unitarias`, manteniendo una `cobertura del 100%`.
+- Sigue las convenciones de nomenclatura para las variables y métodos establecidas en el proyecto.
+- Asegúrate de que tu código cumpla con las reglas de `ESLint` y `Prettier` configuradas en el proyecto.
+- Los commits deben seguir la convención establecida y describir claramente los cambios realizados.
+- No olvides agregar los cambios al archivo `CHANGELOG` del proyecto.
+- Actualiza la versión del proyecto utilizando el comando `yarn version` de acuerdo a los cambios realizados. usando los flags `--mayor`, `--minor` o `--patch`
+
+## Secciones adicionales
+
+Puedes agregar secciones adicionales a esta documentación según sea necesario, como instrucciones para configurar el entorno de desarrollo, recomendaciones de estilo de código, etc.
