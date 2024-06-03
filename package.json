@@ -1,6 +1,6 @@
 {
 	"name": "@mc/mc-components",
-	"version": "23.0.0",
+	"version": "23.1.0",
 	"description": "MC Components AngularJS",
 	"main": "index.js",
 	"author": "Hector Morales",
