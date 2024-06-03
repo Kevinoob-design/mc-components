@@ -7,25 +7,25 @@ variable "region" {
 variable "domain_name" {
   description = "The name of the CodeArtifact domain"
   type        = string
-  default     = "dev-domain"
+  default     = "prod-domain"
 }
 
 variable "encryption_key" {
   description = "The ARN of the KMS key for encryption"
   type        = string
-  default     = "arn:aws:kms:us-west-2:123456789012:key/abc123"
+  default     = "arn:aws:kms:us-west-2:123456789012:key/def456"
 }
 
 variable "repository_name" {
   description = "The name of the CodeArtifact repository"
   type        = string
-  default     = "dev-repository"
+  default     = "prod-repository"
 }
 
 variable "description" {
   description = "The description of the repository"
   type        = string
-  default     = "Development repository"
+  default     = "Production repository"
 }
 
 variable "codeartifact_read_key" {
