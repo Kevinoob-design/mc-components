@@ -1,7 +1,9 @@
 import { expect, describe, test, vi } from 'vitest'
 import { ComponentsModule } from './components.module'
 
-vi.mock('./buttons/primary-button/primary-button.module', () => ({ PrimaryButtonModule: {} }))
+vi.mock('./buttons/primary-button/primary-button.module', () => ({
+	PrimaryButtonModule: {}
+}))
 
 describe('ComponentsModule', () => {
 	test('should be defined', () => {
