@@ -6,4 +6,4 @@ import { <%=h.changeCase.camel(name)%>Component } from './<%=name%>.component';
 
 export const <%=h.changeCase.pascal(name)%>Module = angular
 	.module('<%=h.changeCase.pascal(name)%>Module', [])
-	.component('<%=h.changeCase.camel(name)%>', <%=h.changeCase.camel(name)%>Component).name;
+	.component('<%=h.changeCase.camel('mc-'+name)%>', <%=h.changeCase.camel(name)%>Component).name;
