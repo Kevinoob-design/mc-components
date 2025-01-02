@@ -9,4 +9,4 @@ const modules = [
 	'ngMaterial'
 ]
 
-export const ComponentsModule = angular.module('McComponents', modules).name
+export const McComponentsModule = angular.module('McComponents', modules).name
