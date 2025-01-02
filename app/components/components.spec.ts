@@ -1,5 +1,5 @@
 import { expect, describe, test, vi } from 'vitest'
-import { ComponentsModule } from './components.module'
+import { McComponentsModule } from './components.module'
 
 vi.mock('./buttons/primary-button/primary-button.module', () => ({
 	PrimaryButtonModule: {}
@@ -7,9 +7,9 @@ vi.mock('./buttons/primary-button/primary-button.module', () => ({
 
 describe('ComponentsModule', () => {
 	test('should be defined', () => {
-		expect(ComponentsModule).toBeDefined()
+		expect(McComponentsModule).toBeDefined()
 	})
 	test('should have correct name', () => {
-		expect(ComponentsModule).toBe('McComponents')
+		expect(McComponentsModule).toBe('McComponents')
 	})
 })

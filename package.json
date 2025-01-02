@@ -8,7 +8,7 @@
   "scripts": {
     "start": "yarn dev",
     "dev": "vite serve",
-    "test": "vitest --ui --coverage.enabled=true --disable-console-intercept",
+    "test": "vitest --ui --coverage.enabled=true --disable-console-intercept --config vite.config.dist.mts",
     "prebuild": "rm -rf dist*",
     "build": "yarn build:dep && yarn build:storybook",
     "build:dep": "vite build --config vite.config.dist.mts",
@@ -48,6 +48,7 @@
     "@typescript-eslint/eslint-plugin": "^7.11.0",
     "@typescript-eslint/parser": "^7.11.0",
     "@vitest/coverage-istanbul": "^1.6.0",
+    "@vitest/coverage-v8": "^2.1.8",
     "@vitest/ui": "^1.6.0",
     "eslint": "^8.24.0",
     "eslint-config-prettier": "^9.1.0",
