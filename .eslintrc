@@ -18,7 +18,8 @@
 		"node_modules/",
 		"dist/",
 		"package.json",
-		"vite.*"
+		"vite.*",
+		"plugins/"
 	],
 	"rules": {
 		"prettier/prettier": [
