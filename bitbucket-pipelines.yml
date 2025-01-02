@@ -3,7 +3,7 @@ pipelines:
     default:
       - step:
           name: Prep Deps
-          image: node:20
+          image: node:22
           caches:
             - node
           script:
@@ -12,7 +12,7 @@ pipelines:
       - parallel:
           - step:
               name: Lint
-              image: node:20
+              image: node:22
               caches:
                 - node
               script:
@@ -21,7 +21,7 @@ pipelines:
                 - yarn eslint . --ext ts
           - step:
               name: Test
-              image: node:20
+              image: node:22
               caches:
                 - node
               script:
@@ -29,7 +29,7 @@ pipelines:
                 - yarn vitest --coverage.enabled=true
           - step:
               name: Build
-              image: node:20
+              image: node:22
               caches:
                 - node
               script:
@@ -39,7 +39,7 @@ pipelines:
     main:
       - step:
           name: Prep Deps
-          image: node:20
+          image: node:22
           caches:
             - node
           script:
@@ -48,7 +48,7 @@ pipelines:
       - parallel:
           - step:
               name: Lint
-              image: node:20
+              image: node:22
               caches:
                 - node
               script:
@@ -57,7 +57,7 @@ pipelines:
                 - yarn eslint . --ext ts
           - step:
               name: Test
-              image: node:20
+              image: node:22
               caches:
                 - node
               script:
@@ -65,7 +65,7 @@ pipelines:
                 - yarn vitest --coverage.enabled=true
           - step:
               name: Build
-              image: node:20
+              image: node:22
               caches:
                 - node
               script:
@@ -89,7 +89,7 @@ pipelines:
           name: Publish CodeArtifact
           deployment: Prod
           trigger: manual
-          image: node:20
+          image: node:22
           caches:
             - node
           script:
