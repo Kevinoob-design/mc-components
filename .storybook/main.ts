@@ -1,5 +1,4 @@
 import type { StorybookConfig } from '@storybook/html-vite'
-import prettier from 'prettier'
 
 const config: StorybookConfig = {
 	stories: [
