@@ -11,6 +11,6 @@ const config: StorybookConfig = {
 		'@chromatic-com/storybook',
 		'@storybook/addon-interactions'
 	],
-	framework: '@storybook/html-vite',
+	framework: '@storybook/html-vite'
 }
 export default config

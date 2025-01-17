@@ -14,10 +14,6 @@ const meta = {
 			module: PrimaryButtonModule
 		}
 	},
-	render: args =>
-		// You can either use a function to create DOM elements or use a plain html string!
-		// return `<div>${label}</div>`;
-		createButton(args),
 	argTypes: {
 		backgroundColor: { control: 'color' },
 		label: { control: 'text' },
@@ -28,7 +24,8 @@ const meta = {
 			options: ['small', 'medium', 'large']
 		}
 	},
-	args: { onClick: () => alert('hi?') }
+	args: { onClick: () => alert('hi?') },
+	render: args => createButton(args)
 } satisfies Meta<ButtonProps>
 
 export default meta

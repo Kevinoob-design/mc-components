@@ -1,3 +1,5 @@
+import { html } from './shared'
+
 export interface ButtonProps {
 	/** Is this the principal call to action on the page? */
 	primary?: boolean
@@ -11,21 +13,12 @@ export interface ButtonProps {
 	onClick?: () => void
 }
 
-export const element = `<primary-button
-  text="algún texto"
-  disabled="false"
-  loading="true"
-  on-click="onClick">
-</primary-button>`
-
 /** Primary UI component for user interaction */
-export const createButton = ({ primary = false, label }: ButtonProps) => {
-	const element = `<primary-button
-  text="${label}"
-  disabled="${!primary}"
-  loading="true"
-  on-click="onClick()">
-</primary-button>`
-
-	return element
-}
+export const createButton = ({ primary = false, label }: ButtonProps) => html`
+	<primary-button
+		text="${label}"
+		disabled="${!primary}"
+		loading="true"
+		on-click="onClick()">
+	</primary-button>
+`

@@ -7,6 +7,12 @@ const preview: Preview = {
 				color: /(background|color)$/i,
 				date: /Date$/i
 			}
+		},
+		docs: {
+			source: {
+				transform: (src, context) =>
+					context.originalStoryFn(context.args, context)
+			}
 		}
 	}
 }

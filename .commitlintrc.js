@@ -9,6 +9,6 @@ module.exports = {
 		'body-case': [2, 'always', 'lower-case'],
 		'trailer-exists': [2, 'always', 'task:'],
 		'scope-case': [2, 'always', 'lower-case'],
-		'scope-empty': [2, 'never'],
-	},
-};
+		'scope-empty': [2, 'never']
+	}
+}
