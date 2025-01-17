@@ -8,7 +8,7 @@
 	"scripts": {
 		"start": "yarn dev",
 		"dev": "vite serve",
-		"test": "vitest --coverage.enabled=true --disable-console-intercept --config vite.config.dist.mts",
+		"test": "vitest --run --coverage.enabled=true --disable-console-intercept --config vite.config.dist.mts",
 		"test:ui": "vitest --ui --coverage.enabled=true --disable-console-intercept --config vite.config.dist.mts",
 		"prebuild": "rm -rf dist*",
 		"build": "yarn build:dep && yarn build:storybook",
