@@ -1,24 +1,35 @@
+import { ArgTypes } from '@storybook/html'
 import { html } from './shared'
 
 export interface ButtonProps {
-	/** Is this the principal call to action on the page? */
-	primary?: boolean
-	/** What background color to use */
-	backgroundColor?: string
-	/** How large should the button be? */
-	size?: 'small' | 'medium' | 'large'
-	/** Button contents */
+	disabled?: boolean
+	loading?: boolean
 	label: string
-	/** Optional click handler */
 	onClick?: () => void
 }
 
-/** Primary UI component for user interaction */
-export const createButton = ({ primary = false, label }: ButtonProps) => html`
+export const argTypes: Partial<ArgTypes<ButtonProps>> = {
+	label: { control: 'text' },
+	onClick: { action: 'onClick' },
+	disabled: {
+		control: 'boolean',
+		table: { defaultValue: { summary: 'false' } }
+	},
+	loading: {
+		control: 'boolean',
+		table: { defaultValue: { summary: 'false' } }
+	}
+}
+
+export const createButton = ({
+	disabled = false,
+	loading = false,
+	label
+}: ButtonProps) => html`
 	<primary-button
 		text="${label}"
-		disabled="${!primary}"
-		loading="true"
+		disabled="${disabled}"
+		loading="${loading}"
 		on-click="onClick()">
 	</primary-button>
 `

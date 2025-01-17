@@ -23,6 +23,8 @@ export function withAngularJs() {
 
 		const { currentPhase } = context.hooks
 
+		const element = document.createElement('div')
+
 		if (
 			rebuild === 'always' ||
 			(rebuild === 'mount' && currentPhase === 'MOUNT') ||
@@ -31,8 +33,6 @@ export function withAngularJs() {
 			cache[key].template !== template
 		) {
 			const modules = Array.isArray(module) ? module : [module]
-
-			const element = document.createElement('div')
 
 			// Initialize mocked modules
 			if (mock && mock.modules) {
@@ -69,19 +69,14 @@ export function withAngularJs() {
 
 			angular.bootstrap(element, modules)
 
-			cache[key] = {
-				template,
-				element
-			}
+			// cache[key] = {
+			// 	template,
+			// 	element
+			// }
 
-			return buildAngularJsElement(
-				cache[key].element,
-				template,
-				context.args,
-				hooks
-			)
+			return buildAngularJsElement(element, template, context.args, hooks)
 		}
 
-		return updateAngularJsElement(cache[key].element, context.args, hooks)
+		return updateAngularJsElement(element, context.args, hooks)
 	}
 }

@@ -1,10 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/html'
 import { PrimaryButtonModule } from '../app/components/buttons/primary-button/primary-button.module'
 
-import { ButtonProps, createButton } from './Button'
+import { argTypes, ButtonProps, createButton } from './Button'
 import { withAngularJs } from '../plugins/storybook.angular.decorator'
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
 	title: 'Example/Button',
 	tags: ['autodocs'],
@@ -14,47 +13,34 @@ const meta = {
 			module: PrimaryButtonModule
 		}
 	},
-	argTypes: {
-		backgroundColor: { control: 'color' },
-		label: { control: 'text' },
-		onClick: { action: 'onClick' },
-		primary: { control: 'boolean' },
-		size: {
-			control: { type: 'select' },
-			options: ['small', 'medium', 'large']
-		}
-	},
-	args: { onClick: () => alert('hi?') },
+	argTypes: argTypes,
 	render: args => createButton(args)
 } satisfies Meta<ButtonProps>
 
 export default meta
+
 type Story = StoryObj<ButtonProps>
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary: Story = {
+export const Default: Story = {
 	args: {
-		primary: true,
-		label: 'Button Primary'
+		disabled: false,
+		loading: false,
+		label: 'Button Default',
+		onClick: () => alert('Button clicked')
 	}
 }
 
-export const Secondary: Story = {
+export const Disabled: Story = {
 	args: {
-		label: 'Button Secondary'
+		disabled: true,
+		label: 'Button Disabled'
 	}
 }
 
-export const Large: Story = {
+export const Loading: Story = {
 	args: {
-		size: 'large',
-		label: 'Button Large'
-	}
-}
-
-export const Small: Story = {
-	args: {
-		size: 'small',
-		label: 'Button Small'
+		loading: true,
+		disabled: true,
+		label: 'Button Loading'
 	}
 }

@@ -32,7 +32,7 @@ export function buildAngularJsElement(
 
 	$injector.invoke(compiler)
 
-	return element
+	return element.children[0]
 }
 
 /**
@@ -62,5 +62,5 @@ export function updateAngularJsElement(
 
 	$injector.invoke(updater)
 
-	return element
+	return element.children[0]
 }
