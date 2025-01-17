@@ -13,7 +13,7 @@ const meta = {
 			module: PrimaryButtonModule
 		}
 	},
-	argTypes: argTypes,
+	argTypes,
 	render: args => createButton(args)
 } satisfies Meta<ButtonProps>
 
