@@ -62,7 +62,7 @@ pipelines:
                 - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-                - yarn vitest --coverage.enabled=true
+                - yarn test
           - step:
               name: Build
               image: node:22
