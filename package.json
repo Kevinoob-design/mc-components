@@ -72,11 +72,8 @@
 	},
 	"lint-staged": {
 		"*.{ts,js,json,scss,css,html}": [
-			"prettier --write"
-		],
-		"app/*..ts": [
-			"yarn lint",
-			"yarn test"
+			"prettier --write",
+			"eslint . --ext ts --fix"
 		]
 	},
 	"eslintConfig": {
