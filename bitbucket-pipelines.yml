@@ -1,3 +1,11 @@
+definitions:
+  caches:
+    node:
+      key:
+        files:
+          - yarn.lock
+      path: node_modules
+
 pipelines:
   pull-requests:
     default:
@@ -5,10 +13,7 @@ pipelines:
           name: Prep Deps
           image: node:22
           caches:
-            node:
-              key:
-                - yarn.lock
-              path: node_modules
+            - node
           script:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn
@@ -44,9 +49,7 @@ pipelines:
           name: Prep Deps
           image: node:22
           caches:
-            node:
-              key:
-                - yarn.lock
+            - node
           script:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn
