@@ -1,3 +1,10 @@
+/**
+ * NO MODIFICAR ESTE ARCHIVO A MENOS DE SER NECESARIO.
+ * ESTE ES EL ENTRY PARA SAMPLE (yarn dev:sample).
+ * EL HTML A MOSTRAR ES `app.html`
+ * USAR STORYBOOK `yarn start` PARA PROBAR Y DESARROLLAR NUEVOS COMPONENTES
+ */
+
 import angular from 'angular'
 import 'angular-animate'
 import 'angular-aria'

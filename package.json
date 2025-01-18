@@ -6,21 +6,20 @@
 	"author": "Hector Morales",
 	"license": "UNLICENSED",
 	"scripts": {
-		"start": "yarn dev",
-		"dev": "vite serve",
+		"start": "yarn dev:storybook",
+		"dev:storybook": "storybook dev -p 6006",
+		"dev:sample": "vite serve",
 		"test": "vitest --run --coverage.enabled=true --disable-console-intercept --config vite.config.dist.mts",
 		"test:ui": "vitest --ui --coverage.enabled=true --disable-console-intercept --config vite.config.dist.mts",
 		"prebuild": "rm -rf dist*",
-		"build": "yarn build:dep && yarn build:storybook",
-		"build:dep": "vite build --config vite.config.dist.mts",
+		"build": "yarn build:lib && yarn build:storybook",
+		"build:lib": "vite build --config vite.config.dist.mts",
 		"build:storybook": "storybook build -o dist-storybook",
-		"serve": "vite preview",
 		"lint": "eslint . --ext ts --fix",
 		"format": "prettier \"**/*.{ts,js,json,scss,css,html}\" --write",
-		"new:c": "hygen component new",
 		"husky:prepare": "husky install",
 		"prepare": "husky",
-		"storybook": "storybook dev -p 6006"
+		"new:c": "hygen component new"
 	},
 	"dependencies": {
 		"angular": "^1.8.3",
@@ -72,6 +71,9 @@
 	},
 	"lint-staged": {
 		"*.{ts,js,json,scss,css,html}": [
+			"prettier --write"
+		],
+		"*.{ts,js}": [
 			"prettier --write",
 			"eslint . --ext ts --fix"
 		]
