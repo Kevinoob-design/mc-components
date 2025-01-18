@@ -5,14 +5,19 @@ pipelines:
           name: Prep Deps
           image: node:22
           caches:
-            - node
+            node:
+              key:
+                - yarn.lock
+              path: node_modules
           script:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
-            - yarn --frozen-lockfile
+            - yarn
       - parallel:
           - step:
               name: Lint
               image: node:22
+              caches:
+                - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn prettier '*.{.ts,scss,css,html}' --check
@@ -20,12 +25,16 @@ pipelines:
           - step:
               name: Test
               image: node:22
+              caches:
+                - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn test
           - step:
               name: Build
               image: node:22
+              caches:
+                - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn build
@@ -43,6 +52,8 @@ pipelines:
           - step:
               name: Lint
               image: node:22
+              caches:
+                - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn prettier '*.{.ts,scss,css,html}' --check
@@ -50,12 +61,16 @@ pipelines:
           - step:
               name: Test
               image: node:22
+              caches:
+                - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn test
           - step:
               name: Build
               image: node:22
+              caches:
+                - node
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn build
