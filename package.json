@@ -75,7 +75,7 @@
 			"prettier --write",
 			"eslint . --ext ts --fix"
 		],
-		"app/*.{ts,js,json,scss,css,html}": [
+		"app/**/*.{ts,js,json,scss,css,html}": [
 			"yarn test"
 		]
 	},
