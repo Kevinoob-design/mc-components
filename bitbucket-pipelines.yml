@@ -44,7 +44,9 @@ pipelines:
           name: Prep Deps
           image: node:22
           caches:
-            - node
+            node:
+              key:
+                - yarn.lock
           script:
             - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
             - yarn
