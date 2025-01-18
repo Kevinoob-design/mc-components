@@ -74,6 +74,9 @@
 		"*.{ts,js,json,scss,css,html}": [
 			"prettier --write",
 			"eslint . --ext ts --fix"
+		],
+		"app/*.{ts,js,json,scss,css,html}": [
+			"yarn test"
 		]
 	},
 	"eslintConfig": {
