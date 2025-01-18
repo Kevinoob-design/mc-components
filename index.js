@@ -1,3 +1,8 @@
+/**
+ * NO MODIFICAR ESTE ARCHIVO. SOLO ENTRY POINT PARA DEV (yarn dev).
+ * USAR (yarn storybook) PARA PROBAR Y DESARROLLAR NUEVOS COMPONENTES
+ */
+
 import angular from 'angular'
 import './app/app'
 
