@@ -71,7 +71,7 @@
 		"vitest": "^1.6.0"
 	},
 	"lint-staged": {
-		"*.{.ts,js,scss,css,html}": [
+		"*.{ts,js,json,scss,css,html}": [
 			"prettier --write"
 		],
 		"app/*..ts": [
