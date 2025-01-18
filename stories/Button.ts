@@ -26,7 +26,7 @@ export const createButton = ({
 	loading = false,
 	label
 }: ButtonProps) => html`
-	<primary-button
+				<primary-button
 		text="${label}"
 		disabled="${disabled}"
 		loading="${loading}"
