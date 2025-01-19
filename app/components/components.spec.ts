@@ -1,7 +1,7 @@
 import { expect, describe, test, vi } from 'vitest'
 import { McComponentsModule } from './components.module'
 
-vi.mock('./buttons/primary-button/primary-button.module', () => ({
+vi.mock('./buttons', () => ({
 	PrimaryButtonModule: {}
 }))
 

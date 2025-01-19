@@ -1,14 +1,8 @@
 import { ArgTypes } from '@storybook/html'
-import { html } from './shared'
+import { html } from './template-tags'
+import { PrimaryButtonProps } from '../app/components/buttons'
 
-export interface ButtonProps {
-	disabled?: boolean
-	loading?: boolean
-	label: string
-	onClick?: () => void
-}
-
-export const argTypes: Partial<ArgTypes<ButtonProps>> = {
+export const argTypes: Partial<ArgTypes<PrimaryButtonProps>> = {
 	label: { control: 'text' },
 	onClick: { action: 'onClick' },
 	disabled: {
@@ -25,7 +19,7 @@ export const createButton = ({
 	disabled = false,
 	loading = false,
 	label
-}: ButtonProps) => html`
+}: PrimaryButtonProps) => html`
 	<primary-button
 		text="${label}"
 		disabled="${disabled}"

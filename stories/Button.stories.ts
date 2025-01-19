@@ -1,11 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/html'
-import { PrimaryButtonModule } from '../app/components/buttons/primary-button/primary-button.module'
+import {
+	PrimaryButtonModule,
+	PrimaryButtonProps
+} from '../app/components/buttons'
 
-import { argTypes, ButtonProps, createButton } from './Button'
+import { argTypes, createButton } from './Button'
 import { withAngularJs } from '../plugins/storybook.angular.decorator'
 
 const meta = {
-	title: 'Example/Button',
+	title: 'Library/Button',
 	tags: ['autodocs'],
 	decorators: [withAngularJs()],
 	parameters: {
@@ -15,11 +18,11 @@ const meta = {
 	},
 	argTypes,
 	render: args => createButton(args)
-} satisfies Meta<ButtonProps>
+} satisfies Meta<PrimaryButtonProps>
 
 export default meta
 
-type Story = StoryObj<ButtonProps>
+type Story = StoryObj<PrimaryButtonProps>
 
 export const Default: Story = {
 	args: {

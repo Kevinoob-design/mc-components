@@ -1,4 +1,4 @@
 ---
 to: app/components/<%=path%>/<%=name%>/<%=name%>.html
 ---
-<div>{{ $ctrl.name }}</div>
+<h1 class="text-3xl font-bold underline">{{ $ctrl.name }}</h1>
