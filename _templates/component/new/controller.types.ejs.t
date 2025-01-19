@@ -1,5 +1,5 @@
 ---
-to: app/components/<%=path%>/<%=name%>/<%=name%>.types.ts
+to: app/components/<%=h.changeCase.paramCase(path)%>/<%=h.changeCase.paramCase(name)%>/<%=h.changeCase.paramCase(name)%>.types.ts
 ---
 export type <%=h.changeCase.pascal(name)%>Props = {
 	disabled?: boolean

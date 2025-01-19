@@ -1,14 +1,14 @@
 ---
-to: stories/<%=path%>/<%=name%>/<%=name%>.stories.ts
+to: stories/<%=h.changeCase.paramCase(path)%>/<%=h.changeCase.paramCase(name)%>/<%=h.changeCase.paramCase(name)%>.stories.ts
 ---
 import type { Meta, StoryObj } from '@storybook/html'
-import { <%=h.changeCase.pascal(name)%>Module, <%=h.changeCase.pascal(name)%>Props } from '../../../app/components/<%=path%>'
+import { <%=h.changeCase.pascal(name)%>Module, <%=h.changeCase.pascal(name)%>Props } from '../../../app/components/<%=h.changeCase.paramCase(path)%>'
 
-import { argTypes, buildComponent } from './<%=name%>'
+import { argTypes, buildComponent } from './<%=h.changeCase.paramCase(name)%>'
 import { withAngularJs } from '../../../plugins/storybook.angular.decorator'
 
 const meta = {
-	title: 'Library/<%=name%>',
+	title: 'Library/<%=h.changeCase.headerCase(name)%>',
 	tags: ['autodocs'],
 	decorators: [withAngularJs()],
 	parameters: {
@@ -28,15 +28,15 @@ export const Default: Story = {
 	args: {
 		disabled: false,
 		loading: false,
-		label: '<%=name%> Default',
-		onClick: () => alert('<%=name%> clicked')
+		label: '<%=h.changeCase.headerCase(name)%> Default',
+		onClick: () => alert('<%=h.changeCase.headerCase(name)%> clicked')
 	}
 }
 
 export const Disabled: Story = {
 	args: {
 		disabled: true,
-		label: '<%=name%> Disabled'
+		label: '<%=h.changeCase.headerCase(name)%> Disabled'
 	}
 }
 
@@ -44,6 +44,6 @@ export const Loading: Story = {
 	args: {
 		loading: true,
 		disabled: true,
-		label: '<%=name%> Loading'
+		label: '<%=h.changeCase.headerCase(name)%> Loading'
 	}
 }

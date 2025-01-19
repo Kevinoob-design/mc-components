@@ -1,14 +1,14 @@
 ---
-to: app/components/<%=path%>/<%=name%>/<%=name%>.spec.ts
+to: app/components/<%=h.changeCase.paramCase(path)%>/<%=h.changeCase.paramCase(name)%>/<%=h.changeCase.paramCase(name)%>.spec.ts
 ---
 import { expect, describe, test, vi } from 'vitest'
-import { <%=h.changeCase.pascal(name)%>Module } from './<%=name%>.module'
-import { <%=h.changeCase.camel(name)%>Component } from './<%=name%>.component'
-import { <%=h.changeCase.pascal(name)%>Controller } from './<%=name%>.controller'
+import { <%=h.changeCase.pascal(name)%>Module } from './<%=h.changeCase.paramCase(name)%>.module'
+import { <%=h.changeCase.camel(name)%>Component } from './<%=h.changeCase.paramCase(name)%>.component'
+import { <%=h.changeCase.pascal(name)%>Controller } from './<%=h.changeCase.paramCase(name)%>.controller'
 
 describe('Primary Button', () => {
 	describe('<%=h.changeCase.pascal(name)%>Module', () => {
-		vi.mock('./<%=name%>.component', () => ({
+		vi.mock('./<%=h.changeCase.paramCase(name)%>.component', () => ({
 			<%=h.changeCase.camel(name)%>Component: {}
 		}))
 
@@ -19,15 +19,15 @@ describe('Primary Button', () => {
 			expect(<%=h.changeCase.pascal(name)%>Module).toBe('<%=h.changeCase.pascal(name)%>Module')
 		})
 
-		vi.unmock('./<%=name%>.component')
+		vi.unmock('./<%=h.changeCase.paramCase(name)%>.component')
 	})
 
 	describe('<%=h.changeCase.pascal(name)%>Component', () => {
-		vi.mock('./<%=name%>.controller', () => ({
+		vi.mock('./<%=h.changeCase.paramCase(name)%>.controller', () => ({
 			<%=h.changeCase.pascal(name)%>Controller: {}
 		}))
-		vi.mock('./<%=name%>.scss', () => ({}))
-		vi.mock('./<%=name%>.html', () => ({}))
+		vi.mock('./<%=h.changeCase.paramCase(name)%>.scss', () => ({}))
+		vi.mock('./<%=h.changeCase.paramCase(name)%>.html', () => ({}))
 
 		test('should be defined', () => {
 			expect(<%=h.changeCase.camel(name)%>Component).toBeDefined()
@@ -35,11 +35,11 @@ describe('Primary Button', () => {
 		test('should have template url', () => {
 			expect(<%=h.changeCase.camel(name)%>Component.templateUrl).toBeTypeOf('string')
 			expect(<%=h.changeCase.camel(name)%>Component.templateUrl).toBe(
-				'app/components/<%=path%>/<%=name%>/<%=name%>.html'
+				'app/components/<%=h.changeCase.paramCase(path)%>/<%=h.changeCase.paramCase(name)%>/<%=h.changeCase.paramCase(name)%>.html'
 			)
 		})
 
-        vi.unmock('./<%=name%>.controller')
+        vi.unmock('./<%=h.changeCase.paramCase(name)%>.controller')
 	})
 
     describe('<%=h.changeCase.pascal(name)%>Controller', () => {

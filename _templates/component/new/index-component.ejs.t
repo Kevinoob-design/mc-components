@@ -1,5 +1,5 @@
 ---
-to: app/components/<%=path%>/<%=name%>/index.ts
+to: app/components/<%=h.changeCase.paramCase(path)%>/<%=h.changeCase.paramCase(name)%>/index.ts
 ---
-export * from './<%=name%>.module'
-export * from './<%=name%>.types'
+export * from './<%=h.changeCase.paramCase(name)%>.module'
+export * from './<%=h.changeCase.paramCase(name)%>.types'

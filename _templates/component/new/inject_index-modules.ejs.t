@@ -1,7 +1,7 @@
 ---
-to: app/components/<%=path%>/index.ts
+to: app/components/<%=h.changeCase.paramCase(path)%>/index.ts
 inject: true
 after: export
 append: true
 ---
-export * from './<%=name%>'
+export * from './<%=h.changeCase.paramCase(name)%>'
