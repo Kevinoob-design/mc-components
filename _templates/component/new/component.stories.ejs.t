@@ -2,10 +2,10 @@
 to: stories/<%=path%>/<%=name%>/<%=name%>.stories.ts
 ---
 import type { Meta, StoryObj } from '@storybook/html'
-import { <%=h.changeCase.pascal(name)%>Module, <%=h.changeCase.pascal(name)%>Props } from '../../app/components/<%=path%>'
+import { <%=h.changeCase.pascal(name)%>Module, <%=h.changeCase.pascal(name)%>Props } from '../../../app/components/<%=path%>'
 
 import { argTypes, buildComponent } from './<%=name%>'
-import { withAngularJs } from '../../plugins/storybook.angular.decorator'
+import { withAngularJs } from '../../../plugins/storybook.angular.decorator'
 
 const meta = {
 	title: 'Library/<%=name%>',

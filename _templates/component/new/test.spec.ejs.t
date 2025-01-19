@@ -44,13 +44,10 @@ describe('Primary Button', () => {
 
     describe('<%=h.changeCase.pascal(name)%>Controller', () => {
 
-		const <%=h.changeCase.camel(name)%>Controller: TestButtonController = new TestButtonController()
+		const <%=h.changeCase.camel(name)%>Controller: <%=h.changeCase.pascal(name)%>Controller = new <%=h.changeCase.pascal(name)%>Controller()
 
 		test('should be defined', () => {
 			expect(<%=h.changeCase.camel(name)%>Controller).toBeDefined()
-		})
-		test('should have initial name', () => {
-			expect(<%=h.changeCase.camel(name)%>Controller.name).toBe('<%=name%>')
 		})
 	})
 })

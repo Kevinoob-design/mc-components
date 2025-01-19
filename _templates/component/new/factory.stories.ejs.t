@@ -3,7 +3,7 @@ to: stories/<%=path%>/<%=name%>/<%=name%>.ts
 ---
 import { ArgTypes } from '@storybook/html'
 import { html } from '../../template-tags'
-import { <%=h.changeCase.pascal(name)%>Props } from '../../app/components/<%=path%>'
+import { <%=h.changeCase.pascal(name)%>Props } from '../../../app/components/<%=path%>'
 
 export const argTypes: Partial<ArgTypes< <%=h.changeCase.pascal(name)%>Props >> = {
 	label: { control: 'text' },
