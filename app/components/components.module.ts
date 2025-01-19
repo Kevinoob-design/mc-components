@@ -6,7 +6,8 @@
 
 import angular from 'angular'
 import './index.css'
+import { ButtonModule } from './buttons'
 
-const modules = ['ngAnimate', 'ngAria', 'ngMessages', 'ngMaterial']
+const modules = [ButtonModule, 'ngAnimate', 'ngAria', 'ngMessages', 'ngMaterial']
 
 export const McComponentsModule = angular.module('McComponents', modules).name
