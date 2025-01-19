@@ -1,10 +1,10 @@
 import { PrimaryButtonProps } from './primary-button.types'
 
 class PrimaryButtonController implements PrimaryButtonProps {
-	onClick: () => void
+	disabled?: boolean
+	loading?: boolean
 	label: string
-	disabled?: boolean | undefined
-	loading?: boolean | undefined
+	onClick?: () => void
 }
 
 export { PrimaryButtonController }

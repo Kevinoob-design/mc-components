@@ -1,12 +1,13 @@
 ---
 to: app/components/<%=path%>/<%=name%>/<%=name%>.controller.ts
 ---
-class <%=h.changeCase.pascal(name)%>Controller {
-	name: string;
+import { <%=h.changeCase.pascal(name)%>Props } from './<%=name%>.types'
 
-	constructor() {
-		this.name = '<%=name%>';
-	}
+class <%=h.changeCase.pascal(name)%>Controller implements <%=h.changeCase.pascal(name)%>Props {
+	disabled?: boolean
+	loading?: boolean
+	label: string
+	onClick?: () => void
 }
 
 export { <%=h.changeCase.pascal(name)%>Controller };
