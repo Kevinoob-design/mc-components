@@ -18,11 +18,11 @@ const meta = {
 	},
 	argTypes,
 	render: args => buildComponent(args)
-} satisfies Meta<ComponentProps>
+} satisfies Meta< <%=h.changeCase.pascal(name)%>Props >
 
 export default meta
 
-type Story = StoryObj<ComponentProps>
+type Story = StoryObj< <%=h.changeCase.pascal(name)%>Props >
 
 export const Default: Story = {
 	args: {

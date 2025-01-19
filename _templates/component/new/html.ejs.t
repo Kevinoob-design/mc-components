@@ -1,4 +1,10 @@
 ---
 to: app/components/<%=path%>/<%=name%>/<%=name%>.html
 ---
-<h1 class="text-3xl font-bold underline">{{ $ctrl.name }}</h1>
+<button
+	class="text-3xl font-bold underline"
+	ng-click="$ctrl.onClick()()"
+	ng-disabled="{{$ctrl.disabled}}">
+	{{$ctrl.text}} {{$ctrl.loading ? '...' : ''}}
+</button>
+
