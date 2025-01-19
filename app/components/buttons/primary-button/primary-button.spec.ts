@@ -30,9 +30,7 @@ describe('Primary Button', () => {
 		})
 		test('should have template url', () => {
 			expect(primaryButtonComponent.templateUrl).toBeTypeOf('string')
-			expect(primaryButtonComponent.templateUrl).toBe(
-				'app/components/buttons/primary-button/primary-button.html'
-			)
+			expect(primaryButtonComponent.templateUrl).toBe('app/components/buttons/primary-button/primary-button.html')
 		})
 	})
 })

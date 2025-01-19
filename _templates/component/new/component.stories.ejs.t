@@ -2,10 +2,10 @@
 to: stories/<%=h.changeCase.paramCase(path)%>/<%=h.changeCase.paramCase(name)%>/<%=h.changeCase.paramCase(name)%>.stories.ts
 ---
 import type { Meta, StoryObj } from '@storybook/html'
-import { <%=h.changeCase.pascal(name)%>Module, <%=h.changeCase.pascal(name)%>Props } from '../../../app/components/<%=h.changeCase.paramCase(path)%>'
-
-import { argTypes, buildComponent } from './<%=h.changeCase.paramCase(name)%>'
 import { withAngularJs } from '../../../plugins/storybook.angular.decorator'
+import { componentLogAction } from '../../shared'
+import { <%=h.changeCase.pascal(name)%>Module, <%=h.changeCase.pascal(name)%>Props } from '../../../app/components/<%=h.changeCase.paramCase(path)%>'
+import { argTypes, buildComponent } from './<%=h.changeCase.paramCase(name)%>'
 
 const meta = {
 	title: 'Library/<%=h.changeCase.headerCase(path)%>/<%=h.changeCase.headerCase(name)%>',
@@ -29,7 +29,7 @@ export const Default: Story = {
 		disabled: false,
 		loading: false,
 		label: '<%=h.changeCase.headerCase(name)%> Default',
-		onClick: () => alert('<%=h.changeCase.headerCase(name)%> clicked')
+		onClick: () => componentLogAction('<%=h.changeCase.headerCase(name)%>', 'Clicked')
 	}
 }
 

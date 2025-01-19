@@ -6,10 +6,7 @@
  */
 
 import angular from 'angular'
-import {
-	buildAngularJsElement,
-	updateAngularJsElement
-} from './storybook.angularjs'
+import { buildAngularJsElement, updateAngularJsElement } from './storybook.angularjs'
 
 export function withAngularJs() {
 	const cache = {}

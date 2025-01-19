@@ -1,5 +1,5 @@
 import { ArgTypes } from '@storybook/html'
-import { html } from './template-tags'
+import { html } from './shared'
 import { PrimaryButtonProps } from '../app/components/buttons'
 
 export const argTypes: Partial<ArgTypes<PrimaryButtonProps>> = {
@@ -15,11 +15,7 @@ export const argTypes: Partial<ArgTypes<PrimaryButtonProps>> = {
 	}
 }
 
-export const createButton = ({
-	disabled = false,
-	loading = false,
-	label
-}: PrimaryButtonProps) => html`
+export const createButton = ({ disabled = false, loading = false, label }: PrimaryButtonProps) => html`
 	<primary-button
 		text="${label}"
 		disabled="${disabled}"

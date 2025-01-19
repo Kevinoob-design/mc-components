@@ -11,8 +11,7 @@ const preview: Preview = {
 		},
 		docs: {
 			source: {
-				transform: (src, context) =>
-					context.originalStoryFn(context.args, context)
+				transform: (src, context) => context.originalStoryFn(context.args, context)
 			}
 		}
 	}

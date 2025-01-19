@@ -2,7 +2,7 @@
 to: stories/<%=h.changeCase.paramCase(path)%>/<%=h.changeCase.paramCase(name)%>/<%=h.changeCase.paramCase(name)%>.ts
 ---
 import { ArgTypes } from '@storybook/html'
-import { html } from '../../template-tags'
+import { html } from '../../shared'
 import { <%=h.changeCase.pascal(name)%>Props } from '../../../app/components/<%=h.changeCase.paramCase(path)%>'
 
 export const argTypes: Partial<ArgTypes< <%=h.changeCase.pascal(name)%>Props >> = {

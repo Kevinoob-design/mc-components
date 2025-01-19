@@ -1,11 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/html'
-import {
-	PrimaryButtonModule,
-	PrimaryButtonProps
-} from '../app/components/buttons'
+import { PrimaryButtonModule, PrimaryButtonProps } from '../app/components/buttons'
 
 import { argTypes, createButton } from './Button'
 import { withAngularJs } from '../plugins/storybook.angular.decorator'
+import { componentLogAction } from './shared'
 
 const meta = {
 	title: 'Library/Button',
@@ -29,7 +27,7 @@ export const Default: Story = {
 		disabled: false,
 		loading: false,
 		label: 'Button Default',
-		onClick: () => alert('Button clicked')
+		onClick: () => componentLogAction('Primary-Button', 'Clicked')
 	}
 }
 

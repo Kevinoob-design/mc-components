@@ -13,8 +13,6 @@ import 'angular-material'
 import { McComponentsModule } from './components/components.module'
 import { WebAppComponent } from './app.component'
 
-const WebAppModule = angular
-	.module('WebAppModule', [McComponentsModule])
-	.component('app', WebAppComponent)
+const WebAppModule = angular.module('WebAppModule', [McComponentsModule]).component('app', WebAppComponent)
 
 export default WebAppModule
