@@ -23,10 +23,10 @@ export const buildComponent = ({
 	loading = false,
 	label
 }: <%=h.changeCase.pascal(name)%>Props ) => html`
-	<<%=h.changeCase.paramCase(name)%>
+	<mc-<%=h.changeCase.paramCase(name)%>
 		text="${label}"
 		disabled="${disabled}"
 		loading="${loading}"
 		on-click="onClick()">
-	</<%=h.changeCase.paramCase(name)%>>
+	</mc-<%=h.changeCase.paramCase(name)%>>
 `

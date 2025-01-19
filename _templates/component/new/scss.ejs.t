@@ -1,4 +1,9 @@
 ---
 to: app/components/<%=path%>/<%=name%>/<%=name%>.scss
 ---
-<%=name%> {}
+mc-<%=h.changeCase.paramCase(name)%> {
+	button {
+		background: green;
+		color: white;
+	}
+}
