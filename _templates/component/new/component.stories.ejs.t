@@ -8,7 +8,7 @@ import { argTypes, buildComponent } from './<%=h.changeCase.paramCase(name)%>'
 import { withAngularJs } from '../../../plugins/storybook.angular.decorator'
 
 const meta = {
-	title: 'Library/<%=h.changeCase.headerCase(name)%>',
+	title: 'Library/<%=h.changeCase.headerCase(path)%>/<%=h.changeCase.headerCase(name)%>',
 	tags: ['autodocs'],
 	decorators: [withAngularJs()],
 	parameters: {
