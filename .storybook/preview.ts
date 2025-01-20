@@ -1,5 +1,4 @@
 import type { Preview } from '@storybook/html'
-import { prettifyStorybookPreview } from '../plugins/storybook.prettier'
 import '../app/components/index.css'
 
 const preview: Preview = {
@@ -12,7 +11,8 @@ const preview: Preview = {
 		},
 		docs: {
 			source: {
-				transform: (src, context) => prettifyStorybookPreview(context.originalStoryFn(context.args, context))
+				excludeDecorators: true
+				// transform: (src: string, _: StoryContext) => prettifyStorybookPreview(src)
 			}
 		}
 	}

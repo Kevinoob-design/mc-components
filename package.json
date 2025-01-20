@@ -62,7 +62,7 @@
 		"jsdom": "^24.1.0",
 		"lint-staged": "^15.2.2",
 		"postcss": "^8.5.1",
-		"prettier": "^3.2.5",
+		"prettier": "^3.4.2",
 		"sass": "^1.55.0",
 		"storybook": "^8.4.7",
 		"tailwindcss": "^3.4.17",
