@@ -1,7 +1,7 @@
 // vite.config.js
 import { resolve } from 'path';
 import { defineConfig } from 'vitest/config';
-import { rollupPluginReplaceHtml } from './plugins/vite.plugin';
+import { rollupPluginReplaceHtml } from './plugins/vite.replace-html.plugin';
 
 export default defineConfig({
 	build: {
