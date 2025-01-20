@@ -12,7 +12,7 @@ const preview: Preview = {
 		docs: {
 			source: {
 				excludeDecorators: true
-				// transform: (src: string, _: StoryContext) => prettifyStorybookPreview(src)
+				// transform: prettifyStorybookPreview
 			}
 		}
 	}
