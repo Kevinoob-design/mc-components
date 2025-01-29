@@ -1,4 +1,8 @@
-module.exports = {
+/**
+ * @see https://commitlint.js.org/#/reference-configuration
+ * @type {import('@commitlint/types').UserConfig}
+ */
+const config = {
 	extends: ['@commitlint/config-conventional'],
 	rules: {
 		'header-max-length': [2, 'always', 72],
@@ -12,3 +16,5 @@ module.exports = {
 		'scope-empty': [2, 'never']
 	}
 }
+
+export default config

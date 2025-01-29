@@ -1,3 +1,9 @@
+variable "region" {
+  description = "The AWS region to deploy resources"
+  type        = string
+  default     = "us-east-1"
+}
+
 variable "domain_name" {
   description = "The name of the CodeArtifact domain"
   type        = string
@@ -11,7 +17,6 @@ variable "repository_name" {
 variable "description" {
   description = "The description of the repository"
   type        = string
-  default     = null
 }
 
 variable "tags" {

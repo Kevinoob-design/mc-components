@@ -15,9 +15,10 @@
 		"build": "yarn build:lib && yarn build:storybook",
 		"build:lib": "vite build --config vite.config.dist.mts",
 		"build:storybook": "storybook build -o dist-storybook",
-		"check:fix": "yarn format && yarn lint",
+		"check:fix": "yarn format && tf:format && yarn lint",
 		"lint": "eslint . --ext ts --fix",
 		"format": "prettier \"**/*.{ts,js,json,scss,css,html}\" --write",
+		"tf:format": "terraform fmt -recursive",
 		"husky:prepare": "husky install",
 		"prepare": "husky",
 		"new:c": "hygen component new"
