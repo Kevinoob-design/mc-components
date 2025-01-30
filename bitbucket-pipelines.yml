@@ -80,7 +80,8 @@ pipelines:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn build
       - step:
-          name: Get Token
+          name: Deploy
+          deployment: Prod
           trigger: manual
           image: atlassian/pipelines-awscli
           script:
@@ -90,16 +91,5 @@ pipelines:
 
             - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text`
 
-            - echo "export CODEARTIFACT_AUTH_TOKEN=$CODEARTIFACT_AUTH_TOKEN" >> token.sh
-          artifacts:
-            - token.sh
-      - step:
-          name: Publish CodeArtifact
-          deployment: Prod
-          trigger: manual
-          image: node:22
-          caches:
-            - node
-          script:
-            - source token.sh
             - yarn publish
+            - aws s3 sync dist-storybook s3://mc-storybook-bucket
