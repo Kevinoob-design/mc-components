@@ -83,7 +83,7 @@ pipelines:
           name: Get Token
           deployment: Prod
           trigger: manual
-          image: atlassian/pipelines-awscli
+          image: amazon/aws-cli
           script:
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
             - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
