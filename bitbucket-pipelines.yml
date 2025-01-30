@@ -91,8 +91,10 @@ pipelines:
 
             - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text`
 
-            - yum install https://rpm.nodesource.com/pub_21.x/nodistro/repo/nodesource-release-nodistro-1.noarch.rpm -y
-            - yum install nodejs -y --setopt=nodesource-nodejs.module_hotfixes=1
+            - yum install -y curl
+            - curl -fsSL https://rpm.nodesource.com/setup_22.x -o nodesource_setup.sh
+            - bash nodesource_setup.sh
+            - yum install -y nodejs
             
             - npm install --global yarn
 
