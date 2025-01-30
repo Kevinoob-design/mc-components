@@ -80,7 +80,7 @@ pipelines:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn build
       - step:
-          name: Get Token
+          name: Publish S3 - Get Code Artifact Token
           deployment: Prod
           trigger: manual
           image: amazon/aws-cli
@@ -89,29 +89,20 @@ pipelines:
             - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
             - export AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION
 
-            - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text`
-
-            - yum install -y curl
-            - curl -fsSL https://rpm.nodesource.com/setup_22.x -o nodesource_setup.sh
-            - bash nodesource_setup.sh
-            - yum install -y nodejs
-            
-            - npm install --global yarn
-
-            - yarn publish
             - aws s3 sync dist-storybook s3://mc-storybook-bucket
 
-      #       - echo "export CODEARTIFACT_AUTH_TOKEN=$CODEARTIFACT_AUTH_TOKEN" >> token.sh
-      #     artifacts:
-      #       - token.sh
-      # - step:
-      #     name: Publish CodeArtifact
-      #     deployment: Prod
-      #     trigger: manual
-      #     image: node:22
-      #     caches:
-      #       - node
-      #     script:
-      #       - source token.sh
-      #       - yarn publish
-      #       - aws s3 sync dist-storybook s3://mc-storybook-bucket
+            - export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text`
+
+            - echo "export CODEARTIFACT_AUTH_TOKEN=$CODEARTIFACT_AUTH_TOKEN" >> token.sh
+          artifacts:
+            - token.sh
+      - step:
+          name: Publish CodeArtifact
+          deployment: Prod
+          trigger: manual
+          image: node:22
+          caches:
+            - node
+          script:
+            - source token.sh
+            - yarn publish

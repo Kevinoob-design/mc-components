@@ -1,1 +1,0 @@
-aws s3 sync dist-storybook s3://mc-storybook-bucket
