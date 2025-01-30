@@ -5,6 +5,11 @@ definitions:
         files:
           - yarn.lock
       path: node_modules
+    dist-storybook:
+      key:
+        files:
+          - dist-storybook/index.html
+      path: dist-storybook
 
 pipelines:
   pull-requests:
@@ -76,6 +81,7 @@ pipelines:
               image: node:22
               caches:
                 - node
+                - dist-storybook
               script:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn build
@@ -83,6 +89,8 @@ pipelines:
           name: Publish S3 - Get Code Artifact Token
           trigger: manual
           image: amazon/aws-cli
+          caches:
+            - dist-storybook
           script:
             - export AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID
             - export AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY
