@@ -20,7 +20,8 @@
 		"package.json",
 		"vite.*",
 		"plugins/",
-		"playwright.config.ts"
+		"playwright.config.ts",
+		"tailwind.config.js"
 	],
 	"rules": {
 		"prettier/prettier": [

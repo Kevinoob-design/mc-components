@@ -37,6 +37,14 @@ pipelines:
                 - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn test
           - step:
+              name: e2e
+              image: mcr.microsoft.com/playwright:v1.50.1-noble
+              caches:
+                - node
+              script:
+                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+                - yarn test:playwright
+          - step:
               name: Build
               image: node:22
               caches:

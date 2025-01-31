@@ -10,7 +10,7 @@
 - Asegúrate de que tu código cumpla con las reglas de `ESLint` y `Prettier` configuradas en el proyecto.
 - Los commits deben seguir la convención establecida y describir claramente los cambios realizados.
 - No olvides agregar los cambios al archivo `CHANGELOG` del proyecto.
-- Actualiza la versión del proyecto utilizando el comando `yarn version` de acuerdo a los cambios realizados. usando los flags `--mayor`, `--minor` o `--patch`
+- Actualiza la versión del proyecto utilizando el comando `yarn version` de acuerdo a los cambios realizados. usando los flags `mayor`, `minor` o `patch`
 
 ## Secciones adicionales
 

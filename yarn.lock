@@ -1002,6 +1002,7 @@ __metadata:
     sass: "npm:^1.55.0"
     storybook: "npm:^8.4.7"
     tailwindcss: "npm:^3.4.17"
+    tailwindcss-scoped-preflight: "npm:3.4.10"
     typescript: "npm:^5.4.5"
     vite: "npm:^5.2.3"
     vitest: "npm:^1.6.0"
@@ -7048,6 +7049,16 @@ __metadata:
     "@pkgr/core": "npm:^0.1.0"
     tslib: "npm:^2.6.2"
   checksum: 10c0/e0c262817444e5b872708adb6f5ad37951ba33f6b2d1d4477d45db1f57573a784618ceed5e6614e0225db330632b1f6b95bb74d21e4d013e45ad4bde03d0cb59
+  languageName: node
+  linkType: hard
+
+"tailwindcss-scoped-preflight@npm:3.4.10":
+  version: 3.4.10
+  resolution: "tailwindcss-scoped-preflight@npm:3.4.10"
+  peerDependencies:
+    postcss: ^8
+    tailwindcss: ^3
+  checksum: 10c0/08e36d5d77f5fd8cd96391aadc130a848a71026a654389d4d0c7a08e30f01a1f141ee3e010883a900e044df1e4cda3f21c0151d1409635fb4eb5e9f70081d6e2
   languageName: node
   linkType: hard
 

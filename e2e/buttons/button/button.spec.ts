@@ -4,8 +4,8 @@ import {
 	sbLocatorGetControlPlaceHolder,
 	sbLocatorGetControlSwitch,
 	sbLocatorGetHeading
-} from '../storybook.locator'
-import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../storybook.constants'
+} from '../../storybook.locator'
+import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../storybook.constants'
 
 test.describe('Button Story', () => {
 	const buttonText = 'Button Default Deployed from Pipeline'
