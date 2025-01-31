@@ -7,8 +7,8 @@ import {
 	sbLocatorGetControlPlaceHolder,
 	sbLocatorGetControlSwitch,
 	sbLocatorGetHeading
-} from '../storybook.locator'
-import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../storybook.constants'
+} from '../../storybook.locator'
+import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../storybook.constants'
 
 test.describe('<%=h.changeCase.headerCase(name)%> Story', () => {
 	const buttonText = '<%=h.changeCase.headerCase(name)%> Default'
@@ -22,7 +22,7 @@ test.describe('<%=h.changeCase.headerCase(name)%> Story', () => {
 	})
 
 	test('Should have name Button', async ({ page }) => {
-		await expect(sbLocatorGetHeading(page, 'Button')).toHaveText('Button')
+		await expect(sbLocatorGetHeading(page, '<%=h.changeCase.headerCase(name)%>')).toHaveText('<%=h.changeCase.headerCase(name)%>')
 	})
 
 	test('Should be enabled', async ({ page }) => {
