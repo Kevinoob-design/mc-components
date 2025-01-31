@@ -19,7 +19,8 @@
 		"dist/",
 		"package.json",
 		"vite.*",
-		"plugins/"
+		"plugins/",
+		"playwright.config.ts"
 	],
 	"rules": {
 		"prettier/prettier": [
@@ -86,7 +87,11 @@
 		// 19.2 https://github.com/airbnb/javascript#whitespace--before-blocks
 		"space-before-function-paren": [
 			"error",
-			"never"
+			{
+				"anonymous": "always",
+				"named": "never",
+				"asyncArrow": "always"
+			}
 		],
 		"space-before-blocks": [
 			"error",
@@ -212,7 +217,7 @@
 		// 23.3 https://github.com/airbnb/javascript#naming--camelCase
 		"new-cap": "error",
 		// 24.1 https://eslint.org/docs/rules/no-unused-vars
-		"no-unused-vars": "error",
+		"@typescript-eslint/no-unused-vars": "error",
 		// 24.2 https://eslint.org/docs/rules/no-multiple-empty-lines.html
 		"no-multiple-empty-lines": "error",
 		// 24.4 https://eslint.org/docs/rules/key-spacing.html
