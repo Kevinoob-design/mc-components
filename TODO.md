@@ -8,7 +8,7 @@
 - [x] Add e2e to templating
 - [ ] Add e2e to Bitbucket pipeline
 - [ ] Yarn 4 in pipeline ?
-- [ ] Improve development experience (npmrc is an annoyance when there is no token)
+- [x] Improve development experience (yarnrc is an annoyance when there is no token)
 - [ ] Standardize how components are created, when should we expand a component? when should we create a new one?
 - [x] Add S3 deployment on IAC for SPA StoryBook app
 - [x] Add StoryBook to the mix
