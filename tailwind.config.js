@@ -6,9 +6,5 @@ module.exports = {
 	theme: {
 		extend: {}
 	},
-	plugins: [
-		scopedPreflightStyles({
-			isolationStrategy: isolateInsideOfContainer('.tw')
-		})
-	]
+	plugins: []
 }
