@@ -17,5 +17,5 @@
 - [ ] Update Storybook Doc main Page
 - [x] Improve pipeline (sure there is a lot to do there)
 - [ ] Add Dep Scanning, SAST (maybe also DAST) for security checks to the pipeline? (semgrep, trivy, sonarqube)
-- [ ] Add code smells check into the linter (maybe sonar for eslint)
+- [x] Add code smells check into the linter (maybe sonar for eslint)
 - [x] Add tailwind to the mix (better css config and reusable classes)

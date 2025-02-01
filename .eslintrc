@@ -8,11 +8,13 @@
 	},
 	"plugins": [
 		"prettier",
-		"angular"
+		"angular",
+		"sonarjs"
 	], // https://github.com/Gillespie59/eslint-plugin-angular
 	"extends": [
 		"prettier",
-		"plugin:@typescript-eslint/recommended"
+		"plugin:@typescript-eslint/recommended",
+		"plugin:sonarjs/recommended-legacy"
 	],
 	"ignorePatterns": [
 		"node_modules/",

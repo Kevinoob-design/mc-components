@@ -1,5 +1,5 @@
 import './app.html'
-class controller {
+class WebAppController {
 	click() {
 		alert('Hello, World!')
 	}
@@ -8,5 +8,5 @@ class controller {
 export const WebAppComponent = {
 	bindings: {},
 	templateUrl: 'app/app.html',
-	controller
+	controller: WebAppController
 }
