@@ -1,7 +1,10 @@
 import type { Preview } from '@storybook/html'
 import '../app/components/index.css'
+import { withAngularJs } from '../plugins/storybook.angular.decorator'
 
 const preview: Preview = {
+	tags: ['autodocs'],
+	decorators: [withAngularJs()],
 	parameters: {
 		controls: {
 			matchers: {
@@ -11,7 +14,8 @@ const preview: Preview = {
 		},
 		docs: {
 			source: {
-				excludeDecorators: true
+				excludeDecorators: true,
+				format: true
 				// transform: prettifyStorybookPreview
 			}
 		}

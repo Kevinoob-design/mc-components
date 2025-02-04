@@ -2057,6 +2057,7 @@ __metadata:
     "@storybook/html": "npm:^8.4.7"
     "@storybook/html-vite": "npm:^8.4.7"
     "@storybook/test": "npm:^8.4.7"
+    "@types/angular": "npm:^1.8.9"
     "@types/node": "npm:^22.12.0"
     "@typescript-eslint/eslint-plugin": "npm:^7.11.0"
     "@typescript-eslint/parser": "npm:^7.11.0"
@@ -2878,6 +2879,13 @@ __metadata:
   peerDependencies:
     "@testing-library/dom": ">=7.21.4"
   checksum: 10c0/68a0c2aa28a3c8e6eb05cafee29705438d7d8a9427423ce5064d44f19c29e89b5636de46dd2f28620fb10abba75c67130185bbc3aa23ac1163a227a5f36641e1
+  languageName: node
+  linkType: hard
+
+"@types/angular@npm:^1.8.9":
+  version: 1.8.9
+  resolution: "@types/angular@npm:1.8.9"
+  checksum: 10c0/dc73b4b97616e5c59201c323b3d38af0316db200c67774d40a3a280c288d6545f54b8d98aa814386e14bd48bde6af876592b12910cd518d6079a96306ea191da
   languageName: node
   linkType: hard
 

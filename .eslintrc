@@ -23,7 +23,8 @@
 		"vite.*",
 		"plugins/",
 		"playwright.config.ts",
-		"tailwind.config.js"
+		"tailwind.config.js",
+		"__test__/"
 	],
 	"rules": {
 		"prettier/prettier": [
@@ -241,7 +242,7 @@
 		// 24.9 https://eslint.org/docs/rules/no-unreachable.html
 		"no-unreachable": "error",
 		// 24.10 https://eslint.org/docs/rules/no-useless-constructor.html
-		"no-useless-constructor": "error",
+		// "no-useless-constructor": "error",
 		// 24.11 https://eslint.org/docs/rules/object-property-newline.html
 		"object-property-newline": "error",
 		// 24.12 https://eslint.org/docs/rules/padded-blocks.html

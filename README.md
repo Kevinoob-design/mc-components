@@ -22,6 +22,8 @@ Listo, con esto puedes iniciar desarrollo usando las configuraciones de `launch.
 
 * Desde la misma configuración de `Run and Debug` para pruebas unitarias y debug ejecutar un archivo en especifico de prueba unitaria usando la configuración `Debug Current Test File`
 
+* AngularJs types https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/angular
+
 ### Pautas de contribución ###
 
 * [Leer la guía de contribución](docs/CONTRIBUTING)
