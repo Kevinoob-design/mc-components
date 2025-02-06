@@ -2,7 +2,7 @@ import { ISCEService } from 'angular'
 import { column, TableProps } from './table.types'
 
 class TableController implements TableProps {
-	rows: unknown[]
+	rows: object[]
 	columns: column[]
 
 	constructor(private $sce: ISCEService) {}
