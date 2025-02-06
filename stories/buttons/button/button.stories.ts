@@ -1,13 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/html'
-import { withAngularJs } from '../../../plugins/storybook.angular.decorator'
 import { componentLogAction } from '../../shared'
 import { ButtonModule, ButtonProps } from '../../../app/components/buttons'
 import { argTypes, buildComponent } from './button'
 
 const meta = {
 	title: 'Library/Buttons/Button',
-	tags: ['autodocs'],
-	decorators: [withAngularJs()],
 	parameters: {
 		angularJs: {
 			module: ButtonModule

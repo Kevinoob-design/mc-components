@@ -3,7 +3,7 @@ import { TableModule } from './table.module'
 import { tableComponent } from './table.component'
 import { TableController } from './table.controller'
 
-describe('Primary Button', () => {
+describe('Table', () => {
 	describe('TableModule', () => {
 		vi.mock('./table.component', () => ({
 			tableComponent: {}

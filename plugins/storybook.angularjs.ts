@@ -5,7 +5,7 @@ type Hooks = { beforeCompile: () => void; beforeUpdate: () => void }
 /**
  * Compiles the given template with the given props into the given element.
  */
-export function buildAngularJsElement(element: HTMLElement, template: string, props = Object, hooks: Hooks) {
+export function buildAngularJsElement(element: HTMLElement, template: string, props: Object, hooks: Hooks) {
 	const $element = angular.element(element)
 	const $injector = $element.injector()
 
@@ -33,7 +33,7 @@ export function buildAngularJsElement(element: HTMLElement, template: string, pr
 /**
  * Updates the given element with the given props.
  */
-export function updateAngularJsElement(element: HTMLElement, props = Object, hooks: Hooks) {
+export function updateAngularJsElement(element: HTMLElement, props: Object, hooks: Hooks) {
 	const $element = angular.element(element)
 	const $injector = $element.injector()
 

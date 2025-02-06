@@ -6,7 +6,7 @@ import { <%=h.changeCase.pascal(name)%>Module } from './<%=h.changeCase.paramCas
 import { <%=h.changeCase.camel(name)%>Component } from './<%=h.changeCase.paramCase(name)%>.component'
 import { <%=h.changeCase.pascal(name)%>Controller } from './<%=h.changeCase.paramCase(name)%>.controller'
 
-describe('Primary Button', () => {
+describe('<%=h.changeCase.pascal(name)%>', () => {
 	describe('<%=h.changeCase.pascal(name)%>Module', () => {
 		vi.mock('./<%=h.changeCase.paramCase(name)%>.component', () => ({
 			<%=h.changeCase.camel(name)%>Component: {}

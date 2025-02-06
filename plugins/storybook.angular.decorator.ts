@@ -7,18 +7,21 @@
 
 import angular from 'angular'
 import { buildAngularJsElement, updateAngularJsElement } from './storybook.angularjs'
+import { Args, StrictArgTypes, PartialStoryFn, StoryContext } from '@storybook/core/types'
 
 export function withAngularJs() {
 	const cache = {}
 
-	return (story, context) => {
+	return (story: PartialStoryFn, context: StoryContext) => {
+		context.args = restoreFunctionsFromArgTypes(context.args, context.argTypes)
+
 		const { module, hooks, mock, rebuild } = context.parameters.angularJs
 
-		const template = story()
+		const template = story() as string
 
 		const key = context.id
 
-		const { currentPhase } = context.hooks
+		const { currentPhase } = context.hooks as any
 
 		const element = document.createElement('div')
 
@@ -76,4 +79,35 @@ export function withAngularJs() {
 
 		return updateAngularJsElement(element, context.args, hooks)
 	}
+}
+
+function restoreFunctionsFromArgTypes(args: Args, argTypes: StrictArgTypes) {
+	if (!args || typeof args !== 'object' || !argTypes) return args
+
+	if (Array.isArray(args)) {
+		// If args is an array, recursively process each item
+		return args.map(item => restoreFunctionsFromArgTypes(item, argTypes.value || {}))
+	}
+
+	return Object.keys(args).reduce((acc, key) => {
+		const value = args[key]
+		const typeInfo = argTypes[key]?.type || argTypes[key] // Support different type structures
+
+		if (typeInfo?.name === 'function' && typeof value === 'string') {
+			try {
+				acc[key] = eval(`(${value})`) // Restore function
+			} catch (e) {
+				console.warn(`Failed to parse function for key: ${key}`, e)
+				acc[key] = () => {} // Fallback to empty function
+			}
+		} else if (Array.isArray(value)) {
+			acc[key] = restoreFunctionsFromArgTypes(value, 'value' in typeInfo ? typeInfo.value : {})
+		} else if (typeof value === 'object' && value !== null) {
+			acc[key] = restoreFunctionsFromArgTypes(value, 'value' in typeInfo ? typeInfo?.value : {})
+		} else {
+			acc[key] = value
+		}
+
+		return acc
+	}, {})
 }

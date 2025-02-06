@@ -2,15 +2,12 @@
 to: stories/<%=h.changeCase.paramCase(path)%>/<%=h.changeCase.paramCase(name)%>/<%=h.changeCase.paramCase(name)%>.stories.ts
 ---
 import type { Meta, StoryObj } from '@storybook/html'
-import { withAngularJs } from '../../../plugins/storybook.angular.decorator'
 import { componentLogAction } from '../../shared'
 import { <%=h.changeCase.pascal(name)%>Module, <%=h.changeCase.pascal(name)%>Props } from '../../../app/components/<%=h.changeCase.paramCase(path)%>'
 import { argTypes, buildComponent } from './<%=h.changeCase.paramCase(name)%>'
 
 const meta = {
 	title: 'Library/<%=h.changeCase.headerCase(path)%>/<%=h.changeCase.headerCase(name)%>',
-	tags: ['autodocs'],
-	decorators: [withAngularJs()],
 	parameters: {
 		angularJs: {
 			module: <%=h.changeCase.pascal(name)%>Module
