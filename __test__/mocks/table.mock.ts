@@ -1,7 +1,7 @@
 import { column } from '../../app/components/tables'
 import { html } from '../../stories/shared'
 
-export const rows: unknown[] = [
+export const rows = [
 	{
 		name: 'John Michael',
 		function: 'Manager',

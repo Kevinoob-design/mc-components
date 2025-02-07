@@ -22,7 +22,7 @@ export const Default: Story = {
 	args: {
 		disabled: false,
 		loading: false,
-		label: 'Button Default Deployed from Pipeline',
+		label: 'Button Default',
 		onClick: () => componentLogAction('Button', 'Clicked')
 	}
 }

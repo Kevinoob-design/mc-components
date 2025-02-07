@@ -6,11 +6,14 @@
 
 - Los cambios deben ser `mínimos` y enfocados en una sola funcionalidad o corrección.
 - Asegúrate de que los cambios estén cubiertos por `pruebas unitarias`, manteniendo una `cobertura del 100%`.
+- Agregar e2e testing a los componentes nuevos de storybook o actualizar los test que fueron afectados por algun cambio
 - Sigue las convenciones de nomenclatura para las variables y métodos establecidas en el proyecto.
 - Asegúrate de que tu código cumpla con las reglas de `ESLint` y `Prettier` configuradas en el proyecto.
 - Los commits deben seguir la convención establecida y describir claramente los cambios realizados.
 - No olvides agregar los cambios al archivo `CHANGELOG` del proyecto.
 - Actualiza la versión del proyecto utilizando el comando `yarn version` de acuerdo a los cambios realizados. usando los flags `mayor`, `minor` o `patch`
+- Seguir [branch convencional](https://conventional-branch.github.io/)
+- Seguir [commits convencionales](https://www.conventionalcommits.org/en/v1.0.0/)
 
 ## Secciones adicionales
 

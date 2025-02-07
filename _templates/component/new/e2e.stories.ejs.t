@@ -21,7 +21,7 @@ test.describe('<%=h.changeCase.headerCase(name)%> Story', () => {
 		await page.goto(`${STORYBOOK_URL}/${STORYBOOK_DOCS_PATH}/library-<%=path%>-<%=name%>--docs`)
 	})
 
-	test('Should have name Button', async ({ page }) => {
+	test('Should have name <%=h.changeCase.headerCase(name)%>', async ({ page }) => {
 		await expect(sbLocatorGetHeading(page, '<%=h.changeCase.headerCase(name)%>')).toHaveText('<%=h.changeCase.headerCase(name)%>')
 	})
 

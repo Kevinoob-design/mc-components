@@ -3,22 +3,35 @@ import { playwrightRoleType } from './playwright.types'
 
 export const storybookIframeSelector = 'iframe[title="storybook-preview-iframe"]'
 
-export enum sbControlType {
+export enum sbRoleType {
 	HEADING = 'heading',
 	SWITCH = 'switch',
-	BUTTON = 'button'
+	BUTTON = 'button',
+	TEXTBOX = 'textbox',
+	LINK = 'link',
+	TABLE = 'table',
+	TABLE_ROW = 'row',
+	TABLE_CELL = 'cell'
 }
 
-export const sbLocatorGetControl = (page: Page, control: playwrightRoleType, name: string) =>
-	page.locator(storybookIframeSelector).contentFrame().getByRole(control, { name })
+export const sbLocatorGetByRoleName = (page: Page, role: playwrightRoleType, name: string) =>
+	page.locator(storybookIframeSelector).contentFrame().getByRole(role, { name })
 
-export const sbLocatorGetControlPlaceHolder = (page: Page, name: string) =>
-	page.locator(storybookIframeSelector).contentFrame().getByPlaceholder(name)
+export const sbLocatorGetByPlaceHolder = (page: Page, text: string) =>
+	page.locator(storybookIframeSelector).contentFrame().getByPlaceholder(text)
 
-export const sbLocatorGetHeading = (page: Page, name: string) => sbLocatorGetControl(page, sbControlType.HEADING, name)
+export const sbLocatorGetByLocator = (page: Page, locator: string) =>
+	page.locator(storybookIframeSelector).contentFrame().locator(locator)
 
-export const sbLocatorGetControlSwitch = (page: Page, name: string) =>
-	sbLocatorGetControl(page, sbControlType.SWITCH, name)
+export const sbLocatorGetHeading = (page: Page, name: string) => sbLocatorGetByRoleName(page, sbRoleType.HEADING, name)
 
-export const sbLocatorGetControlButton = (page: Page, name: string) =>
-	sbLocatorGetControl(page, sbControlType.BUTTON, name)
+export const sbLocatorGetSwitch = (page: Page, name: string) => sbLocatorGetByRoleName(page, sbRoleType.SWITCH, name)
+
+export const sbLocatorGetButton = (page: Page, name: string) => sbLocatorGetByRoleName(page, sbRoleType.BUTTON, name)
+
+export const sbLocatorGetTable = (page: Page, name: string = '') => sbLocatorGetByRoleName(page, sbRoleType.TABLE, name)
+
+export const sbLocatorGetRow = (page: Page, name: string = '') =>
+	sbLocatorGetByRoleName(page, sbRoleType.TABLE_ROW, name)
+
+export const sbLocatorGetCell = (page: Page, name: string) => sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, name)
