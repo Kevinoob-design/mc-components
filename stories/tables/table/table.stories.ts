@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html'
 import { TableModule, TableProps } from '../../../app/components/tables'
 import { argTypes, buildComponent } from './table'
-import { columns, rows } from '../../../__test__/mocks/table.mock'
+import { columns, mockRow, rows } from '../../../__test__/mocks/table.mock'
 
 const meta = {
 	title: 'Library/Tables/Table',
@@ -17,11 +17,11 @@ const meta = {
 	},
 	argTypes,
 	render: args => buildComponent(args)
-} satisfies Meta<TableProps>
+} satisfies Meta<TableProps<mockRow>>
 
 export default meta
 
-type Story = StoryObj<TableProps>
+type Story = StoryObj<TableProps<mockRow>>
 
 export const Default: Story = {
 	args: {

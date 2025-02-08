@@ -1,10 +1,12 @@
-export type TableProps = {
-	columns: column[]
-	rows: unknown[]
+export type TableProps<T> = {
+	columns: column<T>[]
+	rows: row<T[]>
 }
 
-export type column = {
+export type column<T> = {
 	title: string
 	key: string
-	render?: (template: string, value: string) => string
+	render?: (row: row<T>, columnKey: string) => string
 }
+
+export type row<T> = object & T

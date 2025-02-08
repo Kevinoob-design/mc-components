@@ -1,7 +1,14 @@
-import { column } from '../../app/components/tables'
+import { column, row } from '../../app/components/tables'
 import { html } from '../../stories/shared'
 
-export const rows = [
+export type mockRow = {
+	name: string
+	function: string
+	status: string
+	employedDate: string
+}
+
+export const rows: row<mockRow[]> = [
 	{
 		name: 'John Michael',
 		function: 'Manager',
@@ -28,25 +35,31 @@ export const rows = [
 	}
 ]
 
-export const columns: column[] = [
+export const columns: column<mockRow>[] = [
 	{
 		title: 'Member',
 		key: 'name',
-		render: (template: string, value: string) => html`<p class="text-sm font-semibold text-slate-700">${value}</p>`
+		render: (row: row<mockRow>, columnKey: string) =>
+			html`<p class="text-sm font-semibold text-slate-700">${row[columnKey]}</p>`
 	},
 	{
 		title: 'Function',
 		key: 'function',
-		render: (template: string, value: string) => html`<p class="text-sm font-semibold text-slate-700">${value}</p>`
+		render: (row: row<mockRow>, columnKey: string) =>
+			html`<p class="text-sm font-semibold text-slate-700">${row[columnKey]}</p>`
 	},
 	{
 		title: 'Status',
 		key: 'status',
-		render: (template: string, value: string) => html`
+		render: (row: row<mockRow>, columnKey: string) => html`
 			<div class="w-max">
 				<div
-					class="relative grid items-center px-2 py-1 font-sans text-xs font-bold text-green-900 uppercase rounded-md select-none whitespace-nowrap bg-green-500/20">
-					<span class="">${value}</span>
+					class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap ${row[
+						columnKey
+					] === 'ONLINE'
+						? 'bg-green-500/20 text-green-900'
+						: 'bg-slate-500/20 text-slate-900'}">
+					<span class="">${row[columnKey]}</span>
 				</div>
 			</div>
 		`
@@ -54,7 +67,8 @@ export const columns: column[] = [
 	{
 		title: 'Employed',
 		key: 'employedDate',
-		render: (template: string, value: string) => html`<p class="text-sm font-semibold text-slate-700">${value}</p>`
+		render: (row: row<mockRow>, columnKey: string) =>
+			html`<p class="text-sm font-semibold text-slate-700">${row[columnKey]}</p>`
 	},
 	{
 		title: '',

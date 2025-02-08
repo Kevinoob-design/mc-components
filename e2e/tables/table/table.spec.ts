@@ -111,7 +111,7 @@ test.describe('Table Story', () => {
 
 	test('Should render an anchor element', async ({ page }) => {
 		// @ts-expect-error necesario ya que al pasarlo como JSON se pierde la función.
-		columns[2].render = '(template, value) => `<a href="#">${value}</a>`'
+		columns[2].render = '(row, columnKey) => `<a href="#">${row[columnKey]}?</a>`'
 
 		const rawControlNth = 0
 		const rawControlLocator = 'RAW'
@@ -137,6 +137,6 @@ test.describe('Table Story', () => {
 				.getByRole(sbRoleType.TABLE_CELL)
 				.nth(2)
 				.getByRole(sbRoleType.LINK)
-		).toHaveRole('link')
+		).toHaveText('OFFLINE?')
 	})
 })

@@ -40,7 +40,7 @@ describe('Table', () => {
 
 	describe('TableController', () => {
 		let $sce: Partial<ISCEService>
-		let tableController: TableController
+		let tableController: TableController<{ name: string; age: number }>
 
 		beforeEach(() => {
 			$sce = {
@@ -55,7 +55,7 @@ describe('Table', () => {
 				{
 					key: 'age',
 					title: 'Age',
-					render: (title, value) => `<b>${value}</b>`
+					render: (row, columnKey) => `<b>${row[columnKey]}</b>`
 				}
 			]
 			tableController.rows = [
@@ -93,7 +93,7 @@ describe('Table', () => {
 
 			$sce.trustAsHtml = vi.fn().mockReturnValue(renderedValue)
 
-			expect(tableController.renderColumn(row, index)).toBe(renderedValue)
+			expect(tableController.renderColumn(row, column)).toBe(renderedValue)
 			expect($sce.trustAsHtml).toHaveBeenCalledWith(renderedValue)
 		})
 
@@ -102,7 +102,7 @@ describe('Table', () => {
 			const index = 0
 			const column = tableController.columns[index]
 
-			expect(tableController.renderColumn(row, index)).toBe(row[column.key])
+			expect(tableController.renderColumn(row, column)).toBe(row[column.key])
 		})
 	})
 })

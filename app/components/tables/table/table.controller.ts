@@ -1,25 +1,23 @@
 import { ISCEService } from 'angular'
-import { column, TableProps } from './table.types'
+import { column, row, TableProps } from './table.types'
 
-class TableController implements TableProps {
-	rows: object[]
-	columns: column[]
+class TableController<T> implements TableProps<T> {
+	rows: row<T[]>
+	columns: column<T>[]
 
 	constructor(private $sce: ISCEService) {}
 
-	getRowValue(row: object, key: string): string {
+	getRowValue(row: row<T>, key: string): string {
 		return row[key] ?? ''
 	}
 
-	getHeader(column: column): string {
+	getHeader(column: column<T>): string {
 		return column.title
 	}
 
-	renderColumn(row: object, index: number): string {
-		const column = this.columns[index]
-
+	renderColumn(row: row<T>, column: column<T>): string {
 		if (column.render) {
-			return this.$sce.trustAsHtml(column.render(column.title, this.getRowValue(row, column.key)))
+			return this.$sce.trustAsHtml(column.render(row, column.key))
 		}
 
 		return this.getRowValue(row, column.key)
