@@ -45,6 +45,14 @@ test.describe('Button Story', () => {
 		await expect(buttonLocator).toHaveText(`${buttonText} ...`)
 	})
 
+	test('Should have loading spinner', async ({ page }) => {
+		const buttonLocator = sbLocatorGetButton(page, buttonText).first()
+		const loadingControlLocator = sbLocatorGetSwitch(page, loadingControlName)
+
+		await loadingControlLocator.check()
+		await expect(buttonLocator.getByRole('img')).toBeVisible()
+	})
+
 	test('Should have updated label', async ({ page }) => {
 		const buttonText = 'Button Default With New Name'
 

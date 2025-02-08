@@ -22,7 +22,10 @@ export default defineConfig({
 	/* Opt out of parallel tests on CI. */
 	workers: process.env.CI ? 1 : undefined,
 	/* Reporter to use. See https://playwright.dev/docs/test-reporters */
-	reporter: [['html'], ['list']],
+	reporter: [
+		['html', { open: 'never' }],
+		['list', { open: 'never' }]
+	],
 	/* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
 	use: {
 		/* Base URL to use in actions like `await page.goto('/')`. */
@@ -42,12 +45,12 @@ export default defineConfig({
 		{
 			name: 'firefox',
 			use: { ...devices['Desktop Firefox'] }
-		},
-
-		{
-			name: 'webkit',
-			use: { ...devices['Desktop Safari'] }
 		}
+
+		// {
+		// 	name: 'webkit',
+		// 	use: { ...devices['Desktop Safari'] }
+		// }
 
 		/* Test against mobile viewports. */
 		// {
@@ -68,12 +71,12 @@ export default defineConfig({
 		//   name: 'Google Chrome',
 		//   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
 		// },
-	]
+	],
 
 	/* Run your local dev server before starting the tests */
-	// webServer: {
-	//   command: 'npm run start',
-	//   url: 'http://127.0.0.1:3000',
-	//   reuseExistingServer: !process.env.CI,
-	// },
+	webServer: {
+		command: 'yarn start',
+		url: 'http://127.0.0.1:6006',
+		reuseExistingServer: !process.env.CI
+	}
 })

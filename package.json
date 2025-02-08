@@ -7,6 +7,7 @@
 	"author": "Hector Morales",
 	"license": "UNLICENSED",
 	"scripts": {
+		"prepare": "husky",
 		"start": "yarn dev:storybook",
 		"dev:storybook": "storybook dev -p 6006",
 		"dev:sample": "vite serve",
@@ -19,12 +20,10 @@
 		"build:lib": "vite build --config vite.config.dist.mts",
 		"build:storybook": "storybook build -o dist-storybook",
 		"build:storybook:docs": "storybook build --docs -o dist-storybook",
-		"check:fix": "yarn format && tf:format && yarn lint",
 		"lint": "eslint . --ext ts --fix",
 		"format": "prettier \"**/*.{ts,js,json,scss,css,html}\" --write",
 		"tf:format": "terraform fmt -recursive",
-		"husky:prepare": "husky install",
-		"prepare": "husky",
+		"check:fix": "yarn format && tf:format && yarn lint",
 		"new:c": "hygen component new"
 	},
 	"dependencies": {
