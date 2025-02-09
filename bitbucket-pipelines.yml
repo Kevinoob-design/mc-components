@@ -16,7 +16,7 @@ pipelines:
           caches:
             - node
           script:
-            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+            - yarn set version stable
             - yarn
       - parallel:
           - step:
@@ -25,7 +25,6 @@ pipelines:
               caches:
                 - node
               script:
-                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn prettier '*.{.ts,scss,css,html}' --check
                 - yarn eslint . --ext ts
           - step:
@@ -34,7 +33,6 @@ pipelines:
               caches:
                 - node
               script:
-                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn test
           - step:
               name: e2e
@@ -42,7 +40,6 @@ pipelines:
               caches:
                 - node
               script:
-                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn test:playwright
           - step:
               name: Build
@@ -50,7 +47,6 @@ pipelines:
               caches:
                 - node
               script:
-                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn build
   branches:
     main:
@@ -60,7 +56,7 @@ pipelines:
           caches:
             - node
           script:
-            - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
+            - yarn set version stable
             - yarn
       - parallel:
           - step:
@@ -69,7 +65,6 @@ pipelines:
               caches:
                 - node
               script:
-                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn prettier '*.{.ts,scss,css,html}' --check
                 - yarn eslint . --ext ts
           - step:
@@ -78,8 +73,14 @@ pipelines:
               caches:
                 - node
               script:
-                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn test
+          - step:
+              name: e2e
+              image: mcr.microsoft.com/playwright:v1.50.1-noble
+              caches:
+                - node
+              script:
+                - yarn test:playwright
           - step:
               name: Build
               image: node:22
@@ -87,7 +88,6 @@ pipelines:
                 - node
                 - dist-storybook
               script:
-                - export CODEARTIFACT_AUTH_TOKEN="CODEARTIFACT_AUTH_TOKEN"
                 - yarn build
       - step:
           name: Publish S3 - Get Code Artifact Token
