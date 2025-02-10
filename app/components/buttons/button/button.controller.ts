@@ -1,6 +1,7 @@
+import { IComponentController } from 'angular'
 import { ButtonProps } from './button.types'
 
-class ButtonController implements ButtonProps {
+class ButtonController implements IComponentController, ButtonProps {
 	disabled?: boolean
 	loading?: boolean
 	label: string

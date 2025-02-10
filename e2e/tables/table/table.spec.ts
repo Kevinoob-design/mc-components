@@ -16,10 +16,10 @@ test.describe('Table Story', () => {
 		await expect(sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW)).toHaveCount(5)
 	})
 
-	test('Should have 5 columns', async ({ page }) => {
+	test(`Should have ${columns.length} columns`, async ({ page }) => {
 		await expect(
 			sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW).first().getByRole(sbRoleType.TABLE_CELL)
-		).toHaveCount(5)
+		).toHaveCount(columns.length)
 	})
 
 	test('Should have name of Jane Doe', async ({ page }) => {
@@ -107,36 +107,5 @@ test.describe('Table Story', () => {
 		await expect(
 			sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW).first().getByRole(sbRoleType.TABLE_CELL)
 		).toHaveCount(2)
-	})
-
-	test('Should render an anchor element', async ({ page }) => {
-		// @ts-expect-error necesario ya que al pasarlo como JSON se pierde la función.
-		columns[2].render = '(row, columnKey) => `<a href="#">${row[columnKey]}?</a>`'
-
-		const rawControlNth = 0
-		const rawControlLocator = 'RAW'
-		const textBoxControlLocator = 'Edit JSON string...'
-
-		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
-			.getByRole(sbRoleType.BUTTON)
-			.nth(rawControlNth)
-			.click()
-
-		await sbLocatorGetByRoleName(page, sbRoleType.TEXTBOX, textBoxControlLocator).fill(JSON.stringify(columns))
-
-		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
-			.getByRole(sbRoleType.BUTTON)
-			.nth(rawControlNth)
-			.click()
-
-		await expect(
-			sbLocatorGetTable(page)
-				.first()
-				.getByRole(sbRoleType.TABLE_ROW)
-				.nth(2)
-				.getByRole(sbRoleType.TABLE_CELL)
-				.nth(2)
-				.getByRole(sbRoleType.LINK)
-		).toHaveText('OFFLINE?')
 	})
 })

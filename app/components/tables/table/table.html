@@ -5,8 +5,8 @@
 				ng-repeat="column in $ctrl.columns"
 				class="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-100 hover:bg-slate-200">
 				<p
-					class="flex items-center justify-between gap-2 font-sans text-sm font-bold leading-none text-slate-500">
-					{{$ctrl.getHeader(column)}}
+					class="flex items-center justify-between only-child:justify-end gap-2 font-sans text-sm font-bold leading-none text-slate-500">
+					<span>{{column.title}}</span>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
 						fill="none"
@@ -31,7 +31,7 @@
 			<td
 				ng-repeat="column in $ctrl.columns"
 				class="p-4 border-b border-slate-200">
-				<ng-bind-html ng-bind-html="$ctrl.renderColumn(row, column)"></ng-bind-html>
+				<ng-transclude ng-transclude-slot="cell{{$index}}"></ng-transclude>
 			</td>
 		</tr>
 	</tbody>

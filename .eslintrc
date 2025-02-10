@@ -24,7 +24,8 @@
 		"plugins/",
 		"playwright.config.ts",
 		"tailwind.config.js",
-		"__test__/"
+		"__test__/",
+		"stories/"
 	],
 	"rules": {
 		"prettier/prettier": [

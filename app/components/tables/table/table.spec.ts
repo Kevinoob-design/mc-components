@@ -2,7 +2,6 @@ import { expect, describe, test, vi, beforeEach } from 'vitest'
 import { TableModule } from './table.module'
 import { tableComponent } from './table.component'
 import { TableController } from './table.controller'
-import { ISCEService } from 'angular'
 
 describe('Table', () => {
 	describe('TableModule', () => {
@@ -39,14 +38,10 @@ describe('Table', () => {
 	})
 
 	describe('TableController', () => {
-		let $sce: Partial<ISCEService>
 		let tableController: TableController<{ name: string; age: number }>
 
 		beforeEach(() => {
-			$sce = {
-				trustAsHtml: vi.fn()
-			}
-			tableController = new TableController($sce as ISCEService)
+			tableController = new TableController()
 			tableController.columns = [
 				{
 					key: 'name',
@@ -54,8 +49,7 @@ describe('Table', () => {
 				},
 				{
 					key: 'age',
-					title: 'Age',
-					render: (row, columnKey) => `<b>${row[columnKey]}</b>`
+					title: 'Age'
 				}
 			]
 			tableController.rows = [
@@ -72,37 +66,6 @@ describe('Table', () => {
 
 		test('should be defined', () => {
 			expect(tableController).toBeDefined()
-		})
-
-		test('getRowValue should return correct value', () => {
-			expect(tableController.getRowValue(tableController.rows[0], 'name')).toBe('John')
-			expect(tableController.getRowValue(tableController.rows[1], 'age')).toBe(25)
-			expect(tableController.getRowValue(tableController.rows[0], 'nonexistent')).toBe('')
-		})
-
-		test('getHeader should return correct header', () => {
-			expect(tableController.getHeader(tableController.columns[0])).toBe('Name')
-			expect(tableController.getHeader(tableController.columns[1])).toBe('Age')
-		})
-
-		test('renderColumn should return trusted HTML if render function is defined', () => {
-			const [row] = tableController.rows
-			const index = 1
-			const column = tableController.columns[index]
-			const renderedValue = `<b>${row[column.key]}</b>`
-
-			$sce.trustAsHtml = vi.fn().mockReturnValue(renderedValue)
-
-			expect(tableController.renderColumn(row, column)).toBe(renderedValue)
-			expect($sce.trustAsHtml).toHaveBeenCalledWith(renderedValue)
-		})
-
-		test('renderColumn should return raw value if render function is not defined', () => {
-			const [row] = tableController.rows
-			const index = 0
-			const column = tableController.columns[index]
-
-			expect(tableController.renderColumn(row, column)).toBe(row[column.key])
 		})
 	})
 })
