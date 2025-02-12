@@ -10,7 +10,7 @@ export const argTypes: Partial<ArgTypes<IconEditProps>> = {
 	},
 	color: {
 		control: 'select',
-		options: ['fill-slate-900', 'fill-green-900', 'fill-red-900'],
+		options: ['fill-slate-900', 'fill-white', 'fill-green-900', 'fill-red-900'],
 		table: { defaultValue: { summary: 'fill-slate-900' } }
 	}
 }

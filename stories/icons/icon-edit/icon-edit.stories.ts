@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from '@storybook/html'
-import { componentLogAction } from '../../shared'
 import { IconEditModule, IconEditProps } from '../../../app/components/icons'
 import { argTypes, buildComponent } from './icon-edit'
 
@@ -7,7 +6,7 @@ const meta = {
 	title: 'Library/Icons/Icon-Edit',
 	parameters: {
 		angularJs: {
-			module: IconEditModule
+			module: [IconEditModule]
 		}
 	},
 	argTypes,
