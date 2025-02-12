@@ -9,7 +9,14 @@ export const argTypes: Partial<ArgTypes<TableProps<mockRow>>> = {
 	rows: { control: 'object' }
 }
 
-export const buildComponent = ({ label, disabled, loading }: TableProps<mockRow> & ButtonProps) => html`
+export const buildComponent = ({}: TableProps<mockRow> & ButtonProps) => html`
+	<mc-table
+		columns="columns"
+		rows="rows">
+	</mc-table>
+`
+
+export const buildComplexComponent = ({ label, disabled, loading }: TableProps<mockRow> & ButtonProps) => html`
 	<mc-table
 		columns="columns"
 		rows="rows">
@@ -26,9 +33,9 @@ export const buildComponent = ({ label, disabled, loading }: TableProps<mockRow>
 		</mc-table-cell-5>
 		<mc-table-cell-6>
 			<mc-button
-				text="${label}"
-				disabled="${disabled}"
-				loading="${loading}"
+				text="{{$parent.row.status === 'ONLINE' ? 'Connect' : ' Contacting'}}"
+				disabled="$parent.row.status === 'ONLINE' ? false : true"
+				loading="$parent.row.status === 'ONLINE' ? false : true"
 				on-click="onClick()">
 			</mc-button>
 		</mc-table-cell-6>

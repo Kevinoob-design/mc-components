@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html'
 import { TableModule, TableProps } from '../../../app/components/tables'
-import { argTypes, buildComponent } from './table'
+import { argTypes, buildComponent, buildComplexComponent } from './table'
 import { columns, mockRow, rows } from '../../../__test__/mocks/table.mock'
 import { ButtonModule, ButtonProps, IconButtonModule } from '../../../app/components/buttons'
 import { ChipModule } from '../../../app/components/chips'
@@ -28,6 +28,15 @@ export default meta
 type Story = StoryObj<TableProps<mockRow> & ButtonProps>
 
 export const Default: Story = {
+	args: {
+		columns: columns.map(c => ({ key: c.key, title: c.title })).filter(c => c.title),
+		rows
+	}
+}
+
+export const Complex: Story = {
+	name: 'Table with custom cell components and logic',
+	render: args => buildComplexComponent(args),
 	args: {
 		columns,
 		rows,

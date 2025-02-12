@@ -26,6 +26,7 @@ export default defineConfig({
 		root: 'app/components',
 		environment: 'jsdom',
 		coverage: {
+			reportsDirectory: '../../coverage',
 			provider: 'istanbul',
 			reporter: ['html', 'json', 'text'],
 			thresholds: {

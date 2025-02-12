@@ -9,17 +9,17 @@ test.describe('Table Story', () => {
 	})
 
 	test('Should have name Table', async ({ page }) => {
-		await expect(sbLocatorGetHeading(page, 'Table')).toHaveText('Table')
+		await expect(sbLocatorGetHeading(page, 'Table').first()).toHaveText('Table')
 	})
 
 	test('Should have 1 header row and 4 data rows', async ({ page }) => {
 		await expect(sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW)).toHaveCount(5)
 	})
 
-	test(`Should have ${columns.length} columns`, async ({ page }) => {
+	test(`Should have ${columns.length - 2} columns`, async ({ page }) => {
 		await expect(
 			sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW).first().getByRole(sbRoleType.TABLE_CELL)
-		).toHaveCount(columns.length)
+		).toHaveCount(columns.length - 2)
 	})
 
 	test('Should have name of Jane Doe', async ({ page }) => {
