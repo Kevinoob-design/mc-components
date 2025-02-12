@@ -1,6 +1,10 @@
 import { expect, describe, test, vi } from 'vitest'
 import { McComponentsModule } from './components.module'
 
+vi.mock('./icons', () => ({
+	IconEditModule: {}
+}))
+
 vi.mock('./chips', () => ({
 	ChipModule: {}
 }))
