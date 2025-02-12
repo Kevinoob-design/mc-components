@@ -18,6 +18,7 @@ vi.mock('./tables', () => ({
 }))
 
 vi.mock('./buttons', () => ({
+	IconButtonModule: {},
 	ButtonModule: {},
 	PrimaryButtonModule: {}
 }))

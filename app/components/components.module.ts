@@ -6,14 +6,13 @@
 
 import angular from 'angular'
 import './index.css'
-import { SvgContainerModule } from './containers'
+import { IconButtonModule, ButtonModule } from './buttons'
 import { IconEditModule } from './icons'
 import { ChipModule } from './chips'
 import { TableModule } from './tables'
-import { ButtonModule } from './buttons'
 
 const modules = [
-	SvgContainerModule,
+	IconButtonModule,
 	TableModule,
 	ButtonModule,
 	ChipModule,

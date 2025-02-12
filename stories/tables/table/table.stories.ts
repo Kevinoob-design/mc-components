@@ -2,15 +2,16 @@ import type { Meta, StoryObj } from '@storybook/html'
 import { TableModule, TableProps } from '../../../app/components/tables'
 import { argTypes, buildComponent } from './table'
 import { columns, mockRow, rows } from '../../../__test__/mocks/table.mock'
-import { ButtonModule, ButtonProps } from '../../../app/components/buttons'
-import { ChipModule, ChipProps } from '../../../app/components/chips'
+import { ButtonModule, ButtonProps, IconButtonModule } from '../../../app/components/buttons'
+import { ChipModule } from '../../../app/components/chips'
 import { componentAlertAction } from '../../shared'
+import { IconEditModule } from '../../../app/components/icons'
 
 const meta = {
 	title: 'Library/Tables/Table',
 	parameters: {
 		angularJs: {
-			module: [TableModule, ButtonModule, ChipModule]
+			module: [TableModule, ButtonModule, ChipModule, IconButtonModule, IconEditModule]
 		},
 		docs: {
 			source: {
