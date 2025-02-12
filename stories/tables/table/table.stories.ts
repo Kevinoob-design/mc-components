@@ -3,13 +3,14 @@ import { TableModule, TableProps } from '../../../app/components/tables'
 import { argTypes, buildComponent } from './table'
 import { columns, mockRow, rows } from '../../../__test__/mocks/table.mock'
 import { ButtonModule, ButtonProps } from '../../../app/components/buttons'
+import { ChipModule, ChipProps } from '../../../app/components/chips'
 import { componentAlertAction } from '../../shared'
 
 const meta = {
 	title: 'Library/Tables/Table',
 	parameters: {
 		angularJs: {
-			module: [TableModule, ButtonModule]
+			module: [TableModule, ButtonModule, ChipModule]
 		},
 		docs: {
 			source: {

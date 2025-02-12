@@ -2,7 +2,7 @@ const { scopedPreflightStyles, isolateInsideOfContainer } = require('tailwindcss
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-	content: ['./app/components/**/*.{html,js, ts}', './stories/**/*.{html,js,ts}', './__test__/**/*.{html,js,ts}'],
+	content: ['./app/components/**/*.{html,js,ts}', './stories/**/*.{html,js,ts}', './__test__/**/*.{html,js,ts}'],
 	theme: {
 		extend: {}
 	},

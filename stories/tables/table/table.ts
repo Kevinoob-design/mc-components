@@ -14,14 +14,10 @@ export const buildComponent = ({ label, disabled, loading }: TableProps<mockRow>
 		columns="columns"
 		rows="rows">
 		<mc-table-cell-3>
-			<div class="w-max">
-				<div
-					class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap {{ $parent.row[$parent.column.key] === 'ONLINE'
-		? 'bg-green-500/20 text-green-900'
-		: 'bg-slate-500/20 text-slate-900'}}">
-					<span class="">{{ $parent.row[$parent.column.key] }}</span>
-				</div>
-			</div>
+			<mc-chip
+				label="{{ $parent.row[$parent.column.key] }}"
+				bg-color="{{ $parent.row[$parent.column.key] === 'ONLINE' ? 'bg-green-500/20 text-green-900' : 'bg-slate-500/20 text-slate-900'}}">
+			</mc-chip>
 		</mc-table-cell-3>
 		<mc-table-cell-5>
 			<button
