@@ -13,26 +13,17 @@ export const buildComponent = ({ label, disabled, loading }: TableProps<mockRow>
 	<mc-table
 		columns="columns"
 		rows="rows">
-		<mc-table-cell-0>
-			<p class="text-sm font-semibold text-slate-700">{{ $parent.row.name }}</p>
-		</mc-table-cell-0>
-		<mc-table-cell-1>
-			<p class="text-sm font-semibold text-slate-700">{{ $parent.row.function }}</p>
-		</mc-table-cell-1>
-		<mc-table-cell-2>
+		<mc-table-cell-3>
 			<div class="w-max">
 				<div
-					class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap {{ $parent.row.status === 'ONLINE'
+					class="relative grid items-center px-2 py-1 font-sans text-xs font-bold uppercase rounded-md select-none whitespace-nowrap {{ $parent.row[$parent.column.key] === 'ONLINE'
 		? 'bg-green-500/20 text-green-900'
 		: 'bg-slate-500/20 text-slate-900'}}">
-					<span class="">{{ $parent.row.status }}</span>
+					<span class="">{{ $parent.row[$parent.column.key] }}</span>
 				</div>
 			</div>
-		</mc-table-cell-2>
-		<mc-table-cell-3>
-			<p class="text-sm font-semibold text-slate-700">{{ $parent.row.employedDate }}</p>
 		</mc-table-cell-3>
-		<mc-table-cell-4>
+		<mc-table-cell-5>
 			<button
 				class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-slate-900 transition-all hover:bg-slate-900/10 active:bg-slate-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
 				type="button">
@@ -48,14 +39,14 @@ export const buildComponent = ({ label, disabled, loading }: TableProps<mockRow>
 					</svg>
 				</span>
 			</button>
-		</mc-table-cell-4>
-		<mc-table-cell-5>
+		</mc-table-cell-5>
+		<mc-table-cell-6>
 			<mc-button
 				text="${label}"
 				disabled="${disabled}"
 				loading="${loading}"
 				on-click="onClick()">
 			</mc-button>
-		</mc-table-cell-5>
+		</mc-table-cell-6>
 	</mc-table>
 `

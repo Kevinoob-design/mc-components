@@ -19,3 +19,5 @@
 - [ ] Add Dep Scanning, SAST (maybe also DAST) for security checks to the pipeline? (semgrep, trivy, sonarqube)
 - [x] Add code smells check into the linter (maybe sonar for eslint)
 - [x] Add tailwind to the mix (better css config and reusable classes)
+- [ ] Add RXJS for component communication (mainly in table component)
+- [ ] Refactor, create new components and improve Storybook docs

@@ -14,7 +14,7 @@
 	columns="$ctrl.columns"
 	rows="$ctrl.rows">
 	<mc-table-cell-0>
-		<p class="text-sm font-semibold text-slate-700">{{ $parent.row.name }}</p>
+		<p class="text-sm font-semibold text-slate-700">{{ $parent.row[$parent.column.key] }}</p>
 	</mc-table-cell-0>
 	<mc-table-cell-1>
 		<p class="text-sm font-semibold text-slate-700">{{ $parent.row.function }}</p>

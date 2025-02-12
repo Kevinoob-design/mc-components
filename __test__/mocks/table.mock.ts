@@ -1,5 +1,4 @@
 import { column, row } from '../../app/components/tables'
-import { html } from '../../stories/shared'
 
 export type mockRow = {
 	name: string
@@ -46,7 +45,8 @@ export const columns: column[] = [
 	},
 	{
 		title: 'Status',
-		key: 'status'
+		key: 'status',
+		cellIndex: 3
 	},
 	{
 		title: 'Employed',
@@ -54,10 +54,12 @@ export const columns: column[] = [
 	},
 	{
 		title: '',
-		key: ''
+		key: 'edit',
+		cellIndex: 5
 	},
 	{
 		title: '',
-		key: ''
+		key: 'save',
+		cellIndex: 6
 	}
 ]

@@ -6,6 +6,7 @@ export type TableProps<T> = {
 export type column = {
 	title: string
 	key: string
+	cellIndex?: number
 }
 
 export type row<T> = object & T

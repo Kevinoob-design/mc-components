@@ -1,11 +1,10 @@
+import { IComponentOptions } from 'angular'
 import './table.html'
 import './table.scss'
 import { TableController } from './table.controller'
-import { IComponentOptions } from 'angular'
 
 export const tableComponent: IComponentOptions = {
 	transclude: {
-		cell0: '?mcTableCell0',
 		cell1: '?mcTableCell1',
 		cell2: '?mcTableCell2',
 		cell3: '?mcTableCell3',
