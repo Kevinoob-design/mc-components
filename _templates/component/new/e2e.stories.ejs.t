@@ -3,9 +3,9 @@ to: e2e/<%=h.changeCase.paramCase(path)%>/<%=h.changeCase.paramCase(name)%>/<%=h
 ---
 import { test, expect } from '@playwright/test'
 import {
-	sbLocatorGetControlButton,
-	sbLocatorGetControlPlaceHolder,
-	sbLocatorGetControlSwitch,
+	sbLocatorGetButton,
+	sbLocatorGetByPlaceHolder,
+	sbLocatorGetSwitch,
 	sbLocatorGetHeading
 } from '../../storybook.locator'
 import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../storybook.constants'
@@ -26,23 +26,23 @@ test.describe('<%=h.changeCase.headerCase(name)%> Story', () => {
 	})
 
 	test('Should be enabled', async ({ page }) => {
-		const buttonLocator = sbLocatorGetControlButton(page, buttonText).first()
+		const buttonLocator = sbLocatorGetButton(page, buttonText).first()
 
 		await expect(buttonLocator).toHaveText(buttonText)
 		await expect(buttonLocator).toBeEnabled()
 	})
 
 	test('Should be disabled', async ({ page }) => {
-		const buttonLocator = sbLocatorGetControlButton(page, buttonText).first()
-		const disableControlLocator = sbLocatorGetControlSwitch(page, disableControlName)
+		const buttonLocator = sbLocatorGetButton(page, buttonText).first()
+		const disableControlLocator = sbLocatorGetSwitch(page, disableControlName)
 
 		await disableControlLocator.check()
 		await expect(buttonLocator).toBeDisabled()
 	})
 
 	test('Should have loading dots', async ({ page }) => {
-		const buttonLocator = sbLocatorGetControlButton(page, buttonText).first()
-		const loadingControlLocator = sbLocatorGetControlSwitch(page, loadingControlName)
+		const buttonLocator = sbLocatorGetButton(page, buttonText).first()
+		const loadingControlLocator = sbLocatorGetSwitch(page, loadingControlName)
 
 		await loadingControlLocator.check()
 		await expect(buttonLocator).toHaveText(`${buttonText} ...`)
@@ -51,16 +51,16 @@ test.describe('<%=h.changeCase.headerCase(name)%> Story', () => {
 	test('Should have updated label', async ({ page }) => {
 		const buttonText = 'New <%=h.changeCase.headerCase(name)%> Default'
 
-		const placeHolderControlLocator = sbLocatorGetControlPlaceHolder(page, placeHolderControlName)
+		const placeHolderControlLocator = sbLocatorGetByPlaceHolder(page, placeHolderControlName)
 
 		await placeHolderControlLocator.fill(buttonText)
 
-		const buttonLocator = sbLocatorGetControlButton(page, buttonText).first()
+		const buttonLocator = sbLocatorGetButton(page, buttonText).first()
 		await expect(buttonLocator).toHaveText(buttonText)
 	})
 
 	test('Should click and log action', async ({ page }) => {
-		const buttonLocator = sbLocatorGetControlButton(page, buttonText).first()
+		const buttonLocator = sbLocatorGetButton(page, buttonText).first()
 
 		page.on('console', async msg => {
 			const message = msg.text()
