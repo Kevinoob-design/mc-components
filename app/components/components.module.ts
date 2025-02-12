@@ -7,11 +7,14 @@
 import angular from 'angular'
 import './index.css'
 import { IconButtonModule, ButtonModule } from './buttons'
-import { IconEditModule } from './icons'
+import { IconEditModule, IconSortDownModule, IconSortUpModule, IconSortModule } from './icons'
 import { ChipModule } from './chips'
 import { TableModule } from './tables'
 
 const modules = [
+	IconSortDownModule,
+	IconSortUpModule,
+	IconSortModule,
 	IconButtonModule,
 	TableModule,
 	ButtonModule,
