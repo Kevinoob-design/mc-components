@@ -5,8 +5,8 @@ import { IconSortUpProps } from '../../../app/components/icons'
 export const argTypes: Partial<ArgTypes<IconSortUpProps>> = {
 	size: {
 		control: 'select',
-		options: ['4', '8', '10'],
-		table: { defaultValue: { summary: '4' } }
+		options: ['w-4', 'w-8', 'w-10'],
+		table: { defaultValue: { summary: 'w-4' } }
 	},
 	color: {
 		control: 'select',
