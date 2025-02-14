@@ -1,7 +1,7 @@
 import { Page } from '@playwright/test'
 import { playwrightRoleType } from './playwright.types'
 
-export const storybookIframeSelector = 'iframe[title="storybook-preview-iframe"]'
+export const sbIframeLocator = 'iframe[title="storybook-preview-iframe"]'
 
 export enum sbRoleType {
 	HEADING = 'heading',
@@ -16,31 +16,47 @@ export enum sbRoleType {
 	IMAGE = 'img'
 }
 
-export const sbLocatorGetByRoleName = (page: Page, role: playwrightRoleType, name: string) =>
-	page.locator(storybookIframeSelector).contentFrame().getByRole(role, { name })
+export const sbLocatorGetIframe = (page: Page) => page.locator(sbIframeLocator).contentFrame()
 
-export const sbLocatorGetByPlaceHolder = (page: Page, text: string) =>
-	page.locator(storybookIframeSelector).contentFrame().getByPlaceholder(text)
+export const sbLocatorGetIframeWithOptionalInnerLocator = (page: Page, sbInnerLocator?: string) => {
+	if (sbInnerLocator) return sbLocatorGetIframe(page).locator(sbInnerLocator)
 
-export const sbLocatorGetByText = (page: Page, text: string) =>
-	page.locator(storybookIframeSelector).contentFrame().getByText(text)
+	return sbLocatorGetIframe(page)
+}
 
-export const sbLocatorGetByLocator = (page: Page, locator: string) =>
-	page.locator(storybookIframeSelector).contentFrame().locator(locator)
+export const sbLocatorGetByRoleName = (
+	page: Page,
+	role: playwrightRoleType,
+	name: string,
+	sbInnerLocator: string = ''
+) => sbLocatorGetIframeWithOptionalInnerLocator(page, sbInnerLocator).getByRole(role, { name })
 
-export const sbLocatorGetHeading = (page: Page, name: string) => sbLocatorGetByRoleName(page, sbRoleType.HEADING, name)
+export const sbLocatorGetByPlaceHolder = (page: Page, text: string, sbInnerLocator: string = '') =>
+	sbLocatorGetIframeWithOptionalInnerLocator(page, sbInnerLocator).getByPlaceholder(text)
 
-export const sbLocatorGetSwitch = (page: Page, name: string) => sbLocatorGetByRoleName(page, sbRoleType.SWITCH, name)
+export const sbLocatorGetByText = (page: Page, text: string, sbInnerLocator: string = '') =>
+	sbLocatorGetIframeWithOptionalInnerLocator(page, sbInnerLocator).getByText(text)
 
-export const sbLocatorGetButton = (page: Page, name: string = '') =>
-	sbLocatorGetByRoleName(page, sbRoleType.BUTTON, name)
+export const sbLocatorGetByLocator = (page: Page, locator: string, sbInnerLocator: string = '') =>
+	sbLocatorGetIframeWithOptionalInnerLocator(page, sbInnerLocator).locator(locator)
 
-export const sbLocatorGetTable = (page: Page, name: string = '') => sbLocatorGetByRoleName(page, sbRoleType.TABLE, name)
+export const sbLocatorGetHeading = (page: Page, name: string = '', sbInnerLocator: string = '') =>
+	sbLocatorGetByRoleName(page, sbRoleType.HEADING, name, sbInnerLocator)
 
-export const sbLocatorGetComboBox = (page: Page, name: string = '') =>
-	sbLocatorGetByRoleName(page, sbRoleType.COMBOBOX, name)
+export const sbLocatorGetSwitch = (page: Page, name: string = '', sbInnerLocator: string = '') =>
+	sbLocatorGetByRoleName(page, sbRoleType.SWITCH, name, sbInnerLocator)
 
-export const sbLocatorGetRow = (page: Page, name: string = '') =>
-	sbLocatorGetByRoleName(page, sbRoleType.TABLE_ROW, name)
+export const sbLocatorGetButton = (page: Page, name: string = '', sbInnerLocator: string = '') =>
+	sbLocatorGetByRoleName(page, sbRoleType.BUTTON, name, sbInnerLocator)
 
-export const sbLocatorGetCell = (page: Page, name: string) => sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, name)
+export const sbLocatorGetTable = (page: Page, name: string = '', sbInnerLocator: string = '') =>
+	sbLocatorGetByRoleName(page, sbRoleType.TABLE, name, sbInnerLocator)
+
+export const sbLocatorGetComboBox = (page: Page, name: string = '', sbInnerLocator: string = '') =>
+	sbLocatorGetByRoleName(page, sbRoleType.COMBOBOX, name, sbInnerLocator)
+
+export const sbLocatorGetRow = (page: Page, name: string = '', sbInnerLocator: string = '') =>
+	sbLocatorGetByRoleName(page, sbRoleType.TABLE_ROW, name, sbInnerLocator)
+
+export const sbLocatorGetCell = (page: Page, name: string = '', sbInnerLocator: string = '') =>
+	sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, name, sbInnerLocator)

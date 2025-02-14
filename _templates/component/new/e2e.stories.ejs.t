@@ -11,6 +11,8 @@ import {
 import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../storybook.constants'
 
 test.describe('<%=h.changeCase.headerCase(name)%> Story', () => {
+	const sbInnerLocator = '#story--library-<%=path%>-<%=name%>--default--primary-inner'
+
 	const buttonText = '<%=h.changeCase.headerCase(name)%> Default'
 	const disableControlName = 'disabled'
 	const loadingControlName = 'loading'
