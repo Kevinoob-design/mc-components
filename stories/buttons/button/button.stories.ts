@@ -2,12 +2,13 @@ import type { Meta, StoryObj } from '@storybook/html'
 import { componentLogAction } from '../../shared'
 import { ButtonModule, ButtonProps } from '../../../app/components/buttons'
 import { argTypes, buildComponent } from './button'
+import { IconLoadingModule } from '../../../app/components/icons'
 
 const meta = {
 	title: 'Library/Buttons/Button',
 	parameters: {
 		angularJs: {
-			module: ButtonModule
+			module: [ButtonModule, IconLoadingModule]
 		}
 	},
 	argTypes,

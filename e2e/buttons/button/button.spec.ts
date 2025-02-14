@@ -3,7 +3,8 @@ import {
 	sbLocatorGetButton,
 	sbLocatorGetByPlaceHolder,
 	sbLocatorGetSwitch,
-	sbLocatorGetHeading
+	sbLocatorGetHeading,
+	sbRoleType
 } from '../../storybook.locator'
 import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../storybook.constants'
 
@@ -50,7 +51,7 @@ test.describe('Button Story', () => {
 		const loadingControlLocator = sbLocatorGetSwitch(page, loadingControlName)
 
 		await loadingControlLocator.check()
-		await expect(buttonLocator.getByRole('img')).toBeVisible()
+		await expect(buttonLocator.getByRole(sbRoleType.IMAGE)).toBeVisible()
 	})
 
 	test('Should have updated label', async ({ page }) => {

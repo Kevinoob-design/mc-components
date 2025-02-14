@@ -11,7 +11,9 @@ export enum sbRoleType {
 	LINK = 'link',
 	TABLE = 'table',
 	TABLE_ROW = 'row',
-	TABLE_CELL = 'cell'
+	TABLE_CELL = 'cell',
+	COMBOBOX = 'combobox',
+	IMAGE = 'img'
 }
 
 export const sbLocatorGetByRoleName = (page: Page, role: playwrightRoleType, name: string) =>
@@ -20,6 +22,9 @@ export const sbLocatorGetByRoleName = (page: Page, role: playwrightRoleType, nam
 export const sbLocatorGetByPlaceHolder = (page: Page, text: string) =>
 	page.locator(storybookIframeSelector).contentFrame().getByPlaceholder(text)
 
+export const sbLocatorGetByText = (page: Page, text: string) =>
+	page.locator(storybookIframeSelector).contentFrame().getByText(text)
+
 export const sbLocatorGetByLocator = (page: Page, locator: string) =>
 	page.locator(storybookIframeSelector).contentFrame().locator(locator)
 
@@ -27,9 +32,13 @@ export const sbLocatorGetHeading = (page: Page, name: string) => sbLocatorGetByR
 
 export const sbLocatorGetSwitch = (page: Page, name: string) => sbLocatorGetByRoleName(page, sbRoleType.SWITCH, name)
 
-export const sbLocatorGetButton = (page: Page, name: string) => sbLocatorGetByRoleName(page, sbRoleType.BUTTON, name)
+export const sbLocatorGetButton = (page: Page, name: string = '') =>
+	sbLocatorGetByRoleName(page, sbRoleType.BUTTON, name)
 
 export const sbLocatorGetTable = (page: Page, name: string = '') => sbLocatorGetByRoleName(page, sbRoleType.TABLE, name)
+
+export const sbLocatorGetComboBox = (page: Page, name: string = '') =>
+	sbLocatorGetByRoleName(page, sbRoleType.COMBOBOX, name)
 
 export const sbLocatorGetRow = (page: Page, name: string = '') =>
 	sbLocatorGetByRoleName(page, sbRoleType.TABLE_ROW, name)

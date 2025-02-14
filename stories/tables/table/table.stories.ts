@@ -5,13 +5,21 @@ import { columns, mockRow, rows } from '../../../__test__/mocks/table.mock'
 import { ButtonModule, ButtonProps, IconButtonModule } from '../../../app/components/buttons'
 import { ChipModule } from '../../../app/components/chips'
 import { componentAlertAction } from '../../shared'
-import { IconEditModule, IconSortModule } from '../../../app/components/icons'
+import { IconEditModule, IconLoadingModule, IconSortModule } from '../../../app/components/icons'
 
 const meta = {
 	title: 'Library/Tables/Table',
 	parameters: {
 		angularJs: {
-			module: [TableModule, ButtonModule, ChipModule, IconButtonModule, IconEditModule, IconSortModule]
+			module: [
+				TableModule,
+				ButtonModule,
+				ChipModule,
+				IconButtonModule,
+				IconEditModule,
+				IconSortModule,
+				IconLoadingModule
+			]
 		},
 		docs: {
 			source: {

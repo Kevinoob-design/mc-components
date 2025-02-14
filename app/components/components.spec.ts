@@ -6,6 +6,7 @@ vi.mock('./containers', () => ({
 }))
 
 vi.mock('./icons', () => ({
+	IconLoadingModule: {},
 	IconSortDownModule: {},
 	IconSortUpModule: {},
 	IconSortModule: {},
