@@ -20,11 +20,6 @@ const meta = {
 				IconSortModule,
 				IconLoadingModule
 			]
-		},
-		docs: {
-			source: {
-				// code: docsPreview
-			}
 		}
 	},
 	argTypes,
@@ -48,9 +43,6 @@ export const Complex: Story = {
 	args: {
 		columns,
 		rows,
-		disabled: false,
-		loading: false,
-		label: 'Save',
 		onClick: () => componentAlertAction('Button', 'Clicked')
 	}
 }

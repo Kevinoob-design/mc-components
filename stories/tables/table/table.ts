@@ -16,7 +16,7 @@ export const buildComponent = ({}: TableProps<mockRow> & ButtonProps) => html`
 	</mc-table>
 `
 
-export const buildComplexComponent = ({ label, disabled, loading }: TableProps<mockRow> & ButtonProps) => html`
+export const buildComplexComponent = ({}: TableProps<mockRow> & ButtonProps) => html`
 	<mc-table
 		columns="columns"
 		rows="rows">
