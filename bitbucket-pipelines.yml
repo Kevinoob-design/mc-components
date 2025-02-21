@@ -16,6 +16,7 @@ pipelines:
           caches:
             - node
           script:
+            - corepack enable
             - yarn set version stable
             - yarn
       - parallel:
