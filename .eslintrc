@@ -245,7 +245,7 @@
 		// 24.10 https://eslint.org/docs/rules/no-useless-constructor.html
 		// "no-useless-constructor": "error",
 		// 24.11 https://eslint.org/docs/rules/object-property-newline.html
-		"object-property-newline": "error",
+		"object-property-newline": "off",
 		// 24.12 https://eslint.org/docs/rules/padded-blocks.html
 		"padded-blocks": [
 			"error",

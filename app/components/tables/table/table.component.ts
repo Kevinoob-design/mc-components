@@ -14,7 +14,17 @@ export const tableComponent: IComponentOptions = {
 		cell7: '?mcTableCell7',
 		cell8: '?mcTableCell8',
 		cell9: '?mcTableCell9',
-		cell10: '?mcTableCell10'
+		cell10: '?mcTableCell10',
+		cell11: '?mcTableCell11',
+		cell12: '?mcTableCell12',
+		cell13: '?mcTableCell13',
+		cell14: '?mcTableCell14',
+		cell15: '?mcTableCell15',
+		cell16: '?mcTableCell16',
+		cell17: '?mcTableCell17',
+		cell18: '?mcTableCell18',
+		cell19: '?mcTableCell19',
+		cell20: '?mcTableCell20'
 	},
 	bindings: {
 		columns: '<',

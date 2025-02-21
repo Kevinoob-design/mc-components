@@ -3,15 +3,26 @@
 		<tr>
 			<th
 				ng-repeat="column in $ctrl.columns"
-				class="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-100 has-[:nth-child(2)]:hover:bg-slate-200">
+				class="p-4 transition-colors cursor-pointer border-y border-slate-200 bg-slate-100 select-none {{ column.sortable ? 'hover:bg-slate-200' : ''}}"
+				ng-click="$ctrl.sort(column)">
 				<p
 					class="flex items-center justify-between only-child:justify-end gap-2 font-sans text-sm font-bold leading-none text-slate-500">
 					<span>{{column.title}}</span>
 					<mc-icon-sort
-						ng-if="column.title"
+						ng-if="column.sortable && !column.sorted"
 						color="fill-slate-500/70"
 						size="w-2">
 					</mc-icon-sort>
+					<mc-icon-sort-up
+						ng-if="column.sortDirection === 'desc'"
+						color="fill-slate-500/70"
+						size="w-2">
+					</mc-icon-sort-up>
+					<mc-icon-sort-down
+						ng-if="column.sortDirection === 'asc'"
+						color="fill-slate-500/70"
+						size="w-2">
+					</mc-icon-sort-down>
 				</p>
 			</th>
 		</tr>
