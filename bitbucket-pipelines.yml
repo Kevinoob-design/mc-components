@@ -70,6 +70,16 @@ pipelines:
                 - yarn prettier '*.{.ts,scss,css,html}' --check
                 - yarn eslint . --ext ts
           - step:
+              name: Build
+              image: node:22
+              caches:
+                - node
+                - dist-storybook
+              script:
+                - corepack enable
+                - yarn build
+      - parallel:
+          - step:
               name: Test
               image: node:22
               caches:
@@ -84,16 +94,7 @@ pipelines:
                 - node
               script:
                 - corepack enable
-                - yarn test:playwright
-          - step:
-              name: Build
-              image: node:22
-              caches:
-                - node
-                - dist-storybook
-              script:
-                - corepack enable
-                - yarn build
+                - yarn test:e2e
       - step:
           name: Publish S3 - Get Code Artifact Token
           trigger: manual
