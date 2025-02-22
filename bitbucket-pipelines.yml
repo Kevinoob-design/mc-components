@@ -6,7 +6,7 @@ definitions:
           - yarn.lock
       path: node_modules
     dist-storybook: dist-storybook
-    .yarn: .yarn
+    yarn-version: .yarn
 
 pipelines:
   pull-requests:
@@ -57,7 +57,7 @@ pipelines:
           image: node:22
           caches:
             - node
-            - .yarn
+            - yarn-version
           script:
             - corepack enable
             - yarn
@@ -67,7 +67,7 @@ pipelines:
               image: node:22
               caches:
                 - node
-                - .yarn
+                - yarn-version
                 - dist-storybook
               script:
                 - corepack enable
@@ -77,7 +77,7 @@ pipelines:
               image: node:22
               caches:
                 - node
-                - .yarn
+                - yarn-version
               script:
                 - corepack enable
                 - yarn prettier '*.{.ts,scss,css,html}' --check
@@ -88,7 +88,7 @@ pipelines:
               image: node:22
               caches:
                 - node
-                - .yarn
+                - yarn-version
               script:
                 - corepack enable
                 - yarn test
@@ -97,7 +97,7 @@ pipelines:
               image: mcr.microsoft.com/playwright:v1.50.1-noble
               caches:
                 - node
-                - .yarn
+                - yarn-version
               script:
                 - corepack enable
                 - yarn test:e2e
@@ -126,7 +126,7 @@ pipelines:
           image: node:22
           caches:
             - node
-            - .yarn
+            - yarn-version
           script:
             - corepack enable
             - source token.sh
