@@ -58,7 +58,6 @@ pipelines:
             - node
           script:
             - corepack enable
-            - yarn set version 4.6.0
             - yarn
       - parallel:
           - step:
@@ -67,6 +66,7 @@ pipelines:
               caches:
                 - node
               script:
+                - corepack enable
                 - yarn prettier '*.{.ts,scss,css,html}' --check
                 - yarn eslint . --ext ts
           - step:
@@ -75,6 +75,7 @@ pipelines:
               caches:
                 - node
               script:
+                - corepack enable
                 - yarn test
           - step:
               name: e2e
@@ -82,6 +83,7 @@ pipelines:
               caches:
                 - node
               script:
+                - corepack enable
                 - yarn test:playwright
           - step:
               name: Build
@@ -90,6 +92,7 @@ pipelines:
                 - node
                 - dist-storybook
               script:
+                - corepack enable
                 - yarn build
       - step:
           name: Publish S3 - Get Code Artifact Token
@@ -117,5 +120,6 @@ pipelines:
           caches:
             - node
           script:
+            - corepack enable
             - source token.sh
             - yarn publish
