@@ -305,6 +305,6 @@ test.describe('Table Story', () => {
 			.nth(2)
 			.click()
 
-		await expect(sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW)).toHaveCount(rows.length - 2)
+		await expect(sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW)).toHaveCount(2)
 	})
 })
