@@ -1,14 +1,22 @@
 import type { Meta, StoryObj } from '@storybook/html'
 import { componentLogAction } from '../../shared'
 import { InputTextModule, InputTextProps } from '../../../app/components/inputs'
-import { IconEditModule } from '../../../app/components/icons'
-import { argTypes, buildComponent } from './input-text'
+import { IconSearchModule, IconEditModule, IconXModule } from '../../../app/components/icons'
+import { IconButtonModule } from '../../../app/components/buttons'
+import {
+	argTypes,
+	buildComponent,
+	buildComponentWithAll,
+	buildComponentWithLeading,
+	buildComponentWithLeadingAndTrailing,
+	buildComponentWithTrailing
+} from './input-text'
 
 const meta = {
 	title: 'Library/Inputs/Input-Text',
 	parameters: {
 		angularJs: {
-			module: [InputTextModule, IconEditModule]
+			module: [InputTextModule, IconSearchModule, IconEditModule, IconButtonModule, IconXModule]
 		}
 	},
 	argTypes,
@@ -23,8 +31,56 @@ export const Default: Story = {
 	args: {
 		disabled: false,
 		debounce: 0,
-		placeholder: 'This is a text story',
-		label: 'Type something',
+		placeholder: '',
+		label: '',
+		onChange: value => componentLogAction('Input-Text', `Changed: ${value}`)
+	}
+}
+
+export const InputWithLeading: Story = {
+	name: 'Input with Leading Icon',
+	render: args => buildComponentWithLeading(args),
+	args: {
+		disabled: false,
+		debounce: 0,
+		placeholder: '',
+		label: '',
+		onChange: () => componentLogAction('Input-Text', 'Changed')
+	}
+}
+
+export const InputWithTrailing: Story = {
+	name: 'Input with Trailing Icon',
+	render: args => buildComponentWithTrailing(args),
+	args: {
+		disabled: false,
+		debounce: 0,
+		placeholder: '',
+		label: '',
+		onChange: () => componentLogAction('Input-Text', 'Changed')
+	}
+}
+
+export const InputWithLeadingAndTrailing: Story = {
+	name: 'Input with Leading and Trailing custom button',
+	render: args => buildComponentWithLeadingAndTrailing(args),
+	args: {
+		disabled: false,
+		debounce: 0,
+		placeholder: '',
+		label: '',
+		onChange: () => componentLogAction('Input-Text', 'Changed')
+	}
+}
+
+export const InputWithAll: Story = {
+	name: 'Input with All',
+	render: args => buildComponentWithAll(args),
+	args: {
+		disabled: false,
+		debounce: 0,
+		placeholder: 'my@custom.com',
+		label: 'Email',
 		onChange: () => componentLogAction('Input-Text', 'Changed')
 	}
 }

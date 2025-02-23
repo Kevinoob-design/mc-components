@@ -1,20 +1,24 @@
-<div class="tw w-full max-w-sm min-w-[200px]">
-	<div class="relative">
-		<input
-			class="peer w-full bg-transparent placeholder:text-slate-400 text-slate-700 text-sm border border-slate-200 rounded-md pl-8 py-2 transition duration-300 ease focus:outline-none focus:border-sky-500 hover:border-slate-300 shadow-sm focus:shadow placeholder:opacity-0 focus:placeholder:opacity-100"
-			placeholder="{{$ctrl.placeholder}}" />
+<div
+	class="tw w-full max-w-sm min-w-[200px] relative group flex place-items-center items-stretch border border-slate-200 rounded-md pl-3 pr-3 py-2 transition duration-300 ease focus-within:!border-sky-500 hover:border-slate-300 shadow-sm focus-within:shadow">
+	<div class="pointer-events-none opacity-40 content-center">
+		<ng-transclude ng-transclude-slot="leading"></ng-transclude>
+	</div>
 
-		<label
-			class="absolute cursor-text bg-white left-8 top-2 text-slate-400 text-sm transition-all transform origin-left peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:left-2.5 peer-focus:-top-2 peer-focus:left-2.5 peer-[&:not(:placeholder-shown)]:text-xs peer-focus:text-xs peer-focus:text-slate-400 peer-focus:scale-90 peer-[&:not(:placeholder-shown)]:scale-90 pointer-events-none">
-			{{$ctrl.label}}
-		</label>
+	<input
+		class="peer w-full pl-1 pr-1 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm group-has-[label]:placeholder:opacity-0 focus:placeholder:!opacity-100 disabled:cursor-not-allowed disabled:opacity-50 disabled:shadow-none disabled:bg-slate-200 focus:outline-none"
+		placeholder="{{$ctrl.placeholder}}"
+		ng-disabled="{{$ctrl.disabled}}"
+		ng-model="$ctrl.value"
+		ng-change="$ctrl.onChange({value: $ctrl.value})()"
+		ng-model-options="{ debounce: $ctrl.debounce }" />
 
-		<div class="absolute top-2.5 left-2.5 pointer-events-none">
-			<ng-transclude ng-transclude-slot="leading"></ng-transclude>
-		</div>
+	<label
+		ng-if="$ctrl.label"
+		class="absolute cursor-text bg-white left-3 group-has-[leading-icon]:left-8 top-2 text-slate-400 text-sm transition-all transform origin-left peer-[&:not(:placeholder-shown)]:-top-2 peer-[&:not(:placeholder-shown)]:left-2.5 peer-focus:-top-2 peer-focus:left-2.5 peer-[&:not(:placeholder-shown)]:text-xs peer-focus:text-xs peer-focus:text-slate-400 peer-focus:scale-90 peer-[&:not(:placeholder-shown)]:scale-90 pointer-events-none peer-disabled:bg-transparent">
+		{{$ctrl.label}}
+	</label>
 
-		<div class="absolute top-2.5 right-2.5">
-			<ng-transclude ng-transclude-slot="trailing"></ng-transclude>
-		</div>
+	<div class="content-center">
+		<ng-transclude ng-transclude-slot="trailing"></ng-transclude>
 	</div>
 </div>

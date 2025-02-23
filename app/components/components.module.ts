@@ -8,11 +8,21 @@ import angular from 'angular'
 import './index.css'
 import { InputTextModule } from './inputs'
 import { IconButtonModule, ButtonModule } from './buttons'
-import { IconEditModule, IconSortDownModule, IconSortUpModule, IconSortModule, IconLoadingModule } from './icons'
+import {
+	IconEditModule,
+	IconSortDownModule,
+	IconSortUpModule,
+	IconSortModule,
+	IconLoadingModule,
+	IconSearchModule,
+	IconXModule
+} from './icons'
 import { ChipModule } from './chips'
 import { TableModule } from './tables'
 
 const modules = [
+	IconXModule,
+	IconSearchModule,
 	InputTextModule,
 	IconLoadingModule,
 	IconSortDownModule,

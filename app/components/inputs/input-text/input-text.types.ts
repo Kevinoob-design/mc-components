@@ -3,5 +3,5 @@ export type InputTextProps = {
 	label: string
 	disabled?: boolean
 	debounce?: number
-	onChange?: () => void
+	onChange?: (value: string) => void
 }

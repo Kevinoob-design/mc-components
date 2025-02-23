@@ -1,4 +1,6 @@
 export * from './icon-edit'
+export * from './icon-x'
+export * from './icon-search'
 export * from './icon-loading'
 export * from './icon-sort-down'
 export * from './icon-sort-up'
