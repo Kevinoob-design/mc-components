@@ -6,12 +6,14 @@
 
 import angular from 'angular'
 import './index.css'
+import { InputTextModule } from './inputs'
 import { IconButtonModule, ButtonModule } from './buttons'
 import { IconEditModule, IconSortDownModule, IconSortUpModule, IconSortModule, IconLoadingModule } from './icons'
 import { ChipModule } from './chips'
 import { TableModule } from './tables'
 
 const modules = [
+	InputTextModule,
 	IconLoadingModule,
 	IconSortDownModule,
 	IconSortUpModule,
