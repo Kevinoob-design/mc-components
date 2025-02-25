@@ -13,7 +13,7 @@ import { IconButtonModule } from '../../../app/components/buttons'
 import {
 	argTypes,
 	buildComponent,
-	buildComponentWithAll,
+	buildComponentWithEmailValidation,
 	buildComponentWithLeading,
 	buildComponentWithLeadingAndTrailing,
 	buildComponentWithTrailing
@@ -58,6 +58,22 @@ export const Default: Story = {
 	}
 }
 
+export const Info: Story = {
+	name: 'Input with a disclaimer',
+	args: {
+		disabled: false,
+		required: false,
+		type: 'password',
+		debounce: 0,
+		placeholder: '',
+		label: '',
+		topLabel: '',
+		info: 'Your password should be at least 8 characters long',
+		errors: [],
+		onChange: value => componentLogAction('Input-Text', `Changed: ${value}`)
+	}
+}
+
 export const InputWithLeading: Story = {
 	name: 'Input with Leading Icon',
 	render: args => buildComponentWithLeading(args),
@@ -66,6 +82,11 @@ export const InputWithLeading: Story = {
 		debounce: 0,
 		placeholder: '',
 		label: '',
+		errors: [],
+		info: '',
+		required: false,
+		topLabel: '',
+		type: 'text',
 		onChange: () => componentLogAction('Input-Text', 'Changed')
 	}
 }
@@ -78,6 +99,11 @@ export const InputWithTrailing: Story = {
 		debounce: 0,
 		placeholder: '',
 		label: '',
+		errors: [],
+		info: '',
+		required: false,
+		topLabel: '',
+		type: 'text',
 		onChange: () => componentLogAction('Input-Text', 'Changed')
 	}
 }
@@ -90,18 +116,44 @@ export const InputWithLeadingAndTrailing: Story = {
 		debounce: 0,
 		placeholder: '',
 		label: '',
+		errors: [],
+		info: '',
+		required: false,
+		topLabel: '',
+		type: 'text',
 		onChange: () => componentLogAction('Input-Text', 'Changed')
 	}
 }
 
-export const InputWithAll: Story = {
-	name: 'Input with all posibilites',
-	render: args => buildComponentWithAll(args),
+export const InputWithEmailValidation: Story = {
+	name: 'Input that validates email',
+	render: args => buildComponentWithEmailValidation(args),
 	args: {
 		disabled: false,
 		debounce: 0,
 		placeholder: 'my@custom.com',
 		label: 'Email',
+		type: 'email',
+		info: '',
+		required: false,
+		topLabel: '',
+		onChange: () => componentLogAction('Input-Text', 'Changed')
+	}
+}
+
+export const InputWithEmailValidationAndErrorMessage: Story = {
+	name: 'Input that validates email and shows corresponding error message',
+	render: args => buildComponentWithEmailValidation(args),
+	args: {
+		disabled: false,
+		debounce: 0,
+		placeholder: 'my@custom.com',
+		label: 'Email',
+		type: 'email',
+		errors: ['Email should have a valid format'],
+		info: '',
+		required: false,
+		topLabel: '',
 		onChange: () => componentLogAction('Input-Text', 'Changed')
 	}
 }

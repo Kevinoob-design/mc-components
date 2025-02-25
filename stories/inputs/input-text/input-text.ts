@@ -69,7 +69,7 @@ export const buildComponentWithLeading = ({
 		required="${required}"
 		top-label="${topLabel}"
 		info="${info}"
-		error="errors"
+		errors="errors"
 		on-change="onChange()">
 		<leading-icon>
 			<mc-icon-search></mc-icon-search>
@@ -95,7 +95,7 @@ export const buildComponentWithTrailing = ({
 		required="${required}"
 		top-label="${topLabel}"
 		info="${info}"
-		error="errors"
+		errors="errors"
 		on-change="onChange()">
 		<trailing-icon>
 			<mc-icon-edit></mc-icon-edit>
@@ -122,7 +122,7 @@ export const buildComponentWithLeadingAndTrailing = ({
 		required="${required}"
 		top-label="${topLabel}"
 		info="${info}"
-		error="errors"
+		errors="errors"
 		on-change="onChange()">
 		<leading-icon>
 			<mc-icon-user-group></mc-icon-user-group>
@@ -134,7 +134,7 @@ export const buildComponentWithLeadingAndTrailing = ({
 		</trailing-icon>
 	</mc-input-text>
 `
-export const buildComponentWithAll = ({
+export const buildComponentWithEmailValidation = ({
 	disabled = false,
 	placeholder,
 	label,
@@ -153,7 +153,7 @@ export const buildComponentWithAll = ({
 		required="${required}"
 		top-label="${topLabel}"
 		info="${info}"
-		error="errors"
+		errors="errors"
 		on-change="onChange()">
 		<leading-icon>
 			<mc-icon-envelope></mc-icon-envelope>

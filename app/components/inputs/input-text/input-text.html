@@ -1,11 +1,8 @@
 <div class="tw group">
-	<p
-		class="text-slate-400 text-sm mb-2 ml-1 {{$ctrl.required ? 'after:content-[\\'*\\'] after:ml-0.5 after:text-red-500' : ''}}">
-		{{$ctrl.topLabel}}
-	</p>
+	<p class="text-slate-400 text-sm mb-2 ml-1 {{$ctrl.getTopLabelRequiredAfterClass()}}">{{$ctrl.topLabel}}</p>
 
 	<div
-		class="w-full max-w-sm min-w-[200px] relative flex place-items-center items-stretch border border-slate-200 rounded-md pl-3 pr-3 py-2 transition duration-300 ease focus-within:!border-sky-500 hover:border-slate-300 shadow-sm focus-within:shadow group-has-[:disabled]:cursor-not-allowed group-has-[:disabled]:shadow-none group-has-[:disabled]:bg-slate-200">
+		class="w-full max-w-sm min-w-[200px] relative flex place-items-center items-stretch border border-slate-200 rounded-md pl-3 pr-3 py-2 transition duration-300 ease focus-within:!border-sky-500 group-has-[:invalid]:border-red-500 hover:border-slate-300 shadow-sm focus-within:shadow group-has-[:disabled]:cursor-not-allowed group-has-[:disabled]:shadow-none group-has-[:disabled]:bg-slate-200">
 		<div class="pointer-events-none opacity-40 content-center">
 			<ng-transclude ng-transclude-slot="leading"></ng-transclude>
 		</div>
@@ -36,7 +33,9 @@
 		<mc-icon-info color="fill-slate-400"></mc-icon-info> {{$ctrl.info}}
 	</p>
 
-	<div class="borde bg-red-50 rounded-md max-w-sm min-w-[200px] mt-2 py-2 invisible group-has-[:invalid]:visible">
+	<div
+		ng-if="$ctrl.errors.length"
+		class="borde bg-red-50 rounded-md max-w-sm min-w-[200px] mt-2 py-2 hidden group-has-[:invalid]:block">
 		<li
 			ng-repeat="error in $ctrl.errors track by $index"
 			class="ml-2 text-sm text-red-500">

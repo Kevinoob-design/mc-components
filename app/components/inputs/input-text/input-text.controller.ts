@@ -12,6 +12,10 @@ class InputTextController implements IComponentController, InputTextProps {
 	disabled?: boolean | undefined
 	debounce?: number | undefined
 	onChange?: (() => void) | undefined
+
+	getTopLabelRequiredAfterClass() {
+		return this.required ? 'after:content-["*"] after:ml-0.5 after:text-red-500' : ''
+	}
 }
 
 export { InputTextController }
