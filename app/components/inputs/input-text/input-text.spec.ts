@@ -43,5 +43,17 @@ describe('InputText', () => {
 		test('should be defined', () => {
 			expect(inputTextController).toBeDefined()
 		})
+
+		test('getTopLabelRequiredAfterClass returns correct class when required', () => {
+			inputTextController.required = true
+			expect(inputTextController.getTopLabelRequiredAfterClass()).toBe(
+				'after:content-["*"] after:ml-0.5 after:text-red-500'
+			)
+		})
+
+		test('getTopLabelRequiredAfterClass returns empty string when not required', () => {
+			inputTextController.required = false
+			expect(inputTextController.getTopLabelRequiredAfterClass()).toBe('')
+		})
 	})
 })
