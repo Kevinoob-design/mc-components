@@ -128,13 +128,15 @@ export const buildComponentWithLeadingAndTrailing = ({
 			<mc-icon-user-group></mc-icon-user-group>
 		</leading-icon>
 		<trailing-icon>
-			<button ng-click="$parent.$ctrl.value = ''">
-				<mc-icon-x></mc-icon-x>
+			<button
+				class="flex flex-col justify-center"
+				ng-click="$parent.$ctrl.value = ''">
+				<mc-icon-x size="w-3"></mc-icon-x>
 			</button>
 		</trailing-icon>
 	</mc-input-text>
 `
-export const buildComponentWithEmailValidation = ({
+export const buildComponentWithEmailValidationIconButton = ({
 	disabled = false,
 	placeholder,
 	label,
@@ -159,9 +161,39 @@ export const buildComponentWithEmailValidation = ({
 			<mc-icon-envelope></mc-icon-envelope>
 		</leading-icon>
 		<trailing-icon>
-			<button ng-click="$parent.$ctrl.value = ''">
-				<mc-icon-x></mc-icon-x>
-			</button>
+			<mc-icon-button ng-click="$parent.$ctrl.value = ''">
+				<mc-icon-x size="w-3"></mc-icon-x>
+			</mc-icon-button>
+		</trailing-icon>
+	</mc-input-text>
+`
+
+export const buildComponentWithEmailValidationButton = ({
+	disabled = false,
+	placeholder,
+	label,
+	debounce,
+	type,
+	required,
+	info,
+	topLabel
+}: InputTextProps) => html`
+	<mc-input-text
+		label="${label}"
+		placeholder="${placeholder}"
+		disabled="${disabled}"
+		debounce="${debounce}"
+		type="${type}"
+		required="${required}"
+		top-label="${topLabel}"
+		info="${info}"
+		errors="errors"
+		on-change="onChange()">
+		<leading-icon>
+			<mc-icon-envelope></mc-icon-envelope>
+		</leading-icon>
+		<trailing-icon>
+			<mc-button> Subscribe </mc-button>
 		</trailing-icon>
 	</mc-input-text>
 `

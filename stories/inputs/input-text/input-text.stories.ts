@@ -9,11 +9,12 @@ import {
 	IconUserGroupModule,
 	IconInfoModule
 } from '../../../app/components/icons'
-import { IconButtonModule } from '../../../app/components/buttons'
+import { IconButtonModule, ButtonModule } from '../../../app/components/buttons'
 import {
 	argTypes,
 	buildComponent,
-	buildComponentWithEmailValidation,
+	buildComponentWithEmailValidationButton,
+	buildComponentWithEmailValidationIconButton,
 	buildComponentWithLeading,
 	buildComponentWithLeadingAndTrailing,
 	buildComponentWithTrailing
@@ -28,6 +29,7 @@ const meta = {
 				IconSearchModule,
 				IconEditModule,
 				IconButtonModule,
+				ButtonModule,
 				IconXModule,
 				IconEnvelopeModule,
 				IconUserGroupModule,
@@ -59,7 +61,7 @@ export const Default: Story = {
 }
 
 export const Info: Story = {
-	name: 'Input with a disclaimer',
+	name: 'Input password with a disclaimer',
 	args: {
 		disabled: false,
 		required: false,
@@ -127,7 +129,7 @@ export const InputWithLeadingAndTrailing: Story = {
 
 export const InputWithEmailValidation: Story = {
 	name: 'Input that validates email',
-	render: args => buildComponentWithEmailValidation(args),
+	render: args => buildComponentWithEmailValidationIconButton(args),
 	args: {
 		disabled: false,
 		debounce: 0,
@@ -143,7 +145,7 @@ export const InputWithEmailValidation: Story = {
 
 export const InputWithEmailValidationAndErrorMessage: Story = {
 	name: 'Input that validates email and shows corresponding error message',
-	render: args => buildComponentWithEmailValidation(args),
+	render: args => buildComponentWithEmailValidationButton(args),
 	args: {
 		disabled: false,
 		debounce: 0,
@@ -151,7 +153,7 @@ export const InputWithEmailValidationAndErrorMessage: Story = {
 		label: 'Email',
 		type: 'email',
 		errors: ['Email should have a valid format'],
-		info: '',
+		info: 'You will be added to a newsletter',
 		required: false,
 		topLabel: '',
 		onChange: () => componentLogAction('Input-Text', 'Changed')

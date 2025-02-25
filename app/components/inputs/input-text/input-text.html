@@ -2,7 +2,7 @@
 	<p class="text-slate-400 text-sm mb-2 ml-1 {{$ctrl.getTopLabelRequiredAfterClass()}}">{{$ctrl.topLabel}}</p>
 
 	<div
-		class="w-full max-w-sm min-w-[200px] relative flex place-items-center items-stretch border border-slate-200 rounded-md pl-3 pr-3 py-2 transition duration-300 ease focus-within:!border-sky-500 group-has-[:invalid]:border-red-500 hover:border-slate-300 shadow-sm focus-within:shadow group-has-[:disabled]:cursor-not-allowed group-has-[:disabled]:shadow-none group-has-[:disabled]:bg-slate-200">
+		class="w-full max-w-sm min-w-[200px] relative flex place-items-center items-stretch border border-slate-200 rounded-md px-3 py-2 transition duration-300 ease focus-within:!border-sky-500 group-has-[:invalid]:border-red-500 hover:border-slate-300 shadow-sm focus-within:shadow group-has-[:disabled]:cursor-not-allowed group-has-[:disabled]:shadow-none group-has-[:disabled]:bg-slate-200">
 		<div class="pointer-events-none opacity-40 content-center">
 			<ng-transclude ng-transclude-slot="leading"></ng-transclude>
 		</div>
@@ -18,7 +18,7 @@
 
 		<label
 			ng-if="$ctrl.label"
-			class="absolute cursor-text bg-white left-3 group-has-[leading-icon]:left-8 top-2 group-has-[leading-icon]:top-2.5 text-slate-400 text-sm transition-all transform origin-left peer-[&:not(:placeholder-shown)]:-top-3 peer-[&:not(:placeholder-shown)]:left-2.5 peer-focus:-top-3 peer-focus:left-2.5 peer-[&:not(:placeholder-shown)]:text-sm peer-focus:text-sm peer-focus:text-slate-400 peer-focus:scale-90 peer-[&:not(:placeholder-shown)]:scale-90 pointer-events-none peer-disabled:bg-transparent">
+			class="absolute cursor-text bg-white left-3 group-has-[leading-icon]:left-8 top-2 group-has-[leading-icon]:top-[calc(25%+0.25rem)] text-slate-400 text-sm transition-all transform origin-left peer-[&:not(:placeholder-shown)]:-top-3 peer-[&:not(:placeholder-shown)]:left-2.5 peer-focus:-top-3 peer-focus:left-2.5 peer-[&:not(:placeholder-shown)]:text-sm peer-focus:text-sm peer-focus:text-slate-400 peer-focus:scale-90 peer-[&:not(:placeholder-shown)]:scale-90 pointer-events-none peer-disabled:bg-transparent">
 			{{$ctrl.label}}
 		</label>
 
