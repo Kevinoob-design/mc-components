@@ -24,7 +24,8 @@
 		"format": "prettier \"**/*.{ts,js,json,scss,css,html}\" --write",
 		"tf:format": "terraform fmt -recursive",
 		"check:fix": "yarn format && tf:format && yarn lint",
-		"new:c": "hygen component new"
+		"new:c": "hygen component new",
+		"new:i": "hygen icon new"
 	},
 	"dependencies": {
 		"angular": "^1.8.3",

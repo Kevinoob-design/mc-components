@@ -1,7 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/html'
 import { componentLogAction } from '../../shared'
 import { InputTextModule, InputTextProps } from '../../../app/components/inputs'
-import { IconSearchModule, IconEditModule, IconXModule } from '../../../app/components/icons'
+import {
+	IconSearchModule,
+	IconEditModule,
+	IconXModule,
+	IconEnvelopeModule,
+	IconUserGroupModule
+} from '../../../app/components/icons'
 import { IconButtonModule } from '../../../app/components/buttons'
 import {
 	argTypes,
@@ -16,7 +22,15 @@ const meta = {
 	title: 'Library/Inputs/Input-Text',
 	parameters: {
 		angularJs: {
-			module: [InputTextModule, IconSearchModule, IconEditModule, IconButtonModule, IconXModule]
+			module: [
+				InputTextModule,
+				IconSearchModule,
+				IconEditModule,
+				IconButtonModule,
+				IconXModule,
+				IconEnvelopeModule,
+				IconUserGroupModule
+			]
 		}
 	},
 	argTypes,
@@ -30,9 +44,14 @@ type Story = StoryObj<InputTextProps>
 export const Default: Story = {
 	args: {
 		disabled: false,
+		required: false,
+		type: 'text',
 		debounce: 0,
 		placeholder: '',
 		label: '',
+		topLabel: '',
+		info: '',
+		error: '',
 		onChange: value => componentLogAction('Input-Text', `Changed: ${value}`)
 	}
 }
@@ -62,7 +81,7 @@ export const InputWithTrailing: Story = {
 }
 
 export const InputWithLeadingAndTrailing: Story = {
-	name: 'Input with Leading and Trailing custom button',
+	name: 'Input with Leading and Trailing custom clear button',
 	render: args => buildComponentWithLeadingAndTrailing(args),
 	args: {
 		disabled: false,
@@ -74,7 +93,7 @@ export const InputWithLeadingAndTrailing: Story = {
 }
 
 export const InputWithAll: Story = {
-	name: 'Input with All',
+	name: 'Input with all posibilites',
 	render: args => buildComponentWithAll(args),
 	args: {
 		disabled: false,

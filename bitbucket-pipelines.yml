@@ -100,7 +100,7 @@ pipelines:
                 - yarn-version
               script:
                 - corepack enable
-                - yarn test:e2e
+                - yarn test:e2e --max-failures=1
       - step:
           name: Publish S3 - Get Code Artifact Token
           trigger: manual

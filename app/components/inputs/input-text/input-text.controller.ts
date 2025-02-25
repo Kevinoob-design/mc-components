@@ -2,6 +2,12 @@ import { IComponentController } from 'angular'
 import { InputTextProps } from './input-text.types'
 
 class InputTextController implements IComponentController, InputTextProps {
+	topLabel: string
+	info: string
+	error: string
+	type: 'number' | 'text' | 'email' | 'password' | 'tel'
+	required: boolean
+	label: string
 	placeholder: string
 	disabled?: boolean | undefined
 	debounce?: number | undefined

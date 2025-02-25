@@ -10,10 +10,15 @@ export const inputTextComponent: IComponentOptions = {
 	},
 	bindings: {
 		placeholder: '@',
+		topLabel: '@',
 		label: '@',
+		info: '@',
+		error: '@',
 		onChange: '&',
 		disabled: '<',
-		debounce: '<'
+		debounce: '<',
+		required: '<',
+		type: '@'
 	},
 	templateUrl: 'app/components/inputs/input-text/input-text.html',
 	controller: InputTextController

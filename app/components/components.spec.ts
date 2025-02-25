@@ -10,6 +10,8 @@ vi.mock('./containers', () => ({
 }))
 
 vi.mock('./icons', () => ({
+	IconUserGroupModule: {},
+	IconEnvelopeModule: {},
 	IconXModule: {},
 	IconSearchModule: {},
 	IconLoadingModule: {},

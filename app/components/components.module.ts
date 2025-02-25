@@ -15,12 +15,16 @@ import {
 	IconSortModule,
 	IconLoadingModule,
 	IconSearchModule,
-	IconXModule
+	IconXModule,
+	IconEnvelopeModule,
+	IconUserGroupModule
 } from './icons'
 import { ChipModule } from './chips'
 import { TableModule } from './tables'
 
 const modules = [
+	IconUserGroupModule,
+	IconEnvelopeModule,
 	IconXModule,
 	IconSearchModule,
 	InputTextModule,
