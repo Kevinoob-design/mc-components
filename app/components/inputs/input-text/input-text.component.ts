@@ -13,7 +13,7 @@ export const inputTextComponent: IComponentOptions = {
 		topLabel: '@',
 		label: '@',
 		info: '@',
-		error: '@',
+		errors: '<',
 		onChange: '&',
 		disabled: '<',
 		debounce: '<',

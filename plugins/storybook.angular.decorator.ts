@@ -13,6 +13,8 @@ export function withAngularJs() {
 	const cache = {}
 
 	return (story: PartialStoryFn, context: StoryContext) => {
+		console.log(context.args)
+
 		const { module, hooks, mock, rebuild } = context.parameters.angularJs
 
 		const template = story() as string

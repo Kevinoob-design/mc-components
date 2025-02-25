@@ -3,7 +3,7 @@ export type InputTextProps = {
 	label: string
 	topLabel: string
 	info: string
-	error: string
+	errors: string[]
 	type: 'text' | 'email' | 'password' | 'number' | 'tel'
 	required: boolean
 	disabled?: boolean

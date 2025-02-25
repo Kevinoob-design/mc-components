@@ -4,7 +4,7 @@ import { InputTextProps } from './input-text.types'
 class InputTextController implements IComponentController, InputTextProps {
 	topLabel: string
 	info: string
-	error: string
+	errors: string[]
 	type: 'number' | 'text' | 'email' | 'password' | 'tel'
 	required: boolean
 	label: string

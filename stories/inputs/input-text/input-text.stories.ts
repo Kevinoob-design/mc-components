@@ -6,7 +6,8 @@ import {
 	IconEditModule,
 	IconXModule,
 	IconEnvelopeModule,
-	IconUserGroupModule
+	IconUserGroupModule,
+	IconInfoModule
 } from '../../../app/components/icons'
 import { IconButtonModule } from '../../../app/components/buttons'
 import {
@@ -29,7 +30,8 @@ const meta = {
 				IconButtonModule,
 				IconXModule,
 				IconEnvelopeModule,
-				IconUserGroupModule
+				IconUserGroupModule,
+				IconInfoModule
 			]
 		}
 	},
@@ -51,7 +53,7 @@ export const Default: Story = {
 		label: '',
 		topLabel: '',
 		info: '',
-		error: '',
+		errors: [],
 		onChange: value => componentLogAction('Input-Text', `Changed: ${value}`)
 	}
 }

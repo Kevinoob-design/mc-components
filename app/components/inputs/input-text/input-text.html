@@ -11,7 +11,7 @@
 		</div>
 
 		<input
-			type="email"
+			type="{{$ctrl.type}}"
 			class="peer w-full pl-1 pr-1 bg-transparent placeholder:text-slate-400 text-slate-700 text-sm group-has-[label]:placeholder:opacity-0 focus:placeholder:!opacity-100 disabled:cursor-not-allowed focus:outline-none"
 			placeholder="{{$ctrl.placeholder}}"
 			ng-disabled="{{$ctrl.disabled}}"
@@ -30,11 +30,17 @@
 		</div>
 	</div>
 
-	<p class="mt-2 ml-1 text-xs text-slate-400">{{$ctrl.info}}</p>
-
 	<p
-		class="text-sm mt-2 ml-1 hidden group-has-[:invalid]:block text-red-500"
-		class="mt-2 text-xs text-slate-400">
-		{{$ctrl.error}}
+		ng-if="$ctrl.info"
+		class="flex gap-1 mt-2 ml-1 text-xs text-slate-400">
+		<mc-icon-info color="fill-slate-400"></mc-icon-info> {{$ctrl.info}}
 	</p>
+
+	<div class="borde bg-red-50 rounded-md max-w-sm min-w-[200px] mt-2 py-2 invisible group-has-[:invalid]:visible">
+		<li
+			ng-repeat="error in $ctrl.errors track by $index"
+			class="ml-2 text-sm text-red-500">
+			{{error}}
+		</li>
+	</div>
 </div>

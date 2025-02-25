@@ -1,4 +1,5 @@
 export * from './icon-edit'
+export * from './icon-info'
 export * from './icon-user-group'
 export * from './icon-envelope'
 export * from './icon-x'

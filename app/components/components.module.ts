@@ -17,12 +17,14 @@ import {
 	IconSearchModule,
 	IconXModule,
 	IconEnvelopeModule,
-	IconUserGroupModule
+	IconUserGroupModule,
+	IconInfoModule
 } from './icons'
 import { ChipModule } from './chips'
 import { TableModule } from './tables'
 
 const modules = [
+	IconInfoModule,
 	IconUserGroupModule,
 	IconEnvelopeModule,
 	IconXModule,
