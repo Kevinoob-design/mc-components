@@ -82,14 +82,26 @@ jobs:
     #     retention-days: 30
 
   deployment:
+
     needs: check
+
     runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+
     if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
+    
     environment: Prod
 
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v4
+        with:
+          path: |
+            dist/
+            dist-storybook/
 
       - uses: actions/checkout@v4
 

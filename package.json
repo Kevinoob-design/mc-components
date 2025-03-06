@@ -1,7 +1,7 @@
 {
 	"name": "@mc/mc-components",
 	"packageManager": "yarn@4.6.0",
-	"version": "30.0.0",
+	"version": "31.0.0",
 	"description": "MC Components AngularJS",
 	"main": "index.js",
 	"author": "Hector Morales",
