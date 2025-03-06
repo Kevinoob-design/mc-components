@@ -46,7 +46,7 @@ jobs:
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
-        name: Upload build artifact
+        name: build artifact
         path: |
           dist/
           dist-storybook/
@@ -119,6 +119,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
+          name: build artifact
           path: |
             dist/
             dist-storybook/
