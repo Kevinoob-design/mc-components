@@ -7,11 +7,6 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
-# env:
-#   AWS_REGION: us-east-1
-#   CODE_ARTIFACT_DOMAIN: mc-domain
-#   CODE_ARTIFACT_DOMAIN_OWNER: 252355243038
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -32,6 +27,14 @@ jobs:
             dist/
             dist-storybook/
           retention-days: 30
+
+      - name: Cache build
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.dist
+            dist-storybook
+          key: dist-${{ runner.os }}-${{ hashFiles('dist/') }}
 
   format:
     needs: build
@@ -98,36 +101,3 @@ jobs:
   #         name: playwright-report
   #         path: playwright-report/
   #         retention-days: 30
-
-  deployment:
-    needs: [build, format, lint, test]
-    runs-on: ubuntu-latest
-    environment: Prod
-
-    if: github.event_name == 'workflow_dispatch'
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-        with:
-          node-version: "22.x"
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build-artifact
-
-      - name: Publish to S3
-        run: aws s3 sync dist-storybook s3://mc-storybook-bucket
-
-      - name: Publish to CodeArtifact
-        run: |
-          export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain $CODE_ARTIFACT_DOMAIN --domain-owner $CODE_ARTIFACT_DOMAIN_OWNER --region $AWS_REGION --query authorizationToken --output text)
-          yarn npm publish
