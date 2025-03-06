@@ -18,11 +18,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        with:
-          sparse-checkout: |
-            .github/actions
-          path: actions
-
       - uses: ./.github/actions/setup
         with:
           node-version: "22.x"
@@ -42,6 +37,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
           node-version: "22.x"
@@ -53,6 +49,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
           node-version: "22.x"
@@ -64,6 +61,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
           node-version: "22.x"
@@ -81,6 +79,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
       - uses: ./.github/actions/setup
         with:
           node-version: "22.x"
@@ -106,6 +105,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          node-version: "22.x"
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
