@@ -7,10 +7,10 @@ on:
     branches: [ "main" ]
   workflow_dispatch:
 
-env:
-  AWS_REGION: us-east-1
-  CODE_ARTIFACT_DOMAIN: mc-domain
-  CODE_ARTIFACT_DOMAIN_OWNER: 252355243038
+# env:
+#   AWS_REGION: us-east-1
+#   CODE_ARTIFACT_DOMAIN: mc-domain
+#   CODE_ARTIFACT_DOMAIN_OWNER: 252355243038
 
 jobs:
   build:
@@ -104,7 +104,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: Prod
 
-    if: github.event_name == 'workflow_dispatch' || github.ref == 'refs/heads/main'
+    if: github.event_name == 'workflow_dispatch'
 
     steps:
       - uses: actions/checkout@v4
