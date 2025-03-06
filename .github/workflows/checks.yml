@@ -13,37 +13,13 @@ env:
   CODE_ARTIFACT_DOMAIN_OWNER: 252355243038
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    outputs:
-      node-version: ${{ matrix.node-version }}
-    strategy:
-      matrix:
-        node-version: [22.x]
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup corepack
-        run: corepack enable
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'yarn'
-      
-      - run: yarn set version 4.6.0
-
-      - name: Install dependencies
-        run: yarn --frozen-lockfile
-
   build:
-    needs: setup
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          node-version: "22.x"
 
       - name: Build
         run: yarn build
@@ -57,31 +33,34 @@ jobs:
           retention-days: 30
 
   format:
-    needs: setup
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          node-version: "22.x"
 
       - name: Format Check
         run: yarn prettier '*.{ts,scss,css,html}' --check
 
   lint:
-    needs: setup
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          node-version: "22.x"
 
       - name: Lint
         run: yarn eslint . --ext ts
 
   test:
-    needs: setup
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          node-version: "22.x"
 
       - name: Unit Tests
         run: yarn test
@@ -93,11 +72,12 @@ jobs:
           retention-days: 30
 
   e2e:
-    needs: setup
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          node-version: "22.x"
 
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps

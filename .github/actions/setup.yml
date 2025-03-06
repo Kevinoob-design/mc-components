@@ -1,0 +1,38 @@
+name: "Setup Node.js Environment"
+description: "Configures Node.js, installs dependencies, and caches them"
+
+inputs:
+  node-version:
+    description: "Node.js version"
+    required: true
+    default: "22.x"
+
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup corepack
+      run: corepack enable
+      shell: bash
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: 'yarn'
+
+    - run: yarn set version 4.6.0
+      shell: bash
+
+    - name: Install dependencies
+      run: yarn --frozen-lockfile
+      shell: bash
+
+    - name: Cache dependencies
+      uses: actions/cache@v3
+      with:
+        path: |
+          ~/.yarn
+          node_modules
+        key: yarn-${{ runner.os }}-${{ inputs.node-version }}-${{ hashFiles('yarn.lock') }}
