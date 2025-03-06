@@ -92,17 +92,10 @@ jobs:
         node-version: [22.x]
 
     if: (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && github.ref == 'refs/heads/main'
-    
+
     environment: Prod
 
     steps:
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          path: |
-            dist/
-            dist-storybook/
-
       - uses: actions/checkout@v4
 
       - name: Setup corepack
@@ -123,8 +116,15 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Publish to codeartifact
-        run: export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $CODE_ARTIFACT_DOMAIN --domain-owner $CODE_ARTIFACT_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text` && yarn npm publish
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: |
+            dist/
+            dist-storybook/
 
       - name: Publish to S3
         run: aws s3 sync dist-storybook s3://mc-storybook-bucket
+
+      - name: Publish to codeartifact
+        run: export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $CODE_ARTIFACT_DOMAIN --domain-owner $CODE_ARTIFACT_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text` && yarn npm publish
