@@ -79,6 +79,20 @@ jobs:
     environment: Prod
 
     steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+
+      - name: Setup corepack
+        run: corepack enable
+    
+      - name: Setup Node ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+      
+      - run: yarn set version 4.6.0
+
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
         with:
