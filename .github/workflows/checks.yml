@@ -18,6 +18,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            .github/actions
+          path: actions
 
       - uses: ./.github/actions/setup
         with:
