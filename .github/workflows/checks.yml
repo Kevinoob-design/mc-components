@@ -72,18 +72,18 @@ jobs:
     #     path: playwright-report/
     #     retention-days: 30
 
-    - name: Deploy
+    - name: Configure AWS credentials
       environment: Prod
-      steps:
-        - name: Configure AWS credentials
-          uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
-          with:
-            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws-region: ${{ env.AWS_REGION }}
+      uses: aws-actions/configure-aws-credentials@0e613a0980cbf65ed5b322eb7a1e075d28913a83
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
 
-        - name: Publish to codeartifact
-          run: export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text` && yarn npm publish
+    - name: Publish to codeartifact
+      environment: Prod
+      run: export CODEARTIFACT_AUTH_TOKEN=`aws codeartifact get-authorization-token --domain $MC_COMPONENTS_DOMAIN --domain-owner $MC_COMPONENTS_DOMAIN_OWNER --region $AWS_DEFAULT_REGION --query authorizationToken --output text` && yarn npm publish
 
-        - name: Publish to S3
-          run: aws s3 sync dist-storybook s3://mc-storybook-bucket
+    - name: Publish to S3
+      environment: Prod
+      run: aws s3 sync dist-storybook s3://mc-storybook-bucket
