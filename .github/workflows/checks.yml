@@ -1,0 +1,58 @@
+# This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
+# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
+
+name: Node.js CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  check:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [22.x]
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Setup corepack
+      run: corepack enable
+  
+    - name: Setup Node ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+      
+    - run: yarn set version 4.6.0
+        
+    - name: Install dependencies
+      run: yarn --frozen-lockfile
+    
+    - name: Build
+      run: yarn build
+
+    - name: Format
+      run: yarn prettier '*.{.ts,scss,css,html}' --check
+
+    - name: Lint
+      run: yarn eslint . --ext ts
+    
+    - name: Test
+      run: yarn test
+    
+    - name: e2e
+      run: yarn test
+
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30
