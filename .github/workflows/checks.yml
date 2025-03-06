@@ -53,8 +53,11 @@ jobs:
         name: coverage
         path: coverage/
         retention-days: 30
+
+    - name: Install Playwright Browsers
+      run: npx playwright install --with-deps
     
-    - name: e2e
+    - name: Playwright Test
       run: yarn test:e2e --max-failures=1
 
     - uses: actions/upload-artifact@v4
