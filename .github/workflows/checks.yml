@@ -43,6 +43,15 @@ jobs:
     - name: Build
       run: yarn build
 
+    - uses: actions/upload-artifact@v4
+      if: ${{ !cancelled() }}
+      with:
+        name: Upload build artifact
+        path: |
+          dist/
+          dist-storybook/
+        retention-days: 30
+
     - name: Format
       run: yarn prettier '*.{.ts,scss,css,html}' --check
 
