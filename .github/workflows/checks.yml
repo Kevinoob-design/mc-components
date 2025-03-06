@@ -120,9 +120,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build artifact
-          path: |
-            ./dist
-            ./dist-storybook
 
       - name: Publish to S3
         run: aws s3 sync dist-storybook s3://mc-storybook-bucket
