@@ -37,9 +37,9 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            ~/.dist
+            dist
             dist-storybook
-          key: dist-${{ runner.os }}-${{ hashFiles('dist/') }}
+          key: dist-${{ runner.os }}-${{ hashFiles('dist') }}
 
   format:
     needs: build
