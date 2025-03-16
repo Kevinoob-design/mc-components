@@ -93,6 +93,11 @@ jobs:
   e2e:
     needs: build
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
 
     steps:
       - uses: actions/checkout@v4
@@ -104,7 +109,8 @@ jobs:
         run: npx playwright install --with-deps
 
       - name: Run Playwright Tests
-        run: yarn test:e2e --max-failures=1
+        run: yarn test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+        # run: yarn test:e2e --max-failures=1
 
       - uses: actions/upload-artifact@v4
         with:
