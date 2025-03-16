@@ -1,47 +1,43 @@
-import { expect, describe, test, vi } from 'vitest'
-import { IconSortDownModule } from './icon-sort-down.module'
-import { iconSortDownComponent } from './icon-sort-down.component'
-import { IconSortDownController } from './icon-sort-down.controller'
+import { test, expect } from '@playwright/test'
+import {
+	sbLocatorGetButton,
+	sbLocatorGetByRoleName,
+	sbLocatorGetComboBox,
+	sbLocatorGetHeading,
+	sbRoleType
+} from '../../../../e2e/storybook.locator'
+import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../../../e2e/storybook.constants'
 
-describe('IconSortDown', () => {
-	describe('IconSortDownModule', () => {
-		vi.mock('./icon-sort-down.component', () => ({
-			iconSortDownComponent: {}
-		}))
+test.describe('Icon-Sort-Down Story', () => {
+	const sbInnerLocator = '#story--library-icons-icon-sort-down--default--primary-inner'
 
-		test('should be defined', () => {
-			expect(IconSortDownModule).toBeDefined()
-		})
-		test('should have correct name', () => {
-			expect(IconSortDownModule).toBe('IconSortDownModule')
-		})
-
-		vi.unmock('./icon-sort-down.component')
+	test.beforeEach(async ({ page }) => {
+		await page.goto(`${STORYBOOK_URL}/${STORYBOOK_DOCS_PATH}/library-icons-icon-sort-down--docs`)
 	})
 
-	describe('IconSortDownComponent', () => {
-		vi.mock('./icon-sort-down.controller', () => ({
-			IconSortDownController: {}
-		}))
-		vi.mock('./icon-sort-down.scss', () => ({}))
-		vi.mock('./icon-sort-down.html', () => ({}))
-
-		test('should be defined', () => {
-			expect(iconSortDownComponent).toBeDefined()
-		})
-		test('should have template url', () => {
-			expect(iconSortDownComponent.templateUrl).toBeTypeOf('string')
-			expect(iconSortDownComponent.templateUrl).toBe('app/components/icons/icon-sort-down/icon-sort-down.html')
-		})
-
-		vi.unmock('./icon-sort-down.controller')
+	test('Should have name Icon-Sort-Down', async ({ page }) => {
+		await expect(sbLocatorGetHeading(page, 'Icon-Sort-Down')).toHaveText('Icon-Sort-Down')
 	})
 
-	describe('IconSortDownController', () => {
-		const iconSortDownController: IconSortDownController = new IconSortDownController()
+	test('Should have svg icon', async ({ page }) => {
+		await expect(sbLocatorGetButton(page).first().getByRole(sbRoleType.IMAGE)).toBeVisible()
+	})
 
-		test('should be defined', () => {
-			expect(iconSortDownController).toBeDefined()
-		})
+	test('Should change svg size', async ({ page }) => {
+		const className = 'w-10'
+
+		await sbLocatorGetComboBox(page).nth(0).selectOption(className)
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toHaveClass(
+			new RegExp(className)
+		)
+	})
+
+	test('Should change icon color', async ({ page }) => {
+		const className = 'fill-red-900'
+
+		await sbLocatorGetComboBox(page).nth(1).selectOption(className)
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toHaveClass(
+			new RegExp(className)
+		)
 	})
 })

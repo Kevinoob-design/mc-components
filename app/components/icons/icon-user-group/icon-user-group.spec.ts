@@ -1,47 +1,43 @@
-import { expect, describe, test, vi } from 'vitest'
-import { IconUserGroupModule } from './icon-user-group.module'
-import { iconUserGroupComponent } from './icon-user-group.component'
-import { IconUserGroupController } from './icon-user-group.controller'
+import { test, expect } from '@playwright/test'
+import {
+	sbLocatorGetButton,
+	sbLocatorGetHeading,
+	sbRoleType,
+	sbLocatorGetComboBox,
+	sbLocatorGetByRoleName
+} from '../../../../e2e/storybook.locator'
+import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../../../e2e/storybook.constants'
 
-describe('IconUserGroup', () => {
-	describe('IconUserGroupModule', () => {
-		vi.mock('./icon-user-group.component', () => ({
-			iconUserGroupComponent: {}
-		}))
+test.describe('Icon-User-Group Story', () => {
+	const sbInnerLocator = '#story--library-icons-icon-user-group--default--primary-inner'
 
-		test('should be defined', () => {
-			expect(IconUserGroupModule).toBeDefined()
-		})
-		test('should have correct name', () => {
-			expect(IconUserGroupModule).toBe('IconUserGroupModule')
-		})
-
-		vi.unmock('./icon-user-group.component')
+	test.beforeEach(async ({ page }) => {
+		await page.goto(`${STORYBOOK_URL}/${STORYBOOK_DOCS_PATH}/library-icons-icon-user-group--docs`)
 	})
 
-	describe('IconUserGroupComponent', () => {
-		vi.mock('./icon-user-group.controller', () => ({
-			IconUserGroupController: {}
-		}))
-		vi.mock('./icon-user-group.scss', () => ({}))
-		vi.mock('./icon-user-group.html', () => ({}))
-
-		test('should be defined', () => {
-			expect(iconUserGroupComponent).toBeDefined()
-		})
-		test('should have template url', () => {
-			expect(iconUserGroupComponent.templateUrl).toBeTypeOf('string')
-			expect(iconUserGroupComponent.templateUrl).toBe('app/components/icons/icon-user-group/icon-user-group.html')
-		})
-
-		vi.unmock('./icon-user-group.controller')
+	test('Should have name Icon-User-Group', async ({ page }) => {
+		await expect(sbLocatorGetHeading(page, 'Icon-User-Group')).toHaveText('Icon-User-Group')
 	})
 
-	describe('IconUserGroupController', () => {
-		const iconUserGroupController: IconUserGroupController = new IconUserGroupController()
+	test('Should have svg icon', async ({ page }) => {
+		await expect(sbLocatorGetButton(page).first().getByRole(sbRoleType.IMAGE)).toBeVisible()
+	})
 
-		test('should be defined', () => {
-			expect(iconUserGroupController).toBeDefined()
-		})
+	test('Should change svg size', async ({ page }) => {
+		const className = 'w-10'
+
+		await sbLocatorGetComboBox(page).nth(0).selectOption(className)
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toHaveClass(
+			new RegExp(className)
+		)
+	})
+
+	test('Should change icon color', async ({ page }) => {
+		const className = 'fill-red-900'
+
+		await sbLocatorGetComboBox(page).nth(1).selectOption(className)
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toHaveClass(
+			new RegExp(className)
+		)
 	})
 })

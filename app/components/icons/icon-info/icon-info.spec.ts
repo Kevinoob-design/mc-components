@@ -1,47 +1,43 @@
-import { expect, describe, test, vi } from 'vitest'
-import { IconInfoModule } from './icon-info.module'
-import { iconInfoComponent } from './icon-info.component'
-import { IconInfoController } from './icon-info.controller'
+import { test, expect } from '@playwright/test'
+import {
+	sbLocatorGetButton,
+	sbLocatorGetHeading,
+	sbRoleType,
+	sbLocatorGetComboBox,
+	sbLocatorGetByRoleName
+} from '../../../../e2e/storybook.locator'
+import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../../../e2e/storybook.constants'
 
-describe('IconInfo', () => {
-	describe('IconInfoModule', () => {
-		vi.mock('./icon-info.component', () => ({
-			iconInfoComponent: {}
-		}))
+test.describe('Icon-Info Story', () => {
+	const sbInnerLocator = '#story--library-icons-icon-info--default--primary-inner'
 
-		test('should be defined', () => {
-			expect(IconInfoModule).toBeDefined()
-		})
-		test('should have correct name', () => {
-			expect(IconInfoModule).toBe('IconInfoModule')
-		})
-
-		vi.unmock('./icon-info.component')
+	test.beforeEach(async ({ page }) => {
+		await page.goto(`${STORYBOOK_URL}/${STORYBOOK_DOCS_PATH}/library-icons-icon-info--docs`)
 	})
 
-	describe('IconInfoComponent', () => {
-		vi.mock('./icon-info.controller', () => ({
-			IconInfoController: {}
-		}))
-		vi.mock('./icon-info.scss', () => ({}))
-		vi.mock('./icon-info.html', () => ({}))
-
-		test('should be defined', () => {
-			expect(iconInfoComponent).toBeDefined()
-		})
-		test('should have template url', () => {
-			expect(iconInfoComponent.templateUrl).toBeTypeOf('string')
-			expect(iconInfoComponent.templateUrl).toBe('app/components/icons/icon-info/icon-info.html')
-		})
-
-		vi.unmock('./icon-info.controller')
+	test('Should have name Icon-Info', async ({ page }) => {
+		await expect(sbLocatorGetHeading(page, 'Icon-Info')).toHaveText('Icon-Info')
 	})
 
-	describe('IconInfoController', () => {
-		const iconInfoController: IconInfoController = new IconInfoController()
+	test('Should have svg icon', async ({ page }) => {
+		await expect(sbLocatorGetButton(page).first().getByRole(sbRoleType.IMAGE)).toBeVisible()
+	})
 
-		test('should be defined', () => {
-			expect(iconInfoController).toBeDefined()
-		})
+	test('Should change svg size', async ({ page }) => {
+		const className = 'w-10'
+
+		await sbLocatorGetComboBox(page).nth(0).selectOption(className)
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toHaveClass(
+			new RegExp(className)
+		)
+	})
+
+	test('Should change icon color', async ({ page }) => {
+		const className = 'fill-red-900'
+
+		await sbLocatorGetComboBox(page).nth(1).selectOption(className)
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toHaveClass(
+			new RegExp(className)
+		)
 	})
 })

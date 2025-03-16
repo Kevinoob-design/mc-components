@@ -1,47 +1,43 @@
-import { expect, describe, test, vi } from 'vitest'
-import { IconEnvelopeModule } from './icon-envelope.module'
-import { iconEnvelopeComponent } from './icon-envelope.component'
-import { IconEnvelopeController } from './icon-envelope.controller'
+import { test, expect } from '@playwright/test'
+import {
+	sbLocatorGetButton,
+	sbLocatorGetHeading,
+	sbRoleType,
+	sbLocatorGetComboBox,
+	sbLocatorGetByRoleName
+} from '../../../../e2e/storybook.locator'
+import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../../../e2e/storybook.constants'
 
-describe('IconEnvelope', () => {
-	describe('IconEnvelopeModule', () => {
-		vi.mock('./icon-envelope.component', () => ({
-			iconEnvelopeComponent: {}
-		}))
+test.describe('Icon-Envelope Story', () => {
+	const sbInnerLocator = '#story--library-icons-icon-envelope--default--primary-inner'
 
-		test('should be defined', () => {
-			expect(IconEnvelopeModule).toBeDefined()
-		})
-		test('should have correct name', () => {
-			expect(IconEnvelopeModule).toBe('IconEnvelopeModule')
-		})
-
-		vi.unmock('./icon-envelope.component')
+	test.beforeEach(async ({ page }) => {
+		await page.goto(`${STORYBOOK_URL}/${STORYBOOK_DOCS_PATH}/library-icons-icon-envelope--docs`)
 	})
 
-	describe('IconEnvelopeComponent', () => {
-		vi.mock('./icon-envelope.controller', () => ({
-			IconEnvelopeController: {}
-		}))
-		vi.mock('./icon-envelope.scss', () => ({}))
-		vi.mock('./icon-envelope.html', () => ({}))
-
-		test('should be defined', () => {
-			expect(iconEnvelopeComponent).toBeDefined()
-		})
-		test('should have template url', () => {
-			expect(iconEnvelopeComponent.templateUrl).toBeTypeOf('string')
-			expect(iconEnvelopeComponent.templateUrl).toBe('app/components/icons/icon-envelope/icon-envelope.html')
-		})
-
-		vi.unmock('./icon-envelope.controller')
+	test('Should have name Icon-Envelope', async ({ page }) => {
+		await expect(sbLocatorGetHeading(page, 'Icon-Envelope')).toHaveText('Icon-Envelope')
 	})
 
-	describe('IconEnvelopeController', () => {
-		const iconEnvelopeController: IconEnvelopeController = new IconEnvelopeController()
+	test('Should have svg icon', async ({ page }) => {
+		await expect(sbLocatorGetButton(page).first().getByRole(sbRoleType.IMAGE)).toBeVisible()
+	})
 
-		test('should be defined', () => {
-			expect(iconEnvelopeController).toBeDefined()
-		})
+	test('Should change svg size', async ({ page }) => {
+		const className = 'w-10'
+
+		await sbLocatorGetComboBox(page).nth(0).selectOption(className)
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toHaveClass(
+			new RegExp(className)
+		)
+	})
+
+	test('Should change icon color', async ({ page }) => {
+		const className = 'fill-red-900'
+
+		await sbLocatorGetComboBox(page).nth(1).selectOption(className)
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toHaveClass(
+			new RegExp(className)
+		)
 	})
 })

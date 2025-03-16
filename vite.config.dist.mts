@@ -24,11 +24,13 @@ export default defineConfig({
 	},
 	test: {
 		root: 'app/components',
+		include: ['**/*.test.ts'],
 		environment: 'jsdom',
 		coverage: {
 			reportsDirectory: '../../coverage',
 			provider: 'istanbul',
 			reporter: ['html', 'json', 'text'],
+			exclude: ['**/*.stories.ts'],
 			thresholds: {
 				lines: 100,
 				functions: 100,

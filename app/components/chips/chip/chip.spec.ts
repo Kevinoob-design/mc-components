@@ -1,47 +1,26 @@
-import { expect, describe, test, vi } from 'vitest'
-import { ChipModule } from './chip.module'
-import { chipComponent } from './chip.component'
-import { ChipController } from './chip.controller'
+import { test, expect } from '@playwright/test'
+import { sbLocatorGetByText, sbLocatorGetComboBox, sbLocatorGetHeading } from '../../../../e2e/storybook.locator'
+import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../../../e2e/storybook.constants'
 
-describe('Chip', () => {
-	describe('ChipModule', () => {
-		vi.mock('./chip.component', () => ({
-			chipComponent: {}
-		}))
-
-		test('should be defined', () => {
-			expect(ChipModule).toBeDefined()
-		})
-		test('should have correct name', () => {
-			expect(ChipModule).toBe('ChipModule')
-		})
-
-		vi.unmock('./chip.component')
+test.describe('Chip Story', () => {
+	test.beforeEach(async ({ page }) => {
+		await page.goto(`${STORYBOOK_URL}/${STORYBOOK_DOCS_PATH}/library-chips-chip--docs`)
 	})
 
-	describe('ChipComponent', () => {
-		vi.mock('./chip.controller', () => ({
-			ChipController: {}
-		}))
-		vi.mock('./chip.scss', () => ({}))
-		vi.mock('./chip.html', () => ({}))
-
-		test('should be defined', () => {
-			expect(chipComponent).toBeDefined()
-		})
-		test('should have template url', () => {
-			expect(chipComponent.templateUrl).toBeTypeOf('string')
-			expect(chipComponent.templateUrl).toBe('app/components/chips/chip/chip.html')
-		})
-
-		vi.unmock('./chip.controller')
+	test('Should have name Chip', async ({ page }) => {
+		await expect(sbLocatorGetHeading(page, 'Chip')).toHaveText('Chip')
 	})
 
-	describe('ChipController', () => {
-		const chipController: ChipController = new ChipController()
+	test('Should have uppercase class', async ({ page }) => {
+		const className = 'uppercase'
 
-		test('should be defined', () => {
-			expect(chipController).toBeDefined()
-		})
+		await expect(sbLocatorGetByText(page, 'Chip Default').first().locator('..')).toHaveClass(new RegExp(className))
+	})
+
+	test('Should change color', async ({ page }) => {
+		const className = 'bg-green-500/20'
+
+		await sbLocatorGetComboBox(page).first().selectOption(className)
+		await expect(sbLocatorGetByText(page, 'Chip Default').first().locator('..')).toHaveClass(new RegExp(className))
 	})
 })

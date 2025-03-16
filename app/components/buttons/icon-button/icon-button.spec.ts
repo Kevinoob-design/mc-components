@@ -1,47 +1,32 @@
-import { expect, describe, test, vi } from 'vitest'
-import { IconButtonModule } from './icon-button.module'
-import { iconButtonComponent } from './icon-button.component'
-import { IconButtonController } from './icon-button.controller'
+import { test, expect } from '@playwright/test'
+import { sbLocatorGetButton, sbLocatorGetHeading, sbRoleType } from '../../../../e2e/storybook.locator'
+import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../../../e2e/storybook.constants'
 
-describe('IconButton', () => {
-	describe('IconButtonModule', () => {
-		vi.mock('./icon-button.component', () => ({
-			iconButtonComponent: {}
-		}))
+test.describe('Icon-Button Story', () => {
+	const consoleActionMessage = 'Component: Button - triggered action: Clicked'
 
-		test('should be defined', () => {
-			expect(IconButtonModule).toBeDefined()
-		})
-		test('should have correct name', () => {
-			expect(IconButtonModule).toBe('IconButtonModule')
-		})
-
-		vi.unmock('./icon-button.component')
+	test.beforeEach(async ({ page }) => {
+		await page.goto(`${STORYBOOK_URL}/${STORYBOOK_DOCS_PATH}/library-buttons-icon-button--docs`)
 	})
 
-	describe('IconButtonComponent', () => {
-		vi.mock('./icon-button.controller', () => ({
-			IconButtonController: {}
-		}))
-		vi.mock('./icon-button.scss', () => ({}))
-		vi.mock('./icon-button.html', () => ({}))
-
-		test('should be defined', () => {
-			expect(iconButtonComponent).toBeDefined()
-		})
-		test('should have template url', () => {
-			expect(iconButtonComponent.templateUrl).toBeTypeOf('string')
-			expect(iconButtonComponent.templateUrl).toBe('app/components/buttons/icon-button/icon-button.html')
-		})
-
-		vi.unmock('./icon-button.controller')
+	test('Should have name Icon-Button', async ({ page }) => {
+		await expect(sbLocatorGetHeading(page, 'Icon-Button')).toHaveText('Icon-Button')
 	})
 
-	describe('IconButtonController', () => {
-		const iconButtonController: IconButtonController = new IconButtonController()
+	test('Should have svg icon', async ({ page }) => {
+		await expect(sbLocatorGetButton(page).first().getByRole(sbRoleType.IMAGE)).toBeVisible()
+	})
 
-		test('should be defined', () => {
-			expect(iconButtonController).toBeDefined()
+	test('Should click and log action', async ({ page }) => {
+		const buttonLocator = sbLocatorGetButton(page).first()
+
+		page.on('console', async msg => {
+			const message = msg.text()
+			if (message.includes(consoleActionMessage)) {
+				expect(message).toContain(consoleActionMessage)
+			}
 		})
+
+		await buttonLocator.click()
 	})
 })

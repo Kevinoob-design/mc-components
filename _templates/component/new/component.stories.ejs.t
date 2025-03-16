@@ -1,10 +1,35 @@
 ---
-to: stories/<%=h.changeCase.paramCase(path)%>/<%=h.changeCase.paramCase(name)%>/<%=h.changeCase.paramCase(name)%>.stories.ts
+to: app/components/<%=h.changeCase.paramCase(path)%>/<%=h.changeCase.paramCase(name)%>/<%=h.changeCase.paramCase(name)%>.stories.ts
 ---
-import type { Meta, StoryObj } from '@storybook/html'
-import { componentLogAction } from '../../shared'
-import { <%=h.changeCase.pascal(name)%>Module, <%=h.changeCase.pascal(name)%>Props } from '../../../app/components/<%=h.changeCase.paramCase(path)%>'
-import { argTypes, buildComponent } from './<%=h.changeCase.paramCase(name)%>'
+import type { ArgTypes, Meta, StoryObj } from '@storybook/html'
+import { html, componentLogAction } from '../../../../stories/shared'
+import { <%=h.changeCase.pascal(name)%>Module, <%=h.changeCase.pascal(name)%>Props } from './'
+
+const argTypes: Partial<ArgTypes< <%=h.changeCase.pascal(name)%>Props >> = {
+	label: { control: 'text' },
+	onClick: { action: 'onClick' },
+	disabled: {
+		control: 'boolean',
+		table: { defaultValue: { summary: 'false' } }
+	},
+	loading: {
+		control: 'boolean',
+		table: { defaultValue: { summary: 'false' } }
+	}
+}
+
+const buildComponent = ({
+	disabled = false,
+	loading = false,
+	label
+}: <%=h.changeCase.pascal(name)%>Props ) => html`
+	<mc-<%=h.changeCase.paramCase(name)%>
+		text="${label}"
+		disabled="${disabled}"
+		loading="${loading}"
+		on-click="onClick()">
+	</mc-<%=h.changeCase.paramCase(name)%>>
+`
 
 const meta = {
 	title: 'Library/<%=h.changeCase.headerCase(path)%>/<%=h.changeCase.headerCase(name)%>',

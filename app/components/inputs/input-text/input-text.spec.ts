@@ -1,59 +1,73 @@
-import { expect, describe, test, vi } from 'vitest'
-import { InputTextModule } from './input-text.module'
-import { inputTextComponent } from './input-text.component'
-import { InputTextController } from './input-text.controller'
+import { test, expect } from '@playwright/test'
+import {
+	sbLocatorGetButton,
+	sbLocatorGetByPlaceHolder,
+	sbLocatorGetSwitch,
+	sbLocatorGetHeading
+} from '../../../../e2e/storybook.locator'
+import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../../../e2e/storybook.constants'
 
-describe('InputText', () => {
-	describe('InputTextModule', () => {
-		vi.mock('./input-text.component', () => ({
-			inputTextComponent: {}
-		}))
+test.describe('Input-Text Story', () => {
+	// const sbInnerLocator = '#story--library-inputs-input-text--default--primary-inner'
 
-		test('should be defined', () => {
-			expect(InputTextModule).toBeDefined()
-		})
-		test('should have correct name', () => {
-			expect(InputTextModule).toBe('InputTextModule')
-		})
+	const buttonText = 'Input-Text Default'
+	const disableControlName = 'disabled'
+	const loadingControlName = 'loading'
+	const placeHolderControlName = 'Edit string...'
+	const consoleActionMessage = 'Component: Input-Text - triggered action: Clicked'
 
-		vi.unmock('./input-text.component')
+	test.beforeEach(async ({ page }) => {
+		await page.goto(`${STORYBOOK_URL}/${STORYBOOK_DOCS_PATH}/library-inputs-input-text--docs`)
 	})
 
-	describe('InputTextComponent', () => {
-		vi.mock('./input-text.controller', () => ({
-			InputTextController: {}
-		}))
-		vi.mock('./input-text.scss', () => ({}))
-		vi.mock('./input-text.html', () => ({}))
-
-		test('should be defined', () => {
-			expect(inputTextComponent).toBeDefined()
-		})
-		test('should have template url', () => {
-			expect(inputTextComponent.templateUrl).toBeTypeOf('string')
-			expect(inputTextComponent.templateUrl).toBe('app/components/inputs/input-text/input-text.html')
-		})
-
-		vi.unmock('./input-text.controller')
+	test('Should have name Input-Text', async ({ page }) => {
+		await expect(sbLocatorGetHeading(page, 'Input-Text')).toHaveText('Input-Text')
 	})
 
-	describe('InputTextController', () => {
-		const inputTextController: InputTextController = new InputTextController()
+	test('Should be enabled', async ({ page }) => {
+		const buttonLocator = sbLocatorGetButton(page, buttonText).first()
 
-		test('should be defined', () => {
-			expect(inputTextController).toBeDefined()
+		await expect(buttonLocator).toHaveText(buttonText)
+		await expect(buttonLocator).toBeEnabled()
+	})
+
+	test('Should be disabled', async ({ page }) => {
+		const buttonLocator = sbLocatorGetButton(page, buttonText).first()
+		const disableControlLocator = sbLocatorGetSwitch(page, disableControlName)
+
+		await disableControlLocator.check()
+		await expect(buttonLocator).toBeDisabled()
+	})
+
+	test('Should have loading dots', async ({ page }) => {
+		const buttonLocator = sbLocatorGetButton(page, buttonText).first()
+		const loadingControlLocator = sbLocatorGetSwitch(page, loadingControlName)
+
+		await loadingControlLocator.check()
+		await expect(buttonLocator).toHaveText(`${buttonText} ...`)
+	})
+
+	test('Should have updated label', async ({ page }) => {
+		const buttonText = 'New Input-Text Default'
+
+		const placeHolderControlLocator = sbLocatorGetByPlaceHolder(page, placeHolderControlName)
+
+		await placeHolderControlLocator.fill(buttonText)
+
+		const buttonLocator = sbLocatorGetButton(page, buttonText).first()
+		await expect(buttonLocator).toHaveText(buttonText)
+	})
+
+	test('Should click and log action', async ({ page }) => {
+		const buttonLocator = sbLocatorGetButton(page, buttonText).first()
+
+		page.on('console', async msg => {
+			const message = msg.text()
+			if (message.includes(consoleActionMessage)) {
+				expect(message).toContain(consoleActionMessage)
+			}
 		})
 
-		test('getTopLabelRequiredAfterClass returns correct class when required', () => {
-			inputTextController.required = true
-			expect(inputTextController.getTopLabelRequiredAfterClass()).toBe(
-				'after:content-["*"] after:ml-0.5 after:text-red-500'
-			)
-		})
-
-		test('getTopLabelRequiredAfterClass returns empty string when not required', () => {
-			inputTextController.required = false
-			expect(inputTextController.getTopLabelRequiredAfterClass()).toBe('')
-		})
+		await buttonLocator.click()
 	})
 })

@@ -1,129 +1,315 @@
-import { expect, describe, test, vi, beforeEach } from 'vitest'
-import { TableModule } from './table.module'
-import { tableComponent } from './table.component'
-import { TableController } from './table.controller'
+import { test, expect } from '@playwright/test'
+import {
+	sbLocatorGetTable,
+	sbLocatorGetHeading,
+	sbRoleType,
+	sbLocatorGetByRoleName
+} from '../../../../e2e/storybook.locator'
+import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../../../e2e/storybook.constants'
+import { columns, rows } from '../../../../__test__/mocks/table.mock'
 
-describe('Table', () => {
-	describe('TableModule', () => {
-		vi.mock('./table.component', () => ({
-			tableComponent: {}
-		}))
-
-		test('should be defined', () => {
-			expect(TableModule).toBeDefined()
-		})
-		test('should have correct name', () => {
-			expect(TableModule).toBe('TableModule')
-		})
-
-		vi.unmock('./table.component')
+test.describe('Table Story', () => {
+	test.beforeEach(async ({ page }) => {
+		await page.goto(`${STORYBOOK_URL}/${STORYBOOK_DOCS_PATH}/library-tables-table--docs`)
 	})
 
-	describe('TableComponent', () => {
-		vi.mock('./table.controller', () => ({
-			TableController: {}
-		}))
-		vi.mock('./table.scss', () => ({}))
-		vi.mock('./table.html', () => ({}))
-
-		test('should be defined', () => {
-			expect(tableComponent).toBeDefined()
-		})
-		test('should have template url', () => {
-			expect(tableComponent.templateUrl).toBeTypeOf('string')
-			expect(tableComponent.templateUrl).toBe('app/components/tables/table/table.html')
-		})
-
-		vi.unmock('./table.controller')
+	test('Should have name Table', async ({ page }) => {
+		await expect(sbLocatorGetHeading(page, 'Table').first()).toHaveText('Table')
 	})
 
-	describe('TableController', () => {
-		let tableController: TableController<{ id: number; name: string }>
+	test('Should have 1 header row and 4 data rows', async ({ page }) => {
+		await expect(sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW)).toHaveCount(5)
+	})
 
-		beforeEach(() => {
-			tableController = new TableController()
-			tableController.rows = [
-				{ id: 1, name: 'John' },
-				{ id: 2, name: 'Jane' },
-				{ id: 3, name: 'Bob' }
-			]
-			tableController.columns = [
-				{ key: 'id', title: 'ID', sortable: true },
-				{ key: 'name', title: 'Name', sortable: true }
-			]
-		})
+	test(`Should have ${columns.length - 2} columns`, async ({ page }) => {
+		await expect(
+			sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW).first().getByRole(sbRoleType.TABLE_CELL)
+		).toHaveCount(columns.length - 2)
+	})
 
-		test('should be defined', () => {
-			expect(tableController).toBeDefined()
-		})
+	test('Should have name of Jane Doe', async ({ page }) => {
+		const [, row] = rows
 
-		test('should do nothing if column is not sortable', () => {
-			const nonSortableColumn = { key: 'nonSortable', title: 'Non Sortable', sortable: false }
-			tableController.sort(nonSortableColumn)
-			expect(tableController.rows).toEqual([
-				{ id: 1, name: 'John' },
-				{ id: 2, name: 'Jane' },
-				{ id: 3, name: 'Bob' }
-			])
-		})
+		await expect(
+			sbLocatorGetTable(page)
+				.first()
+				.getByRole(sbRoleType.TABLE_ROW)
+				.nth(2)
+				.getByRole(sbRoleType.TABLE_CELL)
+				.first()
+		).toHaveText(row.name)
+	})
 
-		test('should use custom comparator if provided', () => {
-			const columnWithComparator = {
+	test('Should have new name of Janet Doe', async ({ page }) => {
+		rows[1].name = 'Janet Doe'
+
+		const rawControlLocator = 'RAW'
+		const textBoxControlLocator = 'Edit JSON string...'
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(1)
+			.click()
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TEXTBOX, textBoxControlLocator).fill(JSON.stringify(rows))
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(1)
+			.click()
+
+		await expect(
+			sbLocatorGetTable(page)
+				.first()
+				.getByRole(sbRoleType.TABLE_ROW)
+				.nth(2)
+				.getByRole(sbRoleType.TABLE_CELL)
+				.first()
+		).toHaveText(rows[1].name)
+	})
+
+	test('Should have 2 rows', async ({ page }) => {
+		rows.length = 2
+
+		const rawControlNth = 1
+		const rawControlLocator = 'RAW'
+		const textBoxControlLocator = 'Edit JSON string...'
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawControlNth)
+			.click()
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TEXTBOX, textBoxControlLocator).fill(JSON.stringify(rows))
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawControlNth)
+			.click()
+
+		await expect(sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW)).toHaveCount(3)
+	})
+
+	test('Should have 2 columns', async ({ page }) => {
+		columns.length = 2
+
+		const rawControlNth = 0
+		const rawControlLocator = 'RAW'
+		const textBoxControlLocator = 'Edit JSON string...'
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawControlNth)
+			.click()
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TEXTBOX, textBoxControlLocator).fill(JSON.stringify(columns))
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawControlNth)
+			.click()
+
+		await expect(
+			sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW).first().getByRole(sbRoleType.TABLE_CELL)
+		).toHaveCount(2)
+	})
+
+	test('Should have new columns and rows', async ({ page }) => {
+		const columns = [
+			{
 				key: 'id',
-				title: 'ID',
-				sortable: true,
-				comparator: (val1: number | string, val2: number | string) => (val1 as number) - (val2 as number)
+				title: 'ID'
+			},
+			{
+				key: 'name',
+				title: 'Name'
 			}
-			tableController.sort(columnWithComparator)
-			expect(tableController.rows).toEqual([
-				{ id: 1, name: 'John' },
-				{ id: 2, name: 'Jane' },
-				{ id: 3, name: 'Bob' }
-			])
-		})
+		]
 
-		test('should use default comparator if not provided', () => {
-			const columnWithoutComparator = { key: 'name', title: 'Name', sortable: true }
-			tableController.sort(columnWithoutComparator)
-			expect(tableController.rows).toEqual([
-				{ id: 1, name: 'John' },
-				{ id: 2, name: 'Jane' },
-				{ id: 3, name: 'Bob' }
-			])
-		})
+		const rows = [
+			{
+				id: 1,
+				name: 'John Doe'
+			},
+			{
+				id: 2,
+				name: 'Jane Doe'
+			}
+		]
 
-		test('should leave rows unsorted with same values', () => {
-			const columnWithoutComparator = { key: 'name', title: 'Name', sortable: true }
-			tableController.rows = [
-				{ id: 1, name: 'John' },
-				{ id: 2, name: 'John' },
-				{ id: 3, name: 'John' }
-			]
-			tableController.sort(columnWithoutComparator)
-			expect(tableController.rows).toEqual([
-				{ id: 1, name: 'John' },
-				{ id: 2, name: 'John' },
-				{ id: 3, name: 'John' }
-			])
-		})
+		const rawColumnControlNth = 0
+		const rawRowControlNth = 1
+		const rawControlLocator = 'RAW'
+		const textBoxControlLocator = 'Edit JSON string...'
 
-		test('should toggle sorting direction', () => {
-			const column = { key: 'id', title: 'ID', sortable: true, sortDirection: 'asc' as 'asc' | 'desc' }
-			tableController.sort(column)
-			expect(column.sortDirection).toBe('desc')
-			tableController.sort(column)
-			expect(column.sortDirection).toBe('asc')
-			tableController.sort(column)
-			expect(column.sortDirection).toBe('desc')
-		})
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawColumnControlNth)
+			.click()
 
-		test('should reset other columns sorting state', () => {
-			const column1 = { key: 'id', title: 'ID', sortable: true, sorted: true, sortDirection: 'asc' }
-			const column2 = { key: 'name', title: 'Name', sortable: true }
-			tableController.columns = [column1, column2]
-			tableController.sort(column2)
-			expect(column1.sorted).toBe(false)
-			expect(column1.sortDirection).toBeUndefined()
-		})
+		await sbLocatorGetByRoleName(page, sbRoleType.TEXTBOX, textBoxControlLocator).fill(JSON.stringify(columns))
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawColumnControlNth)
+			.click()
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawRowControlNth)
+			.click()
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TEXTBOX, textBoxControlLocator).fill(JSON.stringify(rows))
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawRowControlNth)
+			.click()
+
+		await expect(
+			sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW).first().getByRole(sbRoleType.TABLE_CELL)
+		).toHaveCount(2)
+
+		await expect(
+			sbLocatorGetTable(page)
+				.first()
+				.getByRole(sbRoleType.TABLE_ROW)
+				.nth(2)
+				.getByRole(sbRoleType.TABLE_CELL)
+				.nth(1)
+		).toHaveText(rows[1].name)
+	})
+
+	test('Should match column title with row key value after deleting columns', async ({ page }) => {
+		const columns = [
+			{
+				key: 'id',
+				title: 'ID'
+			},
+			{
+				key: 'name',
+				title: 'Name'
+			},
+			{
+				key: 'age',
+				title: 'Age'
+			},
+			{
+				key: '',
+				title: ''
+			}
+		]
+
+		const rows = [
+			{
+				id: 1,
+				name: 'John Doe',
+				age: 30
+			},
+			{
+				id: 2,
+				name: 'Jane Doe',
+				age: 25
+			}
+		]
+
+		const rawColumnControlNth = 0
+		const rawRowControlNth = 1
+		const rawControlLocator = 'RAW'
+		const textBoxControlLocator = 'Edit JSON string...'
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawColumnControlNth)
+			.click()
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TEXTBOX, textBoxControlLocator).fill(JSON.stringify(columns))
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawColumnControlNth)
+			.click()
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawRowControlNth)
+			.click()
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TEXTBOX, textBoxControlLocator).fill(JSON.stringify(rows))
+
+		await sbLocatorGetByRoleName(page, sbRoleType.TABLE_CELL, rawControlLocator)
+			.getByRole(sbRoleType.BUTTON)
+			.nth(rawRowControlNth)
+			.click()
+
+		await sbLocatorGetTable(page)
+			.nth(1)
+			.getByRole(sbRoleType.TABLE_ROW)
+			.nth(1)
+			.getByRole(sbRoleType.TABLE_CELL)
+			.nth(3)
+			.getByRole(sbRoleType.IMAGE)
+			.nth(2)
+			.click()
+
+		await sbLocatorGetTable(page)
+			.nth(1)
+			.getByRole(sbRoleType.TABLE_ROW)
+			.nth(1)
+			.getByRole(sbRoleType.TABLE_CELL)
+			.nth(3)
+			.getByRole(sbRoleType.IMAGE)
+			.nth(2)
+			.click()
+
+		await expect(
+			sbLocatorGetTable(page)
+				.first()
+				.getByRole(sbRoleType.TABLE_ROW)
+				.first()
+				.getByRole(sbRoleType.TABLE_CELL)
+				.first()
+		).toHaveText(columns[2].title)
+
+		await expect(
+			sbLocatorGetTable(page)
+				.first()
+				.getByRole(sbRoleType.TABLE_ROW)
+				.nth(1)
+				.getByRole(sbRoleType.TABLE_CELL)
+				.first()
+		).toHaveText(rows[0].age.toString())
+	})
+
+	test('Should delete 3 rows and keep remaining rows with header row', async ({ page }) => {
+		await sbLocatorGetTable(page)
+			.nth(1)
+			.getByRole(sbRoleType.TABLE_ROW)
+			.nth(2)
+			.getByRole(sbRoleType.TABLE_CELL)
+			.nth(3)
+			.getByRole(sbRoleType.IMAGE)
+			.nth(2)
+			.click()
+		await sbLocatorGetTable(page)
+			.nth(1)
+			.getByRole(sbRoleType.TABLE_ROW)
+			.nth(2)
+			.getByRole(sbRoleType.TABLE_CELL)
+			.nth(3)
+			.getByRole(sbRoleType.IMAGE)
+			.nth(2)
+			.click()
+		await sbLocatorGetTable(page)
+			.nth(1)
+			.getByRole(sbRoleType.TABLE_ROW)
+			.nth(2)
+			.getByRole(sbRoleType.TABLE_CELL)
+			.nth(3)
+			.getByRole(sbRoleType.IMAGE)
+			.nth(2)
+			.click()
+
+		await expect(sbLocatorGetTable(page).first().getByRole(sbRoleType.TABLE_ROW)).toHaveCount(2)
 	})
 })

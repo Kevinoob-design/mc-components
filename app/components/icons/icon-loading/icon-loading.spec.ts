@@ -1,47 +1,64 @@
-import { expect, describe, test, vi } from 'vitest'
-import { IconLoadingModule } from './icon-loading.module'
-import { iconLoadingComponent } from './icon-loading.component'
-import { IconLoadingController } from './icon-loading.controller'
+import { test, expect } from '@playwright/test'
+import {
+	sbLocatorGetByRoleName,
+	sbLocatorGetComboBox,
+	sbLocatorGetHeading,
+	sbRoleType
+} from '../../../../e2e/storybook.locator'
+import { STORYBOOK_DOCS_PATH, STORYBOOK_URL } from '../../../../e2e/storybook.constants'
 
-describe('IconLoading', () => {
-	describe('IconLoadingModule', () => {
-		vi.mock('./icon-loading.component', () => ({
-			iconLoadingComponent: {}
-		}))
+test.describe('Icon-Loading Story', () => {
+	const sbInnerLocator = '#story--library-icons-icon-loading--default--primary-inner'
 
-		test('should be defined', () => {
-			expect(IconLoadingModule).toBeDefined()
-		})
-		test('should have correct name', () => {
-			expect(IconLoadingModule).toBe('IconLoadingModule')
-		})
-
-		vi.unmock('./icon-loading.component')
+	test.beforeEach(async ({ page }) => {
+		await page.goto(`${STORYBOOK_URL}/${STORYBOOK_DOCS_PATH}/library-icons-icon-loading--docs`)
 	})
 
-	describe('IconLoadingComponent', () => {
-		vi.mock('./icon-loading.controller', () => ({
-			IconLoadingController: {}
-		}))
-		vi.mock('./icon-loading.scss', () => ({}))
-		vi.mock('./icon-loading.html', () => ({}))
-
-		test('should be defined', () => {
-			expect(iconLoadingComponent).toBeDefined()
-		})
-		test('should have template url', () => {
-			expect(iconLoadingComponent.templateUrl).toBeTypeOf('string')
-			expect(iconLoadingComponent.templateUrl).toBe('app/components/icons/icon-loading/icon-loading.html')
-		})
-
-		vi.unmock('./icon-loading.controller')
+	test('Should have name Icon-Loading', async ({ page }) => {
+		await expect(sbLocatorGetHeading(page, 'Icon-Loading')).toHaveText('Icon-Loading')
 	})
 
-	describe('IconLoadingController', () => {
-		const iconLoadingController: IconLoadingController = new IconLoadingController()
+	test('Should have svg icon', async ({ page }) => {
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toBeVisible()
+	})
 
-		test('should be defined', () => {
-			expect(iconLoadingController).toBeDefined()
-		})
+	test('Should change svg size', async ({ page }) => {
+		const className = 'w-10'
+
+		await sbLocatorGetComboBox(page).nth(0).selectOption(className)
+
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toHaveClass(
+			new RegExp(className)
+		)
+	})
+
+	test('Should change bar background color', async ({ page }) => {
+		const className = 'text-red-900'
+
+		await sbLocatorGetComboBox(page).nth(1).selectOption(className)
+
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toHaveClass(
+			new RegExp(className)
+		)
+	})
+
+	test('Should change bar color', async ({ page }) => {
+		const className = 'fill-green-900'
+
+		await sbLocatorGetComboBox(page).nth(2).selectOption(className)
+
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator).locator('path')).toHaveClass(
+			new RegExp(className)
+		)
+	})
+
+	test('Should change circle color', async ({ page }) => {
+		const className = 'fill-slate-900'
+
+		await sbLocatorGetComboBox(page).nth(3).selectOption(className)
+
+		await expect(sbLocatorGetByRoleName(page, sbRoleType.IMAGE, '', sbInnerLocator)).toHaveClass(
+			new RegExp(className)
+		)
 	})
 })

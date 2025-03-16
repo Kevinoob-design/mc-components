@@ -22,11 +22,11 @@ module "storybook_distribution" {
     Name = "Cloudfront distribution for ${data.aws_s3_bucket.s3_bucket.bucket}"
   }
   default_cache_behavior = {
-    allowed_methods = [ "GET", "HEAD" ]
-    cached_methods  = [ "GET", "HEAD" ]
+    allowed_methods = ["GET", "HEAD"]
+    cached_methods  = ["GET", "HEAD"]
     forwarded_values = {
       cookies = {}
     }
   }
-  geo_restriction        = {}
+  geo_restriction = {}
 }
