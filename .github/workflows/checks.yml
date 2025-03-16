@@ -94,7 +94,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     strategy:
-      fail-fast: false
+      fail-fast: true
       matrix:
         shardIndex: [1, 2, 3, 4]
         shardTotal: [4]
