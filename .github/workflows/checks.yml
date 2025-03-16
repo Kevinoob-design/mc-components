@@ -36,8 +36,7 @@ jobs:
             dist-storybook
           key: dist-${{ runner.os }}-${{ hashFiles('dist') }}
 
-  format:
-    needs: build
+  prettier:
     runs-on: ubuntu-latest
 
     steps:
@@ -46,11 +45,21 @@ jobs:
         with:
           node-version: "22.x"
 
-      - name: Format Check
+      - name: Prettier Format Check
         run: yarn prettier '*.{ts,scss,css,html}' --check
 
+  tf-format:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.10.4"
+
+      - name: Terraform Format Check
+        run: terraform fmt -recursive -check
+
   lint:
-    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -82,6 +91,7 @@ jobs:
           retention-days: 30
 
   e2e:
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
