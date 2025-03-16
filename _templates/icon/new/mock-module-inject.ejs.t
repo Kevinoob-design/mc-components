@@ -1,6 +1,6 @@
 ---
 inject: true
-to: app/components/components.spec.ts
+to: app/components/components.test.ts
 after: "vi.mock\\('./<%=h.changeCase.paramCase(path)%>'"
 append: true
 ---
