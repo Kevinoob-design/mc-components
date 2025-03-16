@@ -118,7 +118,7 @@ jobs:
       CODE_ARTIFACT_DOMAIN: ${{vars.CODE_ARTIFACT_DOMAIN}}
       CODE_ARTIFACT_DOMAIN_OWNER: ${{vars.CODE_ARTIFACT_DOMAIN_OWNER}}
 
-    needs: [build, format, lint, test, e2e]
+    needs: [build, prettier, tf-format, lint, test, e2e]
     runs-on: ubuntu-latest
     environment: Prod
 
