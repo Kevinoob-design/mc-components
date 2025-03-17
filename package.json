@@ -78,7 +78,7 @@
 		"tailwindcss-scoped-preflight": "3.4.10",
 		"typescript": "^5.4.5",
 		"vite": "^5.2.3",
-		"vitest": "^1.6.0"
+		"vitest": "^1.6.1"
 	},
 	"lint-staged": {
 		"*.{ts,js,json,scss,css,html}": [
