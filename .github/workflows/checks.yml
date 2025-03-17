@@ -85,7 +85,7 @@ jobs:
   e2e:
     needs: build
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.44.0-jammy
+    container: mcr.microsoft.com/playwright:v1.51.1-jammy
     timeout-minutes: 10
     strategy:
       fail-fast: true
@@ -98,6 +98,11 @@ jobs:
       - uses: ./.github/actions/setup
         with:
           node-version: "22.x"
+
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
 
       - name: Run Playwright Tests
         run: yarn test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --max-failures=1
