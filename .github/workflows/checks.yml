@@ -85,7 +85,7 @@ jobs:
   e2e:
     needs: build
     runs-on: ubuntu-latest
-    container: mcr.microsoft.com/playwright:v1.51.1-jammy
+    container: mcr.microsoft.com/playwright:v1.50.0-jammy
     timeout-minutes: 10
     strategy:
       fail-fast: true
