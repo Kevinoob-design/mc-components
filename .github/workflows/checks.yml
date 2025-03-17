@@ -94,6 +94,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          node-version: "22.x"
       - uses: docker://mcr.microsoft.com/playwright:v1.44.0-jammy
         with:
           args: yarn playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --max-failures=1
