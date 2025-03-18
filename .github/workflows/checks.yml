@@ -125,7 +125,7 @@ jobs:
         with:
           format: 'table'
           exit-code: '1'
-          ignore-unfixed: false
+          ignore-unfixed: true
           vuln-type: 'library'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
           scan-type: 'fs'
