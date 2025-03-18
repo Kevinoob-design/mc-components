@@ -1,3 +1,4 @@
 ignore:
-  - angular:
-      reason: This package is intentionally ignored due to its lack of current support.
+  SNYK-JS-ANGULAR-6091113:
+    - '*':
+        reason: This package is intentionally ignored due to its lack of current support.
