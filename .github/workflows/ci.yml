@@ -162,17 +162,32 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
+  approval:
+    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: trstringer/manual-approval@v1.9.1
+        with:
+          secret: ${{ github.token }}
+          approvers: user1,user2,org-team1
+          minimum-approvals: 1
+          issue-title: "Deploying to prod"
+          issue-body: "Please approve or deny the deployment"
+          exclude-workflow-initiator-as-approver: false
+          additional-approved-words: ''
+          additional-denied-words: ''
+          timeout-minutes: 10
+
   deployment:
     env:
       AWS_REGION: ${{vars.AWS_REGION}}
       CODE_ARTIFACT_DOMAIN: ${{vars.CODE_ARTIFACT_DOMAIN}}
       CODE_ARTIFACT_DOMAIN_OWNER: ${{vars.CODE_ARTIFACT_DOMAIN_OWNER}}
 
-    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube]
+    needs: [approval]
     runs-on: ubuntu-latest
     environment: Prod
-
-    if: github.event_name == 'workflow_dispatch'
 
     steps:
       - uses: actions/checkout@v4
