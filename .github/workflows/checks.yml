@@ -143,13 +143,26 @@ jobs:
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
+  sonarqube:
+    needs: [e2e, test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: SonarSource/sonarqube-scan-action@v5.0.0
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
   deployment:
     env:
       AWS_REGION: ${{vars.AWS_REGION}}
       CODE_ARTIFACT_DOMAIN: ${{vars.CODE_ARTIFACT_DOMAIN}}
       CODE_ARTIFACT_DOMAIN_OWNER: ${{vars.CODE_ARTIFACT_DOMAIN_OWNER}}
 
-    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk]
+    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube]
     runs-on: ubuntu-latest
     environment: Prod
 
