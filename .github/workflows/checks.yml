@@ -82,35 +82,6 @@ jobs:
           path: coverage/
           retention-days: 30
 
-  trivy:
-    needs: [e2e, test]
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          format: 'table'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'library'
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
-          scan-type: 'fs'
-          scan-ref: '.'
-
-  snyk:
-    needs: [e2e, test]
-    runs-on: ubuntu-latest
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
   e2e:
     needs: build
     runs-on: ubuntu-latest
@@ -141,6 +112,36 @@ jobs:
           name: playwright-report-${{ matrix.shardIndex }}
           path: playwright-report/
           retention-days: 5
+
+  trivy:
+    needs: [e2e, test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'library'
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
+          scan-type: 'fs'
+          scan-ref: '.'
+
+  snyk:
+    needs: [e2e, test]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Snyk to check for vulnerabilities
+        uses: snyk/actions/node@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
 
   deployment:
     env:
