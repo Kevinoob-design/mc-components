@@ -132,7 +132,7 @@ jobs:
         merge-multiple: true
 
     - name: Merge into HTML Report
-      run: yarn playwright merge-reports --reporter html,list ./all-blob-reports
+      run: yarn playwright merge-reports --reporter html,list ./playwright-report
 
     - name: Upload HTML report
       uses: actions/upload-artifact@v4
