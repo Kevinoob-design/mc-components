@@ -155,8 +155,8 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          format: 'table'
-          output: 'dependency-results.sbom.json'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'library'
@@ -171,12 +171,12 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
 
-      - name: Upload trivy report as a Github artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: trivy-sbom-report
-          path: dependency-results.sbom.json
-          retention-days: 14
+      # - name: Upload trivy report as a Github artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: trivy-sbom-report
+      #     path: trivy-results.sarif
+      #     retention-days: 14
 
   snyk:
     needs: [e2e, test]
