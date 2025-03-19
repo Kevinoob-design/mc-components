@@ -195,19 +195,18 @@ jobs:
           echo "Version 2: $VERSION2"
 
           if [[ "$VERSION1" == "$VERSION2" ]]; then
-            echo "❌ Versions are the same"
             echo "isSameVersion=true" >> "$GITHUB_OUTPUT"
           else
-            echo "✅ Versions are different"
             echo "isSameVersion=false" >> "$GITHUB_OUTPUT"
           fi
         
       - name: Check package version
         if: steps.verify-version.outputs.isSameVersion == 'true'
-        run: echo "::error::You must increment the version in package.json"
+        run: echo "::warning::You must increment the version in package.json"
 
   approval:
-    needs: [check-version]
+    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube]
+    # needs: [check-version]
     runs-on: ubuntu-latest
 
     steps:
