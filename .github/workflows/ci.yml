@@ -235,6 +235,10 @@ jobs:
             echo "isSameVersion=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Check package version
+        if: steps.verify-version.outputs.isSameVersion == 'true'
+        run: echo "::warning::You must increment the version in package.json for deployment"
+
   deployment:
     needs: [check-version]
     runs-on: ubuntu-latest
@@ -269,9 +273,9 @@ jobs:
       #       echo "isSameVersion=false" >> "$GITHUB_OUTPUT"
       #     fi
         
-      - name: Check package version
+      # - name: Check package version
         # if: steps.verify-version.outputs.isSameVersion == 'true'
-        run: echo "::warning::You must increment the version in package.json for deployment"
+        # run: echo "::warning::You must increment the version in package.json for deployment"
 
       - uses: trstringer/manual-approval@v1.9.1
         # if: steps.verify-version.outputs.isSameVersion == 'false'
