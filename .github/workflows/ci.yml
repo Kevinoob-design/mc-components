@@ -138,8 +138,8 @@ jobs:
     - name: Upload HTML report
       uses: actions/upload-artifact@v4
       with:
-        name: html-report--attempt-${{ github.run_attempt }}
-        path: playwright-blob-report
+        name: playwright-report
+        path: playwright-report
         retention-days: 14
 
   trivy:
