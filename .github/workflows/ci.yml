@@ -175,14 +175,9 @@ jobs:
         with:
           node-version: "22.x"
 
-      # - name: Download previous version artifact
-      #   uses: actions/download-artifact@v4
-      #   with:
-      #     name: previous-deployed-version
-
       - name: Get previous version
         run: |
-          PREV_COMMIT=$(git rev-parse HEAD~1)
+          PREV_COMMIT=${{ github.event.before }}
           git show $PREV_COMMIT:package.json > prev_package.json
 
       - id: verify-version
@@ -257,13 +252,3 @@ jobs:
 
       - name: Publish to S3
         run: aws s3 sync dist-storybook s3://mc-storybook-bucket
-
-      # - name: store deployed version
-      #   run: |
-      #     yarn node -p "require('./package.json').version > previous-deployed-version
-
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: version-artifact
-      #     path: |
-      #       previous-deployed-version
