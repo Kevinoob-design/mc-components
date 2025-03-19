@@ -191,10 +191,10 @@ jobs:
           currentVersion=$(yarn node -p "require('./package.json').version)
           prevVersion=$(yarn node -p "require('./prev_package.json').version)
 
-          if [ "$currentVersion" == "$prevVersion" ]; then
-            echo "isSameVersion=true" >> $GITHUB_OUTPUT
+          if [[ "$currentVersion" == "$prevVersion" ]]; then
+            isSameVersion=true
           else
-            echo "isSameVersion=false" >> $GITHUB_OUTPUT
+            isSameVersion=false
           fi
         
       - name: Check package version
