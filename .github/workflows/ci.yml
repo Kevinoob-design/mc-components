@@ -164,8 +164,10 @@ jobs:
 
   check-version:
     runs-on: ubuntu-latest
-    continue-on-error: true
     environment: Prod
+
+    outputs:
+      isSameVersion: ${{ steps.verify-version.outputs.isSameVersion }}
 
     steps:
       - uses: actions/checkout@v4
@@ -202,11 +204,11 @@ jobs:
         if: steps.verify-version.outputs.isSameVersion == 'true'
         run: |
           echo "::warning::You must increment the version in package.json for deployment"
-          exit 1
 
   approval:
     needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube, check-version]
     runs-on: ubuntu-latest
+    if: needs.check-version.outputs.isSameVersion == 'false'
 
     steps:
       - uses: trstringer/manual-approval@v1.9.1
