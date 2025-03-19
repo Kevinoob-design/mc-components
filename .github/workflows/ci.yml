@@ -9,345 +9,44 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-        with:
-          node-version: "22.x"
-
-      - name: Build
-        run: yarn build
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: build
-          path: |
-            dist/
-            dist-storybook/
-          retention-days: 14
+    uses: ./.github/workflows/build.yml
 
   prettier:
     needs: [build]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-        with:
-          node-version: "22.x"
-
-      - name: Prettier Format Check
-        run: yarn prettier '*.{ts,scss,css,html}' --check
+    uses: ./.github/workflows/prettier.yml
 
   tf-format:
     needs: [build]
-
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-    steps:
-      - uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: "1.10.4"
-
-      - name: Terraform Format Check
-        run: terraform fmt -recursive -check
+    uses: ./.github/workflows/tf-format.yml
 
   lint:
     needs: [build]
-
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-        with:
-          node-version: "22.x"
-
-      - name: Lint
-        run: yarn eslint . --ext ts
+    uses: ./.github/workflows/lint.yml
 
   test:
     needs: [prettier, tf-format, lint]
-
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-        with:
-          node-version: "22.x"
-
-      - name: Unit Tests
-        run: yarn test
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: coverage
-          path: coverage/
-          retention-days: 14
+    uses: ./.github/workflows/test.yml
 
   e2e:
     needs: [prettier, tf-format, lint]
-    container: mcr.microsoft.com/playwright:v1.50.0-jammy
-    timeout-minutes: 10
-
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-    strategy:
-      fail-fast: true
-      matrix:
-        shardIndex: [1, 2, 3, 4]
-        shardTotal: [4]
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-        with:
-          node-version: "22.x"
-
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build
-
-      - name: Run Playwright Tests
-        run: yarn test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --max-failures=1
-
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-blob-report-${{ matrix.shardIndex }}
-          path: blob-report
-          retention-days: 1
-
-  merge-e2e-reports:
-    if: ${{ !failure() }}
-    needs: [e2e]
-
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-
-    steps:
-    - uses: actions/checkout@v4
-    - uses: ./.github/actions/setup
-      with:
-        node-version: "22.x"
-
-    - name: Download blob reports from GitHub Actions Artifacts
-      uses: actions/download-artifact@v4
-      with:
-        pattern: playwright-blob-report-*
-        path: all-blob-reports
-        merge-multiple: true
-
-    - name: Merge Reports
-      run: yarn playwright merge-reports --reporter html,list all-blob-reports
-
-    - name: Upload HTML report
-      uses: actions/upload-artifact@v4
-      with:
-        name: playwright-report
-        path: playwright-report
-        retention-days: 14
+    uses: ./.github/workflows/e2e.yml
 
   trivy:
     needs: [e2e, test]
-
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      security-events: write
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run Trivy vulnerability scanner
-        uses: aquasecurity/trivy-action@0.28.0
-        with:
-          format: 'sarif'
-          output: 'trivy-results.sarif'
-          exit-code: '1'
-          ignore-unfixed: true
-          vuln-type: 'library'
-          scanners: 'vuln,secret,license'
-          severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
-          scan-type: 'fs'
-          scan-ref: '.'
-
-      - name: Upload Trivy scan results to GitHub Security tab
-        uses: github/codeql-action/upload-sarif@v3
-        if: always()
-        with:
-          sarif_file: 'trivy-results.sarif'
+    uses: ./.github/workflows/trivy.yml
 
   snyk:
     needs: [e2e, test]
-
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      security-events: write
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Run Snyk to check for vulnerabilities
-        uses: snyk/actions/node@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-        with:
-          args: --sarif-file-output=snyk.sarif
-
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: snyk.sarif
+    uses: ./.github/workflows/snyk.yml
 
   sonarqube:
     needs: [e2e, test]
-
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - uses: SonarSource/sonarqube-scan-action@v5.0.0
-        with:
-          projectBaseDir: .
-          args: >
-            -Dsonar.organization=${{ vars.SONAR_ORGANIZATION }}
-            -Dsonar.projectKey=${{ vars.SONAR_PROJECT_KEY }}
-            -Dsonar.terraform.provider.version=1.10.4
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+    uses: ./.github/workflows/sonarqube.yml
 
   codeql:
     needs: [e2e, test]
-
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-
-    steps:
-      - uses: ./.github/workflows/codeql.yml
-
-  check-version:
-    needs: [trivy, snyk, sonarqube]
-    environment: Prod
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-
-    outputs:
-      isSameVersion: ${{ steps.verify-version.outputs.isSameVersion }}
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-        with:
-          node-version: "22.x"
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
-
-      - id: verify-version
-        name: Get package version
-        run: | 
-          VERSION1=$(yarn node -p "require('./package.json').version")
-          VERSION2=$(aws codeartifact list-package-versions --repository ${{vars.CODE_ARTIFACT_REPOSITORY}} --domain ${{vars.CODE_ARTIFACT_DOMAIN}} --format ${{vars.CODE_ARTIFACT_FORMAT}} --package ${{vars.CODE_ARTIFACT_PACKAGE}} --namespace ${{vars.CODE_ARTIFACT_NAMESPACE}} | jq -r '.defaultDisplayVersion')
-
-          echo "Package version: $VERSION1"
-          echo "Artifact version: $VERSION2"
-
-          if [[ "$VERSION1" == "$VERSION2" ]]; then
-            echo "isSameVersion=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "isSameVersion=false" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Check package version
-        if: steps.verify-version.outputs.isSameVersion == 'true'
-        run: echo "::warning::You must increment the version in package.json for deployment"
+    uses: ./.github/workflows/codeql.yml
 
   deployment:
-    needs: [check-version]
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pull-requests: write
-      
-    if: ${{ needs.check-version.outputs.isSameVersion == 'false' }}
-
-    environment: Prod
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-        with:
-          node-version: "22.x"
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
-
-      - uses: trstringer/manual-approval@v1.9.1
-        with:
-          secret: ${{ github.token }}
-          approvers: Kevinoob-design
-          minimum-approvals: 1
-          issue-title: "Deploying to prod"
-          issue-body: "Please approve or deny the deployment"
-          exclude-workflow-initiator-as-approver: false
-          additional-approved-words: ''
-          additional-denied-words: ''
-          timeout-minutes: 2
-
-      - name: Download artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build
-
-      - name: Publish to CodeArtifact
-        run: |
-          export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain ${{vars.CODE_ARTIFACT_DOMAIN}} --domain-owner ${{vars.CODE_ARTIFACT_DOMAIN_OWNER}} --region ${{vars.AWS_REGION}} --query authorizationToken --output text)
-          yarn npm publish
-
-      - name: Publish to S3
-        # if: steps.verify-version.outputs.isSameVersion == 'false'
-        run: aws s3 sync dist-storybook s3://mc-storybook-bucket
+    needs: [trivy, snyk, sonarqube, codeql]
+    uses: ./.github/workflows/deployment.yml
