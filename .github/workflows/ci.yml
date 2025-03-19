@@ -168,6 +168,9 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - uses: ./.github/actions/setup
         with:
           node-version: "22.x"
@@ -244,12 +247,12 @@ jobs:
       - name: Publish to S3
         run: aws s3 sync dist-storybook s3://mc-storybook-bucket
 
-      - name: store deployed version
-        run: |
-          yarn node -p "require('./package.json').version > previous-deployed-version
+      # - name: store deployed version
+      #   run: |
+      #     yarn node -p "require('./package.json').version > previous-deployed-version
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: version-artifact
-          path: |
-            previous-deployed-version
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: version-artifact
+      #     path: |
+      #       previous-deployed-version
