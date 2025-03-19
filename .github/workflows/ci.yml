@@ -64,7 +64,7 @@ jobs:
         run: yarn eslint . --ext ts
 
   test:
-    needs: [build]
+    needs: [build, prettier, tf-format, lint]
     runs-on: ubuntu-latest
 
     steps:
@@ -83,7 +83,7 @@ jobs:
           retention-days: 14
 
   e2e:
-    needs: [build]
+    needs: [build, prettier, tf-format, lint]
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.50.0-jammy
     timeout-minutes: 10
@@ -151,13 +151,22 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          format: 'table'
+          format: 'github'
+          output: 'dependency-results.sbom.json'
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'library'
+          scanners: 'vuln,secret,misconfig,license'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
           scan-type: 'fs'
           scan-ref: '.'
+
+      - name: Upload trivy report as a Github artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-sbom-report
+          path: dependency-results.sbom.json
+          retention-days: 14
 
   snyk:
     needs: [e2e, test]
@@ -191,7 +200,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deployment:
-    needs: [prettier, tf-format, lint, trivy, snyk, sonarqube]
+    needs: [trivy, snyk, sonarqube]
     runs-on: ubuntu-latest
     environment: Prod
 
