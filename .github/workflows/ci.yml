@@ -110,8 +110,8 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
-          name: playwright-report-${{ matrix.shardIndex }}
-          path: playwright-report
+          name: playwright-bob-report-${{ matrix.shardIndex }}
+          path: bob-report
           retention-days: 1
 
   merge-e2e-reports:
@@ -128,18 +128,18 @@ jobs:
     - name: Download blob reports from GitHub Actions Artifacts
       uses: actions/download-artifact@v4
       with:
-        pattern: playwright-report-*
+        pattern: playwright-bob-report-*
         path: all-blob-reports
         merge-multiple: true
 
-    - name: Merge into HTML Report
+    - name: Merge Reports
       run: yarn playwright merge-reports --reporter html,list all-blob-reports
 
     - name: Upload HTML report
       uses: actions/upload-artifact@v4
       with:
         name: html-report--attempt-${{ github.run_attempt }}
-        path: playwright-report
+        path: playwright-bob-report
         retention-days: 14
 
   trivy:
