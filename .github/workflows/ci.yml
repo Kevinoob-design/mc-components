@@ -37,10 +37,12 @@ jobs:
 
   snyk:
     needs: [e2e, test]
+    secrets: inherit
     uses: ./.github/workflows/snyk.yml
 
   sonarqube:
     needs: [e2e, test]
+    secrets: inherit
     uses: ./.github/workflows/sonarqube.yml
 
   codeql:

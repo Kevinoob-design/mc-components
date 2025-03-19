@@ -9,6 +9,9 @@ jobs:
     timeout-minutes: 10
 
     runs-on: ubuntu-latest
+    outputs:
+      result: ${{ job.status }}
+
     permissions:
       contents: read
       pull-requests: write
