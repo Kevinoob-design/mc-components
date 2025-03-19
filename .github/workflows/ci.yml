@@ -132,7 +132,7 @@ jobs:
         path: all-blob-reports
 
     - name: Merge into HTML Report
-      run: yarn playwright merge-reports --reporter html,list ./all-blob-reports
+      run: yarn playwright merge-reports --reporter html,list ./all-blob-reports/*
 
     - name: Upload HTML report
       uses: actions/upload-artifact@v4
