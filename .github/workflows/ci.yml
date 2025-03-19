@@ -9,6 +9,7 @@ on:
 
 jobs:
   build:
+    needs: [prettier, tf-format, lint]
     runs-on: ubuntu-latest
 
     steps:
@@ -83,7 +84,7 @@ jobs:
           retention-days: 14
 
   e2e:
-    needs: [build, prettier, tf-format, lint]
+    needs: [build]
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.50.0-jammy
     timeout-minutes: 10
