@@ -128,7 +128,7 @@ jobs:
     - name: Download blob reports from GitHub Actions Artifacts
       uses: actions/download-artifact@v4
       with:
-        name: playwright-report
+        pattern: playwright-report-*
         path: all-blob-reports
 
     - name: Merge into HTML Report
@@ -156,7 +156,6 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'library'
-          scanners: 'vuln,secret,misconfig,license'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
           scan-type: 'fs'
           scan-ref: '.'
