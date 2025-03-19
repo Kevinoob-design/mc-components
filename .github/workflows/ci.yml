@@ -64,7 +64,7 @@ jobs:
         run: yarn eslint . --ext ts
 
   test:
-    needs: build
+    needs: [build, prettier, tf-format, lint]
     runs-on: ubuntu-latest
 
     steps:
@@ -83,7 +83,7 @@ jobs:
           retention-days: 30
 
   e2e:
-    needs: build
+    needs: [build, prettier, tf-format, lint]
     runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.50.0-jammy
     timeout-minutes: 10
@@ -162,18 +162,70 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-  check-version:
+  # check-version:
+  #   runs-on: ubuntu-latest
+  #   environment: Prod
+
+  #   outputs:
+  #     isSameVersion: ${{ steps.verify-version.outputs.isSameVersion }}
+
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - uses: ./.github/actions/setup
+  #       with:
+  #         node-version: "22.x"
+
+  #     - name: Configure AWS credentials
+  #       uses: aws-actions/configure-aws-credentials@v2
+  #       with:
+  #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+  #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  #         aws-region: ${{ vars.AWS_REGION }}
+
+  #     - id: verify-version
+  #       name: Check package version
+  #       run: | 
+  #         VERSION1=$(yarn node -p "require('./package.json').version")
+  #         VERSION2=$(aws codeartifact list-package-versions --repository ${{vars.CODE_ARTIFACT_REPOSITORY}} --domain ${{vars.CODE_ARTIFACT_DOMAIN}} --format ${{vars.CODE_ARTIFACT_FORMAT}} --package ${{vars.CODE_ARTIFACT_PACKAGE}} --namespace ${{vars.CODE_ARTIFACT_NAMESPACE}} | jq -r '.defaultDisplayVersion')
+
+  #         echo "Version 1: $VERSION1"
+  #         echo "Version 2: $VERSION2"
+
+  #         if [[ "$VERSION1" == "$VERSION2" ]]; then
+  #           echo "isSameVersion=true" >> "$GITHUB_OUTPUT"
+  #         else
+  #           echo "isSameVersion=false" >> "$GITHUB_OUTPUT"
+  #         fi
+        
+  #     - name: Check package version
+  #       if: steps.verify-version.outputs.isSameVersion == 'true'
+  #       run: echo "::warning::You must increment the version in package.json for deployment"
+
+  # approval:
+  #   needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube, check-version]
+  #   runs-on: ubuntu-latest
+  #   if: needs.check-version.outputs.isSameVersion == 'false'
+
+  #   steps:
+  #     - uses: trstringer/manual-approval@v1.9.1
+  #       with:
+  #         secret: ${{ github.token }}
+  #         approvers: Kevinoob-design
+  #         minimum-approvals: 1
+  #         issue-title: "Deploying to prod"
+  #         issue-body: "Please approve or deny the deployment"
+  #         exclude-workflow-initiator-as-approver: false
+  #         additional-approved-words: ''
+  #         additional-denied-words: ''
+  #         timeout-minutes: 2
+
+  deployment:
+    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube]
     runs-on: ubuntu-latest
     environment: Prod
 
-    outputs:
-      isSameVersion: ${{ steps.verify-version.outputs.isSameVersion }}
-
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
       - uses: ./.github/actions/setup
         with:
           node-version: "22.x"
@@ -202,15 +254,10 @@ jobs:
         
       - name: Check package version
         if: steps.verify-version.outputs.isSameVersion == 'true'
-        run: |
+        run: | 
           echo "::warning::You must increment the version in package.json for deployment"
+          exit 0
 
-  approval:
-    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube, check-version]
-    runs-on: ubuntu-latest
-    if: needs.check-version.outputs.isSameVersion == 'false'
-
-    steps:
       - uses: trstringer/manual-approval@v1.9.1
         with:
           secret: ${{ github.token }}
@@ -222,24 +269,6 @@ jobs:
           additional-approved-words: ''
           additional-denied-words: ''
           timeout-minutes: 2
-
-  deployment:
-    needs: [approval]
-    runs-on: ubuntu-latest
-    environment: Prod
-
-    steps:
-      - uses: actions/checkout@v4
-      - uses: ./.github/actions/setup
-        with:
-          node-version: "22.x"
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ vars.AWS_REGION }}
 
       - name: Download artifact
         uses: actions/download-artifact@v4
