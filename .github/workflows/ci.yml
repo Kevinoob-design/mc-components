@@ -163,8 +163,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   check-version:
-    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube]
     runs-on: ubuntu-latest
+    continue-on-error: true
+    environment: Prod
 
     steps:
       - uses: actions/checkout@v4
@@ -175,16 +176,18 @@ jobs:
         with:
           node-version: "22.x"
 
-      - name: Get previous version
-        run: |
-          PREV_COMMIT=${{ github.event.before }}
-          git show $PREV_COMMIT:package.json > prev_package.json
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ vars.AWS_REGION }}
 
       - id: verify-version
         name: Check package version
         run: | 
           VERSION1=$(yarn node -p "require('./package.json').version")
-          VERSION2=$(yarn node -p "require('./prev_package.json').version")
+          VERSION2=$(aws codeartifact list-package-versions --repository ${{vars.CODE_ARTIFACT_REPOSITORY}} --domain ${{vars.CODE_ARTIFACT_DOMAIN}} --format ${{vars.CODE_ARTIFACT_FORMAT}} --package ${{vars.CODE_ARTIFACT_PACKAGE}} --namespace ${{vars.CODE_ARTIFACT_NAMESPACE}} | jq -r '.defaultDisplayVersion')
 
           echo "Version 1: $VERSION1"
           echo "Version 2: $VERSION2"
@@ -197,10 +200,12 @@ jobs:
         
       - name: Check package version
         if: steps.verify-version.outputs.isSameVersion == 'true'
-        run: echo "::warning::You must increment the version in package.json"
+        run: |
+          echo "::warning::You must increment the version in package.json for deployment"
+          exit 1
 
   approval:
-    needs: [check-version]
+    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube, check-version]
     runs-on: ubuntu-latest
 
     steps:
@@ -214,14 +219,9 @@ jobs:
           exclude-workflow-initiator-as-approver: false
           additional-approved-words: ''
           additional-denied-words: ''
-          timeout-minutes: 10
+          timeout-minutes: 2
 
   deployment:
-    env:
-      AWS_REGION: ${{vars.AWS_REGION}}
-      CODE_ARTIFACT_DOMAIN: ${{vars.CODE_ARTIFACT_DOMAIN}}
-      CODE_ARTIFACT_DOMAIN_OWNER: ${{vars.CODE_ARTIFACT_DOMAIN_OWNER}}
-
     needs: [approval]
     runs-on: ubuntu-latest
     environment: Prod
@@ -237,7 +237,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: ${{ vars.AWS_REGION }}
 
       - name: Download artifact
         uses: actions/download-artifact@v4
@@ -246,7 +246,7 @@ jobs:
 
       - name: Publish to CodeArtifact
         run: |
-          export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain $CODE_ARTIFACT_DOMAIN --domain-owner $CODE_ARTIFACT_DOMAIN_OWNER --region $AWS_REGION --query authorizationToken --output text)
+          export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain ${{vars.CODE_ARTIFACT_DOMAIN}} --domain-owner ${{vars.CODE_ARTIFACT_DOMAIN_OWNER}} --region ${{vars.AWS_REGION}} --query authorizationToken --output text)
           yarn npm publish
 
       - name: Publish to S3
