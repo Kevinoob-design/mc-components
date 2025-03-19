@@ -108,10 +108,11 @@ jobs:
         run: yarn test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --max-failures=1
 
       - uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
         with:
           name: playwright-report-${{ matrix.shardIndex }}
           path: playwright-report
-          retention-days: 14
+          retention-days: 1
 
   merge-e2e-reports:
     if: ${{ !cancelled() }}
@@ -127,9 +128,8 @@ jobs:
     - name: Download blob reports from GitHub Actions Artifacts
       uses: actions/download-artifact@v4
       with:
+        name: playwright-report
         path: all-blob-reports
-        pattern: playwright-report-*
-        merge-multiple: true
 
     - name: Merge into HTML Report
       run: yarn playwright merge-reports --reporter html,list ./all-blob-reports
@@ -151,7 +151,7 @@ jobs:
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.28.0
         with:
-          format: 'github'
+          format: 'table'
           output: 'dependency-results.sbom.json'
           exit-code: '1'
           ignore-unfixed: true
