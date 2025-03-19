@@ -188,8 +188,8 @@ jobs:
       - id: verify-version
         name: Check package version
         run: | 
-          currentVersion=$(yarn node -p "require('./package.json').version)
-          prevVersion=$(yarn node -p "require('./prev_package.json').version)
+          currentVersion=$(yarn node -p "require('./package.json').version)"
+          prevVersion=$(yarn node -p "require('./prev_package.json').version)"
           if [[ "$currentVersion" == "$prevVersion" ]]; then
             isSameVersion=true
           else
