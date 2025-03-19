@@ -224,8 +224,8 @@ jobs:
           VERSION1=$(yarn node -p "require('./package.json').version")
           VERSION2=$(aws codeartifact list-package-versions --repository ${{vars.CODE_ARTIFACT_REPOSITORY}} --domain ${{vars.CODE_ARTIFACT_DOMAIN}} --format ${{vars.CODE_ARTIFACT_FORMAT}} --package ${{vars.CODE_ARTIFACT_PACKAGE}} --namespace ${{vars.CODE_ARTIFACT_NAMESPACE}} | jq -r '.defaultDisplayVersion')
 
-          echo "Version 1: $VERSION1"
-          echo "Version 2: $VERSION2"
+          echo "Package version: $VERSION1"
+          echo "Artifact version: $VERSION2"
 
           if [[ "$VERSION1" == "$VERSION2" ]]; then
             echo "isSameVersion=true" >> "$GITHUB_OUTPUT"
