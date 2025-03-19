@@ -165,6 +165,12 @@ jobs:
           scan-type: 'fs'
           scan-ref: '.'
 
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
+
       - name: Upload trivy report as a Github artifact
         uses: actions/upload-artifact@v4
         with:
