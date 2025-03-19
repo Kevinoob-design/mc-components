@@ -258,27 +258,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ vars.AWS_REGION }}
 
-      # - id: verify-version
-      #   name: Check package version
-      #   run: | 
-      #     VERSION1=$(yarn node -p "require('./package.json').version")
-      #     VERSION2=$(aws codeartifact list-package-versions --repository ${{vars.CODE_ARTIFACT_REPOSITORY}} --domain ${{vars.CODE_ARTIFACT_DOMAIN}} --format ${{vars.CODE_ARTIFACT_FORMAT}} --package ${{vars.CODE_ARTIFACT_PACKAGE}} --namespace ${{vars.CODE_ARTIFACT_NAMESPACE}} | jq -r '.defaultDisplayVersion')
-
-      #     echo "Package version: $VERSION1"
-      #     echo "Artifact version: $VERSION2"
-
-      #     if [[ "$VERSION1" == "$VERSION2" ]]; then
-      #       echo "isSameVersion=true" >> "$GITHUB_OUTPUT"
-      #     else
-      #       echo "isSameVersion=false" >> "$GITHUB_OUTPUT"
-      #     fi
-        
-      # - name: Check package version
-        # if: steps.verify-version.outputs.isSameVersion == 'true'
-        # run: echo "::warning::You must increment the version in package.json for deployment"
-
       - uses: trstringer/manual-approval@v1.9.1
-        # if: steps.verify-version.outputs.isSameVersion == 'false'
         with:
           secret: ${{ github.token }}
           approvers: Kevinoob-design
@@ -291,13 +271,11 @@ jobs:
           timeout-minutes: 2
 
       - name: Download artifact
-        # if: steps.verify-version.outputs.isSameVersion == 'false'
         uses: actions/download-artifact@v4
         with:
           name: build
 
       - name: Publish to CodeArtifact
-        # if: steps.verify-version.outputs.isSameVersion == 'false'
         run: |
           export CODEARTIFACT_AUTH_TOKEN=$(aws codeartifact get-authorization-token --domain ${{vars.CODE_ARTIFACT_DOMAIN}} --domain-owner ${{vars.CODE_ARTIFACT_DOMAIN_OWNER}} --region ${{vars.AWS_REGION}} --query authorizationToken --output text)
           yarn npm publish
