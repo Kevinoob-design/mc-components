@@ -167,10 +167,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          node-version: "22.x"
+
+      - id: verify-version
+        name: Check package version
+        run: isSameVersion=$(yarn node -p "require('./package.json').version === '${{ github.ref_name }}'")
+        
+
+      - name: Check package version
+        if: steps.verify-version.outputs.isSameVersion == 'true'
+        run: echo "::warning::You must increment the version in package.json"
+
+  check-version:
+    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube]
+    runs-on: ubuntu-latest
+
+    steps:
       - uses: trstringer/manual-approval@v1.9.1
         with:
           secret: ${{ github.token }}
-          approvers: user1,user2,org-team1
+          approvers: Kevinoob-design
           minimum-approvals: 1
           issue-title: "Deploying to prod"
           issue-body: "Please approve or deny the deployment"
