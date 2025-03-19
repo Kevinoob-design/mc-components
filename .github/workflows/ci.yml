@@ -224,7 +224,7 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
 
       - id: verify-version
-        name: Check package version
+        name: Get package version
         run: | 
           VERSION1=$(yarn node -p "require('./package.json').version")
           VERSION2=$(aws codeartifact list-package-versions --repository ${{vars.CODE_ARTIFACT_REPOSITORY}} --domain ${{vars.CODE_ARTIFACT_DOMAIN}} --format ${{vars.CODE_ARTIFACT_FORMAT}} --package ${{vars.CODE_ARTIFACT_PACKAGE}} --namespace ${{vars.CODE_ARTIFACT_NAMESPACE}} | jq -r '.defaultDisplayVersion')
