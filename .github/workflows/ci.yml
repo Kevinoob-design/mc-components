@@ -10,6 +10,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -31,6 +34,9 @@ jobs:
   prettier:
     needs: [build]
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -43,8 +49,11 @@ jobs:
 
   tf-format:
     needs: [build]
-    runs-on: ubuntu-latest
 
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       - uses: hashicorp/setup-terraform@v3
         with:
@@ -55,7 +64,11 @@ jobs:
 
   lint:
     needs: [build]
+
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -68,7 +81,11 @@ jobs:
 
   test:
     needs: [prettier, tf-format, lint]
+
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -87,9 +104,13 @@ jobs:
 
   e2e:
     needs: [prettier, tf-format, lint]
-    runs-on: ubuntu-latest
     container: mcr.microsoft.com/playwright:v1.50.0-jammy
     timeout-minutes: 10
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     strategy:
       fail-fast: true
       matrix:
@@ -122,6 +143,10 @@ jobs:
     needs: [e2e]
 
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
     steps:
     - uses: actions/checkout@v4
     - uses: ./.github/actions/setup
@@ -147,7 +172,11 @@ jobs:
 
   trivy:
     needs: [e2e, test]
+
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -171,16 +200,13 @@ jobs:
         with:
           sarif_file: 'trivy-results.sarif'
 
-      # - name: Upload trivy report as a Github artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: trivy-sbom-report
-      #     path: trivy-results.sarif
-      #     retention-days: 14
-
   snyk:
     needs: [e2e, test]
+
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -199,7 +225,11 @@ jobs:
 
   sonarqube:
     needs: [e2e, test]
+
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -218,8 +248,12 @@ jobs:
 
   check-version:
     needs: [trivy, snyk, sonarqube]
-    runs-on: ubuntu-latest
     environment: Prod
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
     outputs:
       isSameVersion: ${{ steps.verify-version.outputs.isSameVersion }}
 
@@ -258,8 +292,13 @@ jobs:
   deployment:
     needs: [check-version]
     runs-on: ubuntu-latest
-    environment: Prod
+    permissions:
+      contents: read
+      pull-requests: write
+      
     if: ${{ needs.check-version.outputs.isSameVersion == 'false' }}
+
+    environment: Prod
 
     steps:
       - uses: actions/checkout@v4
