@@ -1,0 +1,34 @@
+name: "Trivy"
+
+on:
+  workflow_call: 
+
+jobs:
+  trivy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.28.0
+        with:
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'library'
+          scanners: 'vuln,secret,license'
+          severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
+          scan-type: 'fs'
+          scan-ref: '.'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'

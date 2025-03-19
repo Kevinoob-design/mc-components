@@ -1,0 +1,20 @@
+name: "Eslint"
+
+on:
+  workflow_call: 
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          node-version: "22.x"
+
+      - name: Lint
+        run: yarn eslint . --ext ts

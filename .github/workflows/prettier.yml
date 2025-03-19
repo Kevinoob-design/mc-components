@@ -1,0 +1,20 @@
+name: "Prettier"
+
+on:
+  workflow_call: 
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          node-version: "22.x"
+
+      - name: Prettier Format Check
+        run: yarn prettier '*.{ts,scss,css,html}' --check

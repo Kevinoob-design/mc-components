@@ -1,0 +1,18 @@
+name: "Terraform Format"
+
+on:
+  workflow_call: 
+
+jobs:
+  tf-format:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.10.4"
+
+      - name: Terraform Format Check
+        run: terraform fmt -recursive -check
