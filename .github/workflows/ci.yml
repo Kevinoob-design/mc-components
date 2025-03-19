@@ -130,6 +130,7 @@ jobs:
       with:
         pattern: playwright-report-*
         path: all-blob-reports
+        merge-multiple: true
 
     - name: Merge into HTML Report
       run: yarn playwright merge-reports --reporter html,list ./all-blob-reports/*
