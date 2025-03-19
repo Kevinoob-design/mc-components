@@ -22,7 +22,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: build-artifact
+          name: build
           path: |
             dist/
             dist-storybook/
@@ -102,7 +102,7 @@ jobs:
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
-          name: build-artifact
+          name: build/dist-storybook
 
       - name: Run Playwright Tests
         run: yarn test:e2e --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }} --max-failures=1
@@ -254,7 +254,7 @@ jobs:
         if: steps.verify-version.outputs.isSameVersion == 'false'
         uses: actions/download-artifact@v4
         with:
-          name: build-artifact
+          name: build
 
       - name: Publish to CodeArtifact
         if: steps.verify-version.outputs.isSameVersion == 'false'
