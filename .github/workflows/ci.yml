@@ -177,6 +177,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      security-events: write
 
     steps:
       - uses: actions/checkout@v4
@@ -207,6 +208,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+      security-events: write
 
     steps:
       - uses: actions/checkout@v4
@@ -245,6 +247,17 @@ jobs:
             -Dsonar.terraform.provider.version=1.10.4
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+  codeql:
+    needs: [e2e, test]
+
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - uses: ./.github/workflows/codeql.yml
 
   check-version:
     needs: [trivy, snyk, sonarqube]
