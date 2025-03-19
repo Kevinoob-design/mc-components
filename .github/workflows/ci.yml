@@ -172,14 +172,18 @@ jobs:
         with:
           node-version: "22.x"
 
+      - name: Download previous version artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: previous-deployed-version
+
       - id: verify-version
         name: Check package version
-        run: isSameVersion=$(yarn node -p "require('./package.json').version === '${{ github.ref_name }}'")
+        run: isSameVersion=$(yarn node -p "require('./package.json').version === echo previous-deployed-version")
         
-
       - name: Check package version
         if: steps.verify-version.outputs.isSameVersion == 'true'
-        run: echo "::warning::You must increment the version in package.json"
+        run: echo "::error::You must increment the version in package.json"
 
   approval:
     needs: [check-version]
@@ -233,3 +237,13 @@ jobs:
 
       - name: Publish to S3
         run: aws s3 sync dist-storybook s3://mc-storybook-bucket
+
+      - name: store deployed version
+        run: |
+          yarn node -p "require('./package.json').version > previous-deployed-version
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: version-artifact
+          path: |
+            previous-deployed-version
