@@ -46,7 +46,7 @@ jobs:
         if: steps.verify-version.outputs.isSameVersion == 'true'
         run: echo "::warning::You must increment the version in package.json for deployment"
 
-  deployment:
+  push-to-codeartifact-s3:
     needs: [check-version]
     runs-on: ubuntu-latest
     permissions:
