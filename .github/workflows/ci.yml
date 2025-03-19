@@ -163,7 +163,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   check-version:
-    # needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube]
+    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube]
     runs-on: ubuntu-latest
 
     steps:
@@ -200,8 +200,7 @@ jobs:
         run: echo "::warning::You must increment the version in package.json"
 
   approval:
-    needs: [build, prettier, tf-format, lint, test, e2e, trivy, snyk, sonarqube]
-    # needs: [check-version]
+    needs: [check-version]
     runs-on: ubuntu-latest
 
     steps:
