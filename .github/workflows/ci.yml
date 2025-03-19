@@ -110,7 +110,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: playwright-report-${{ matrix.shardIndex }}
-          path: playwright-report/
+          path: playwright-report
           retention-days: 14
 
   merge-e2e-reports:
@@ -127,12 +127,12 @@ jobs:
     - name: Download blob reports from GitHub Actions Artifacts
       uses: actions/download-artifact@v4
       with:
-        path: all-blob-reports
+        name: playwright-report
         pattern: playwright-report-*
         merge-multiple: true
 
     - name: Merge into HTML Report
-      run: npx playwright merge-reports --reporter html ./all-blob-reports
+      run: yarn playwright merge-reports --reporter html,list ./all-blob-reports
 
     - name: Upload HTML report
       uses: actions/upload-artifact@v4
@@ -191,7 +191,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   deployment:
-    needs: [trivy, snyk, sonarqube]
+    needs: [prettier, tf-format, lint, trivy, snyk, sonarqube]
     runs-on: ubuntu-latest
     environment: Prod
 
