@@ -156,6 +156,7 @@ jobs:
           exit-code: '1'
           ignore-unfixed: true
           vuln-type: 'library'
+          scanners: 'vuln,secret,license'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
           scan-type: 'fs'
           scan-ref: '.'
