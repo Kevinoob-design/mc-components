@@ -10,50 +10,89 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/build.yml
+    permissions:
+      contents: read
+      pull-requests: write
 
   format:
     needs: [build]
     uses: ./.github/workflows/prettier.yml
+    permissions:
+      contents: read
+      pull-requests: write
 
   terraform:
     needs: [build]
     uses: ./.github/workflows/tf-format.yml
+    permissions:
+      contents: read
+      pull-requests: write
 
   lint:
     needs: [build]
     uses: ./.github/workflows/lint.yml
+    permissions:
+      contents: read
+      pull-requests: write
 
   test:
     needs: [format, terraform, lint]
     uses: ./.github/workflows/test.yml
+    permissions:
+      contents: read
+      pull-requests: write
 
   e2e:
     needs: [format, terraform, lint]
     uses: ./.github/workflows/e2e.yml
+    permissions:
+      contents: read
+      pull-requests: write
 
   e2e-merge-report:
     needs: [e2e]
     uses: ./.github/workflows/e2e-merge-report.yml
+    permissions:
+      contents: read
+      pull-requests: write
 
   trivy:
     needs: [e2e, test]
     uses: ./.github/workflows/trivy.yml
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
 
   snyk:
     needs: [e2e, test]
     secrets: inherit
     uses: ./.github/workflows/snyk.yml
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
 
   sonarqube:
     needs: [e2e, test]
     secrets: inherit
     uses: ./.github/workflows/sonarqube.yml
+    permissions:
+      contents: read
+      pull-requests: write
 
   codeql:
     needs: [e2e, test]
     uses: ./.github/workflows/codeql.yml
+    permissions:
+      contents: read
+      pull-requests: write
+      security-events: write
 
   deployment:
     needs: [trivy, snyk, sonarqube, codeql]
     secrets: inherit
     uses: ./.github/workflows/deployment.yml
+    permissions:
+      contents: read
+      pull-requests: write
