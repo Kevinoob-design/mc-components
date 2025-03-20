@@ -18,7 +18,7 @@ jobs:
         uses: aquasecurity/trivy-action@0.28.0
         continue-on-error: true
         with:
-          format: 'table'
+          format: 'sarif'
           output: 'trivy-results.sarif'
           exit-code: '1'
           vuln-type: 'library'
