@@ -26,6 +26,7 @@ jobs:
           severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
           scan-type: 'fs'
           scan-ref: '.'
+          trivyignores: '.trivyignore.yml'
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
