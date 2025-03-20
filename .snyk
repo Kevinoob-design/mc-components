@@ -1,25 +1,25 @@
-ignore:
-  SNYK-JS-ANGULAR-6091113:
-    - '*':
-        reason: This package is intentionally ignored due to its lack of current support.
-  SNYK-JS-ANGULAR-2772735:
-    - '*':
-        reason: This package is intentionally ignored due to its lack of current support.
-  SNYK-JS-ANGULAR-2949781:
-    - '*':
-        reason: This package is intentionally ignored due to its lack of current support.
-  SNYK-JS-ANGULAR-3373044:
-    - '*':
-        reason: This package is intentionally ignored due to its lack of current support.
-  SNYK-JS-ANGULAR-3373045:
-    - '*':
-        reason: This package is intentionally ignored due to its lack of current support.
-  SNYK-JS-ANGULAR-3373046:
-    - '*':
-        reason: This package is intentionally ignored due to its lack of current support.
-  SNYK-JS-ANGULAR-7924842:
-    - '*':
-        reason: This package is intentionally ignored due to its lack of current support.
-  SNYK-JS-ANGULAR-7924843:
-    - '*':
-        reason: This package is intentionally ignored due to its lack of current support.
+# ignore:
+#   SNYK-JS-ANGULAR-6091113:
+#     - '*':
+#         reason: This package is intentionally ignored due to its lack of current support.
+#   SNYK-JS-ANGULAR-2772735:
+#     - '*':
+#         reason: This package is intentionally ignored due to its lack of current support.
+#   SNYK-JS-ANGULAR-2949781:
+#     - '*':
+#         reason: This package is intentionally ignored due to its lack of current support.
+#   SNYK-JS-ANGULAR-3373044:
+#     - '*':
+#         reason: This package is intentionally ignored due to its lack of current support.
+#   SNYK-JS-ANGULAR-3373045:
+#     - '*':
+#         reason: This package is intentionally ignored due to its lack of current support.
+#   SNYK-JS-ANGULAR-3373046:
+#     - '*':
+#         reason: This package is intentionally ignored due to its lack of current support.
+#   SNYK-JS-ANGULAR-7924842:
+#     - '*':
+#         reason: This package is intentionally ignored due to its lack of current support.
+#   SNYK-JS-ANGULAR-7924843:
+#     - '*':
+#         reason: This package is intentionally ignored due to its lack of current support.

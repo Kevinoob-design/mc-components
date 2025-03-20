@@ -20,7 +20,7 @@ jobs:
           format: 'sarif'
           output: 'trivy-results.sarif'
           exit-code: '1'
-          ignore-unfixed: true
+          ignore-unfixed: false
           vuln-type: 'library'
           scanners: 'vuln,secret,license'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
