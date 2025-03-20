@@ -92,7 +92,7 @@ jobs:
 
   deployment:
     # needs: [trivy, snyk, sonarqube, codeql]
-    # needs: [e2e, test]
+    needs: [e2e, test]
     secrets: inherit
     uses: ./.github/workflows/deployment.yml
     permissions:
