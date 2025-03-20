@@ -27,7 +27,7 @@ jobs:
           scan-type: 'fs'
           scan-ref: '.'
           # ignore-unfixed: false
-          trivyignores: '.trivyignore'
+          # trivyignores: '.trivyignore'
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
