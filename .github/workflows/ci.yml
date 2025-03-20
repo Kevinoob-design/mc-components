@@ -85,8 +85,6 @@ jobs:
     needs: [e2e, test]
     uses: ./.github/workflows/codeql.yml
     permissions:
-      contents: read
-      pull-requests: write
       security-events: write
 
   deployment:
