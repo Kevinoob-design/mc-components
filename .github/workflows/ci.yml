@@ -95,5 +95,5 @@ jobs:
     uses: ./.github/workflows/deployment.yml
     permissions:
       contents: read
-      pull-requests: write
       issues: write
+      pull-requests: write
