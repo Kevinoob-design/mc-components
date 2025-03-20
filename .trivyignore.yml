@@ -1,0 +1,9 @@
+vulnerabilities:
+  - id: CVE-2024-21490
+  - id: CVE-2024-8373
+  - id: CVE-2024-8372
+  - id: CVE-2023-26118
+  - id: CVE-2023-26117
+  - id: CVE-2023-26116
+  - id: CVE-2022-25869
+  - id: CVE-2022-25844
