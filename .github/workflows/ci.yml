@@ -15,7 +15,7 @@ jobs:
     needs: [build]
     uses: ./.github/workflows/prettier.yml
 
-  terraform-format:
+  terraform:
     needs: [build]
     uses: ./.github/workflows/tf-format.yml
 
@@ -24,11 +24,11 @@ jobs:
     uses: ./.github/workflows/lint.yml
 
   test:
-    needs: [format, terraform-format, lint]
+    needs: [format, terraform, lint]
     uses: ./.github/workflows/test.yml
 
   e2e:
-    needs: [format, terraform-format, lint]
+    needs: [format, terraform, lint]
     uses: ./.github/workflows/e2e.yml
 
   e2e-merge-report:
@@ -55,4 +55,5 @@ jobs:
 
   deployment:
     needs: [trivy, snyk, sonarqube, codeql]
+    secrets: inherit
     uses: ./.github/workflows/deployment.yml
