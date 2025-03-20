@@ -20,13 +20,13 @@ jobs:
           format: 'sarif'
           output: 'trivy-results.sarif'
           exit-code: '1'
-          ignore-unfixed: false
           vuln-type: 'library'
           scanners: 'vuln,secret,license'
           severity: 'CRITICAL,HIGH,MEDIUM,LOW,UNKNOWN'
           scan-type: 'fs'
           scan-ref: '.'
-          trivyignores: '.trivyignore.yml'
+          # ignore-unfixed: false
+          trivyignores: '.trivyignore'
 
       - name: Upload Trivy scan results to GitHub Security tab
         uses: github/codeql-action/upload-sarif@v3
