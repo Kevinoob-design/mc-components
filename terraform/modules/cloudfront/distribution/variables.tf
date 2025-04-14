@@ -55,6 +55,17 @@ variable "viewer_certificate_cloudfront_default_certificate" {
   default     = true
 }
 
+variable "acm_certificate_arn" {
+  description = "The ARN of the ACM certificate"
+  type        = string
+}
+
+variable "aliases" {
+  description = "The aliases for the CloudFront distribution"
+  type        = list(string)
+  default     = []
+}
+
 variable "tags" {
   description = "A map of tags to assign to the resources"
   type = object({

@@ -38,5 +38,9 @@ resource "aws_cloudfront_distribution" "cloudfront_distribution" {
 
   viewer_certificate {
     cloudfront_default_certificate = var.viewer_certificate_cloudfront_default_certificate
+    ssl_support_method             = "sni-only"
+    acm_certificate_arn            = var.acm_certificate_arn
   }
+
+  aliases = var.aliases
 }
