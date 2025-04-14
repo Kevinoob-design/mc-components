@@ -56,10 +56,10 @@ export const Disabled: Story = {
 	}
 }
 
-export const Loading: Story = {
-	args: {
-		loading: true,
-		disabled: true,
-		label: 'Button Loading'
-	}
-}
+// export const Loading: Story = {
+// 	args: {
+// 		loading: true,
+// 		disabled: true,
+// 		label: 'Button Loading'
+// 	}
+// }
