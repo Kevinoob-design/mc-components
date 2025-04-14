@@ -100,3 +100,6 @@ jobs:
 
       - name: Publish to S3
         run: aws s3 sync dist-storybook s3://mc-storybook-bucket
+
+      - name: Invalidating CloudFront Paths
+        run: aws cloudfront create-invalidation --paths '/' --distribution-id ${{vars.CLOUDFRONT_DISTRIBUTION_ID}}
