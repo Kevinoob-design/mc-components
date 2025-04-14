@@ -26,9 +26,9 @@ variable "comment" {
 variable "default_cache_behavior" {
   description = ""
   type = object({
-    min_ttl                = optional(number, 0)
-    default_ttl            = optional(number, 0)
-    max_ttl                = optional(number, 0)
+    min_ttl                = optional(number, 86400)
+    default_ttl            = optional(number, 31536000)
+    max_ttl                = optional(number, 31536000)
     viewer_protocol_policy = optional(string, "redirect-to-https")
     allowed_methods        = list(string)
     cached_methods         = list(string)
