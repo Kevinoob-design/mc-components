@@ -6,6 +6,6 @@ resource "aws_route53_record" "record" {
   alias {
     name                   = var.domain_name
     zone_id                = var.hosted_zone_id
-    evaluate_target_health = true
+    evaluate_target_health = false
   }
 }
