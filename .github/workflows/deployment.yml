@@ -99,7 +99,7 @@ jobs:
           yarn npm publish
 
       - name: Publish to S3
-        run: aws s3 sync dist-storybook s3://mc-storybook-bucket --cache-control "public, max-age=86400"
+        run: aws s3 sync dist-storybook s3://mc-storybook-bucket --cache-control max-age=86400,s-maxage=86400
 
       - name: Invalidating CloudFront Paths
         run: aws cloudfront create-invalidation --paths '/*' --distribution-id ${{vars.CLOUDFRONT_DISTRIBUTION_ID}}
