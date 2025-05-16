@@ -4,6 +4,7 @@ import { defineConfig } from 'vitest/config';
 import { rollupPluginReplaceHtml } from './plugins/vite.replace-html.plugin';
 
 export default defineConfig({
+	assetsInclude: ['/sb-preview/runtime.js'],
 	build: {
 		manifest: true,
 		minify: true,
