@@ -1,5 +1,5 @@
-export const componentLogAction = (componentName: string, actionName: string) =>
+export const logAction = (componentName: string, actionName: string) =>
 	console.log(`Component: ${componentName} - triggered action: ${actionName}`)
 
-export const componentAlertAction = (componentName: string, actionName: string) =>
+export const alertAction = (componentName: string, actionName: string) =>
 	alert(`Component ${componentName} - triggered action: ${actionName}`)

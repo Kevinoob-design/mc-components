@@ -27,7 +27,7 @@ export function buildAngularJsElement(element: HTMLElement, template: string, pr
 
 	$injector.invoke(compiler)
 
-	return element.children[0]
+	return element
 }
 
 /**
@@ -53,5 +53,5 @@ export function updateAngularJsElement(element: HTMLElement, props: Object, hook
 
 	$injector.invoke(updater)
 
-	return element.children[0]
+	return element
 }

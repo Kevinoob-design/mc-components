@@ -1,5 +1,5 @@
 import type { Meta, StoryObj, ArgTypes } from '@storybook/html'
-import { html, componentLogAction } from '../../../../stories/shared'
+import { html, logAction } from '../../../../stories/shared'
 import { ButtonModule, ButtonProps } from '..'
 import { IconLoadingModule } from '../../icons'
 
@@ -45,7 +45,7 @@ export const Default: Story = {
 		disabled: false,
 		loading: false,
 		label: 'Button Default',
-		onClick: () => componentLogAction('Button', 'Clicked')
+		onClick: () => logAction('Button', 'Clicked')
 	}
 }
 

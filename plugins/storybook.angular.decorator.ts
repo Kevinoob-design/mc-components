@@ -21,8 +21,6 @@ export function withAngularJs() {
 
 		const { currentPhase } = context.hooks as any
 
-		const element = document.createElement('div')
-
 		if (
 			rebuild === 'always' ||
 			(rebuild === 'mount' && currentPhase === 'MOUNT') ||
@@ -30,6 +28,8 @@ export function withAngularJs() {
 			!cache[key] ||
 			cache[key].template !== template
 		) {
+			const element = document.createElement('div')
+
 			const modules = Array.isArray(module) ? module.filter(m => typeof m === 'string' && m !== 'ng') : [module]
 
 			// Initialize mocked modules
@@ -75,6 +75,6 @@ export function withAngularJs() {
 			return buildAngularJsElement(element, template, context.args, hooks)
 		}
 
-		return updateAngularJsElement(element, context.args, hooks)
+		return updateAngularJsElement(cache[key].element, context.args, hooks)
 	}
 }
