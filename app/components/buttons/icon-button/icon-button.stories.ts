@@ -1,5 +1,5 @@
 import type { Meta, StoryObj, ArgTypes } from '@storybook/html'
-import { html, componentLogAction } from '../../../../stories/shared'
+import { html, logAction } from '../../../../stories/shared'
 import { IconButtonModule, IconButtonProps } from '..'
 import { IconEditModule } from '../../icons'
 
@@ -30,6 +30,6 @@ type Story = StoryObj<IconButtonProps>
 
 export const Default: Story = {
 	args: {
-		onClick: () => componentLogAction('Icon-Button', 'Clicked')
+		onClick: () => logAction('Icon-Button', 'Clicked')
 	}
 }

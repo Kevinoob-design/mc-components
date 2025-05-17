@@ -1,5 +1,5 @@
 import type { ArgTypes, Meta, StoryObj } from '@storybook/html'
-import { html, componentLogAction } from '../../../../stories/shared'
+import { html, logAction } from '../../../../stories/shared'
 import { InputTextModule, InputTextProps } from '..'
 import {
 	IconSearchModule,
@@ -243,7 +243,7 @@ export const Default: Story = {
 		topLabel: '',
 		info: '',
 		errors: [],
-		onChange: value => componentLogAction('Input-Text', `Changed: ${value}`)
+		onChange: value => logAction('Input-Text', `Changed: ${value}`)
 	}
 }
 
@@ -259,7 +259,7 @@ export const Info: Story = {
 		topLabel: '',
 		info: 'Your password should be at least 8 characters long',
 		errors: [],
-		onChange: value => componentLogAction('Input-Text', `Changed: ${value}`)
+		onChange: value => logAction('Input-Text', `Changed: ${value}`)
 	}
 }
 
@@ -276,7 +276,7 @@ export const InputWithLeading: Story = {
 		required: false,
 		topLabel: '',
 		type: 'text',
-		onChange: () => componentLogAction('Input-Text', 'Changed')
+		onChange: () => logAction('Input-Text', 'Changed')
 	}
 }
 
@@ -293,7 +293,7 @@ export const InputWithTrailing: Story = {
 		required: false,
 		topLabel: '',
 		type: 'text',
-		onChange: () => componentLogAction('Input-Text', 'Changed')
+		onChange: () => logAction('Input-Text', 'Changed')
 	}
 }
 
@@ -310,7 +310,7 @@ export const InputWithLeadingAndTrailing: Story = {
 		required: false,
 		topLabel: '',
 		type: 'text',
-		onChange: () => componentLogAction('Input-Text', 'Changed')
+		onChange: () => logAction('Input-Text', 'Changed')
 	}
 }
 
@@ -326,7 +326,7 @@ export const InputWithEmailValidation: Story = {
 		info: '',
 		required: false,
 		topLabel: '',
-		onChange: () => componentLogAction('Input-Text', 'Changed')
+		onChange: () => logAction('Input-Text', 'Changed')
 	}
 }
 
@@ -343,6 +343,6 @@ export const InputWithEmailValidationAndErrorMessage: Story = {
 		info: 'You will be added to a newsletter',
 		required: false,
 		topLabel: '',
-		onChange: () => componentLogAction('Input-Text', 'Changed')
+		onChange: () => logAction('Input-Text', 'Changed')
 	}
 }

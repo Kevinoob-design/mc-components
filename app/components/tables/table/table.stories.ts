@@ -1,5 +1,5 @@
 import type { ArgTypes, Meta, StoryObj } from '@storybook/html'
-import { html, componentAlertAction } from '../../../../stories/shared'
+import { html, alertAction } from '../../../../stories/shared'
 import { TableModule, TableProps } from '..'
 import { columns, mockRow, rows } from '../../../../__test__/mocks/table.mock'
 import { ButtonModule, ButtonProps, IconButtonModule } from '../../buttons'
@@ -102,6 +102,6 @@ export const Complex: Story = {
 	args: {
 		columns: improvedSortableStatusColum,
 		rows,
-		onClick: () => componentAlertAction('Button', 'Clicked')
+		onClick: () => alertAction('Button', 'Clicked')
 	}
 }
